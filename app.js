@@ -16,7 +16,6 @@ const I18N = {
     hero_typed_roles: ["Software Developer", "Cybersecurity Student", "Front-End Enthusiast", "Problem Solver"],
     hero_sub: "I build clean, useful software and dig into cybersecurity - turning curiosity into things people actually use.",
     hero_cta_work: "See My Work",
-    hero_cta_resume: "Download Resume",
 
     about_eyebrow: "About Me",
     about_title: "Turning curiosity into software & security",
@@ -70,9 +69,6 @@ const I18N = {
     proj2_name: "Auxtify - Online Auction",
     proj2_desc:
       "A secure online auction platform, born from the mess of auctions done over social media. Built with my team to make auction deals safer.",
-    proj3_name: "Motodo - To-Do List with AI",
-    proj3_desc:
-      "A to-do list app with AI woven in. Getting my whole team up to speed on web development was the real project - this was the reward.",
     proj4_name: "Toko Keluarga",
     proj4_desc:
       "My final project for Web-Based Application Development - a store app in pure HTML, CSS & JS (no frameworks). A fast lesson in responsive design and localStorage.",
@@ -84,8 +80,6 @@ const I18N = {
       "Inventory + payroll for a real coffeeshop - auto-generated barcodes, barcode scanning via phone camera, monthly product history and invoices.",
     tag_frontend: "Front-End",
     proj_tag_fullstack: "Full-Stack",
-    proj_tag_ai: "AI-Powered",
-    proj3_lang: "Front-End",
     proj_tag_vanilla: "Vanilla JS",
     proj4_lang: "Student Project",
     proj_tag_system: "Management System",
@@ -134,7 +128,6 @@ const I18N = {
     hero_sub:
       "Saya membangun software yang bersih dan bermanfaat, juga mendalami keamanan siber - mengubah rasa penasaran menjadi hal yang benar-benar dipakai orang.",
     hero_cta_work: "Lihat Karya Saya",
-    hero_cta_resume: "Unduh CV",
 
     about_eyebrow: "Tentang Saya",
     about_title: "Mengubah rasa penasaran menjadi software & keamanan",
@@ -189,9 +182,6 @@ const I18N = {
     proj2_name: "Auxtify - Lelang Online",
     proj2_desc:
       "Platform lelang online yang aman, lahir dari kekacuan transaksi lelang di media sosial. Dibuat bersama tim agar transaksi lelang lebih terjamin.",
-    proj3_name: "Motodo - To-Do List dengan AI",
-    proj3_desc:
-      "Aplikasi to-do list dengan kecerdasan buatan di dalamnya. Mengajak seluruh tim menguasai pengembangan web adalah proyek sesungguhnya - ini hadiahnya.",
     proj4_name: "Toko Keluarga",
     proj4_desc:
       "Proyek akhir mata kuliah Pengembangan Aplikasi Web - aplikasi toko murni HTML, CSS & JS (tanpa framework). Pelajaran kilat soal desain responsif dan localStorage.",
@@ -203,8 +193,6 @@ const I18N = {
       "Inventaris + penggajian untuk kedai kopi sungguhan - barcode otomatis, scan barcode lewat kamera ponsel, riwayat produk bulanan, dan invoice.",
     tag_frontend: "Front-End",
     proj_tag_fullstack: "Full-Stack",
-    proj_tag_ai: "Berbasis AI",
-    proj3_lang: "Front-End",
     proj_tag_vanilla: "Vanilla JS",
     proj4_lang: "Proyek Mahasiswa",
     proj_tag_system: "Sistem Manajemen",
@@ -354,11 +342,21 @@ navLinkEls.forEach((link) => {
 function closeMenu() {
   navLinks.classList.remove("open");
   $("#hamburger").classList.remove("open");
+  $("#navOverlay").classList.remove("open");
 }
 
 $("#hamburger").addEventListener("click", () => {
-  navLinks.classList.toggle("open");
-  $("#hamburger").classList.toggle("open");
+  const isOpen = navLinks.classList.toggle("open");
+  $("#hamburger").classList.toggle("open", isOpen);
+  $("#navOverlay").classList.toggle("open", isOpen);
+});
+
+$("#navOverlay").addEventListener("click", closeMenu);
+
+document.addEventListener("click", (e) => {
+  if (!navLinks.classList.contains("open")) return;
+  if (e.target.closest("#navbar") || e.target.closest("#navOverlay")) return;
+  closeMenu();
 });
 
 /* ---------- reveal on scroll ---------- */

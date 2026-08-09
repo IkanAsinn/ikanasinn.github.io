@@ -22,6 +22,11 @@
   <!-- ======= NAVBAR ======= -->
   <header class="nav" id="navbar">
     <nav class="nav-inner">
+      <!-- Hamburger -->
+      <button class="hamburger" id="hamburger" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+
       <ul class="nav-links" id="navLinks">
         <li><a href="#home" class="nav-link active" data-i18n="nav_home">Home</a></li>
         <li><a href="#about" class="nav-link" data-i18n="nav_about">About</a></li>
@@ -50,14 +55,11 @@
           <span class="active" data-lang="en">EN</span>
           <span data-lang="id">ID</span>
         </button>
-
-        <!-- Hamburger -->
-        <button class="hamburger" id="hamburger" aria-label="Open menu">
-          <span></span><span></span><span></span>
-        </button>
       </div>
     </nav>
   </header>
+
+  <div class="nav-overlay" id="navOverlay"></div>
 
   <main>
 
@@ -78,7 +80,6 @@
         </p>
         <div class="hero-cta">
           <a href="#projects" class="btn btn-primary" data-i18n="hero_cta_work">See My Work</a>
-          <a href="BINTANG HERMAWAN MAKMUR - CV.pdf" class="btn btn-ghost" target="_blank" data-i18n="hero_cta_resume">Download Resume</a>
         </div>
         <div class="hero-socials">
           <a href="https://github.com/IkanAsinn" target="_blank" aria-label="GitHub">
@@ -305,23 +306,6 @@
 
           <article class="project-card">
             <div class="project-media">
-              <img src="Motodo.png" alt="Motodo">
-              <span class="project-tag" data-i18n="proj_tag_ai">AI-Powered</span>
-            </div>
-            <div class="project-body">
-              <h3 data-i18n="proj3_name">Motodo - To-Do List with AI</h3>
-              <p data-i18n="proj3_desc">
-                A to-do list app with artificial intelligence woven in. Getting my whole team up to speed on web
-                development was the real project - this was the reward.
-              </p>
-              <div class="project-links">
-                <span class="project-lang" data-i18n="proj3_lang">Front-End</span>
-              </div>
-            </div>
-          </article>
-
-          <article class="project-card">
-            <div class="project-media">
               <img src="toko keluarga.png" alt="Toko Keluarga">
               <span class="project-tag" data-i18n="proj_tag_vanilla">Vanilla JS</span>
             </div>
@@ -386,31 +370,31 @@
             <h3 class="skills-group-title" data-i18n="skills_tech">Technical Skills</h3>
             <div class="skills-list">
               <div class="skill-chip">
-                <img src="Microsoft_.NET_logo.svg" alt=".NET"><span>.NET</span>
+                <i class="fa-brands fa-microsoft" aria-hidden="true"></i><span>.NET</span>
               </div>
               <div class="skill-chip">
-                <img src="azure.png" alt="Microsoft Azure"><span>Microsoft Azure</span>
+                <i class="fa-solid fa-cloud" aria-hidden="true"></i><span>Microsoft Azure</span>
               </div>
               <div class="skill-chip">
-                <img src="entraid.png" alt="Entra ID"><span>Microsoft Entra ID</span>
+                <i class="fa-solid fa-user-shield" aria-hidden="true"></i><span>Microsoft Entra ID</span>
               </div>
               <div class="skill-chip">
-                <img src="azure-devops.jpeg" alt="Azure DevOps"><span>Azure DevOps</span>
+                <i class="fa-solid fa-diagram-project" aria-hidden="true"></i><span>Azure DevOps</span>
               </div>
               <div class="skill-chip">
-                <img src="SAP.png" alt="SAP"><span>SAP</span>
+                <i class="fa-solid fa-industry" aria-hidden="true"></i><span>SAP</span>
               </div>
               <div class="skill-chip">
-                <img src="sql.png" alt="SQL"><span>SQL</span>
+                <i class="fa-solid fa-database" aria-hidden="true"></i><span>SQL</span>
               </div>
               <div class="skill-chip">
-                <img src="html5.png" alt="HTML5"><span>HTML5</span>
+                <i class="fa-brands fa-html5" aria-hidden="true"></i><span>HTML5</span>
               </div>
               <div class="skill-chip">
-                <img src="css3.png" alt="CSS3"><span>CSS3</span>
+                <i class="fa-brands fa-css3-alt" aria-hidden="true"></i><span>CSS3</span>
               </div>
               <div class="skill-chip">
-                <img src="javascript.png" alt="JavaScript"><span>JavaScript</span>
+                <i class="fa-brands fa-js" aria-hidden="true"></i><span>JavaScript</span>
               </div>
             </div>
           </div>
@@ -419,22 +403,22 @@
             <h3 class="skills-group-title" data-i18n="skills_soft">Soft Skills</h3>
             <div class="skills-list">
               <div class="skill-chip">
-                <img src="language.png" alt="Bahasa Indonesia"><span data-i18n="skill_bahasa">Bahasa Indonesia</span>
+                <i class="fa-solid fa-language" aria-hidden="true"></i><span data-i18n="skill_bahasa">Bahasa Indonesia</span>
               </div>
               <div class="skill-chip">
-                <img src="language.png" alt="English"><span data-i18n="skill_english">English</span>
+                <i class="fa-solid fa-comments" aria-hidden="true"></i><span data-i18n="skill_english">English</span>
               </div>
               <div class="skill-chip">
-                <img src="speaking.png" alt="Public Speaking"><span data-i18n="skill_speaking">Public Speaking</span>
+                <i class="fa-solid fa-chalkboard-user" aria-hidden="true"></i><span data-i18n="skill_speaking">Public Speaking</span>
               </div>
               <div class="skill-chip">
-                <img src="teamwork.png" alt="Teamwork"><span data-i18n="skill_teamwork">Teamwork</span>
+                <i class="fa-solid fa-people-group" aria-hidden="true"></i><span data-i18n="skill_teamwork">Teamwork</span>
               </div>
               <div class="skill-chip">
-                <img src="problemsolving.png" alt="Problem Solving"><span data-i18n="skill_problem">Problem Solving</span>
+                <i class="fa-solid fa-lightbulb" aria-hidden="true"></i><span data-i18n="skill_problem">Problem Solving</span>
               </div>
               <div class="skill-chip">
-                <img src="adaptation.jpg" alt="Adaptation"><span data-i18n="skill_adapt">Adaptability</span>
+                <i class="fa-solid fa-arrows-rotate" aria-hidden="true"></i><span data-i18n="skill_adapt">Adaptability</span>
               </div>
             </div>
           </div>
