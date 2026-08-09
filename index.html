@@ -1,368 +1,503 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Bintang Hermawan's Portfolio</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-  <link rel="stylesheet" href="style.css">
-  <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
+  <meta name="description" content="Bintang Hermawan - Software Developer & Cybersecurity Student. Building clean, useful software.">
+  <title>Bintang Hermawan - Software Developer</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
-    href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,400;0,600;1,700&family=Montserrat:wght@400;500;600&family=Poppins:wght@800;900&family=Raleway:wght@200;400;500;600&family=Roboto+Mono:wght@300;600&family=Roboto:wght@300;400;500;700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap"
     rel="stylesheet">
-
-  <link rel="stylesheet" href="owlcarousel/assets/owl.carousel.min.css">
-  <link rel="stylesheet" href="owlcarousel/assets/owl.theme.default.min.css">
-  <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
-
-  <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="
-    crossorigin="anonymous" defer></script>
-  <script src="owlcarousel/owl.carousel.min.js" defer></script>
-  <script src="https://unpkg.com/aos@next/dist/aos.js" defer></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
   <script src="app.js" defer></script>
 </head>
 
 <body>
 
-  <header class="header-sticky fixed-top">
-    <div id="navbarNav" class="collapse">
-      <nav class="navbar navbar-expand-lg bg-light">
-        <div class="container-fluid">
-          <ul class="navbar-nav ms-auto">
-            <li class="nav-item">
-              <a class="nav-link" aria-current="page" href="#about-me">About</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#experiences">Experiences</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#projects">Projects</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#skills">Skills</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#contact">Contact</a>
-            </li>
-          </ul>
-        </div>
-      </nav>
-    </div>
-    <button class="navbar-toggler position-absolute end-0 m-3" type="button" data-bs-toggle="collapse"
-      data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <i class='bx bx-menu' style="font-size: 3rem;"></i>
-    </button>
+  <!-- ======= NAVBAR ======= -->
+  <header class="nav" id="navbar">
+    <nav class="nav-inner">
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#home" class="nav-link active" data-i18n="nav_home">Home</a></li>
+        <li><a href="#about" class="nav-link" data-i18n="nav_about">About</a></li>
+        <li><a href="#experience" class="nav-link" data-i18n="nav_experience">Experience</a></li>
+        <li><a href="#projects" class="nav-link" data-i18n="nav_projects">Projects</a></li>
+        <li><a href="#skills" class="nav-link" data-i18n="nav_skills">Skills</a></li>
+        <li><a href="#contact" class="nav-link" data-i18n="nav_contact">Contact</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <!-- Theme toggle -->
+        <button class="icon-btn" id="themeToggle" aria-label="Toggle theme" title="Toggle theme">
+          <svg id="iconMoon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round">
+            <path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z" />
+          </svg>
+          <svg id="iconSun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round" style="display:none">
+            <circle cx="12" cy="12" r="4" />
+            <path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" />
+          </svg>
+        </button>
+
+        <!-- Language toggle -->
+        <button class="lang-btn" id="langToggle" title="Switch language">
+          <span class="active" data-lang="en">EN</span>
+          <span data-lang="id">ID</span>
+        </button>
+
+        <!-- Hamburger -->
+        <button class="hamburger" id="hamburger" aria-label="Open menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </nav>
   </header>
 
+  <main>
 
-  <main class="text-center">
-    <div class="intro bg-dark">
+    <!-- ======= HERO ======= -->
+    <section class="hero" id="home">
+      <div class="blob blob-1"></div>
+      <div class="blob blob-2"></div>
+      <div class="hero-grid"></div>
+
+      <div class="hero-content">
+        <p class="hero-kicker" data-i18n="hero_kicker">Hi there, I'm a</p>
+        <h1 class="hero-name">Bintang Hermawan</h1>
+        <div class="hero-typed">
+          <span class="typed-text" id="typedText"></span><span class="typed-cursor">|</span>
+        </div>
+        <p class="hero-sub" data-i18n="hero_sub">
+          I build clean, useful software and dig into cybersecurity - turning curiosity into things people actually use.
+        </p>
+        <div class="hero-cta">
+          <a href="#projects" class="btn btn-primary" data-i18n="hero_cta_work">See My Work</a>
+          <a href="BINTANG HERMAWAN MAKMUR - CV.pdf" class="btn btn-ghost" target="_blank" data-i18n="hero_cta_resume">Download Resume</a>
+        </div>
+        <div class="hero-socials">
+          <a href="https://github.com/IkanAsinn" target="_blank" aria-label="GitHub">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5A11.5 11.5 0 0 0 .5 12a11.5 11.5 0 0 0 7.86 10.94c.58.1.79-.25.79-.56v-2c-3.2.7-3.87-1.54-3.87-1.54-.53-1.34-1.28-1.7-1.28-1.7-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.23-1.28-5.23-5.7 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.8 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.24 2.76.12 3.05.74.81 1.18 1.84 1.18 3.1 0 4.43-2.69 5.4-5.25 5.69.4.35.77 1.03.77 2.08v3.08c0 .31.21.67.8.56A11.47 11.47 0 0 0 23.5 12 11.5 11.5 0 0 0 12 .5z"/></svg>
+          </a>
+          <a href="https://www.linkedin.com/in/bintang-hermawan-makmur/" target="_blank" aria-label="LinkedIn">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.36V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45z"/></svg>
+          </a>
+          <a href="https://www.instagram.com/bintang.hm/" target="_blank" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg>
+          </a>
+          <a href="mailto:bintang.makmur@binus.ac.id" aria-label="Email">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <a href="#about" class="scroll-hint" aria-label="Scroll down">
+        <span></span>
+      </a>
+    </section>
+
+    <!-- ======= ABOUT ======= -->
+    <section class="section" id="about">
       <div class="container">
-        <div id="nama" class="typewriter">
-          <h1 class="fw-bold text-white">Hi, I'm Bintang Hermawan.</h1>
-          <h2 class="pt-3 text-white">A Cyber Security<br> Undergraduate Student.</h2>
-        </div>
-        <div id="resume" class="pt-5">
-          <a href="BINTANG HERMAWAN MAKMUR - CV.pdf" target="_blank" class="btn btn-light">Download Resume</a>
+        <p class="eyebrow" data-i18n="about_eyebrow">About Me</p>
+        <h2 class="section-title" data-i18n="about_title">Turning curiosity into software & security</h2>
+
+        <div class="about-grid">
+          <div class="about-photo">
+            <img src="profile_pics.png" alt="Bintang Hermawan">
+          </div>
+
+          <div class="about-text">
+            <p class="about-intro" data-i18n="about_para1">
+              I'm a cybersecurity undergraduate at Binus University who loves building user-friendly software - from
+              designing interfaces to testing, debugging, and shipping things that work.
+            </p>
+            <p data-i18n="about_para2">
+              I care about clean UI, smooth experiences, and software that holds up in the real world. I'm equally happy
+              managing projects on my own or collaborating inside a team that pushes each other.
+            </p>
+            <p data-i18n="about_para3">
+              Right now I work as a Software Engineer at PT Freeport Indonesia, building systems that help keep a
+              massive mining operation running smoothly.
+            </p>
+
+            <div class="about-stats">
+              <div class="stat">
+                <span class="stat-num">3+</span>
+                <span class="stat-label" data-i18n="stat_years">Years experience</span>
+              </div>
+              <div class="stat">
+                <span class="stat-num">6+</span>
+                <span class="stat-label" data-i18n="stat_projects">Projects built</span>
+              </div>
+              <div class="stat">
+                <span class="stat-num">2</span>
+                <span class="stat-label" data-i18n="stat_langs">Fluent languages</span>
+              </div>
+            </div>
+
+            <a href="#contact" class="btn btn-primary" data-i18n="about_cta">Let's work together</a>
+          </div>
         </div>
       </div>
-    </div>
+    </section>
 
-    <div class="about-me" id="about-me">
+    <!-- ======= EXPERIENCE ======= -->
+    <section class="section section-alt" id="experience">
       <div class="container">
-        <h1 class="fs-1 titles">About Me</h1>
-        <div class="content pt-5 d-flex">
-          <img src="profile_pics.png" alt="">
-          <div class="desc">
-            <p>A hardworking college student who is knowledgeable in user interface, testing, and debugging processes.
-              Committed to utilizing my skills to further the mission of a company. Strong organizational abilities with
-              proven success in managing multiple academic projects and volunteering events. Acquiring new knowledge of
-              being a Software Developer adept at bringing forth expertise in design, installation, testing and
-              maintenance
-              of software systems. Proficient in various platforms, languages, and embedded systems. Able to effectively
-              self-manage during independent projects, as well as collaborate as part of a productive team.</p>
-          </div>
-        </div>
-      </div>
-    </div>
+        <p class="eyebrow" data-i18n="exp_eyebrow">My Journey</p>
+        <h2 class="section-title" data-i18n="exp_title">Where I've worked & grown</h2>
 
-    <div class="experiences" id="experiences">
-      <h1 class="fs-1 titles">Experiences</h1>
-      <div class="content pt-5 owl-carousel owl-theme cards">
-        <div class="card">
-          <img src="ptfi.jpeg">
-          <div class="description">
-            <h3 class="fs-4 fw-semibold">Software Engineer</h3>
-            <p class="fs-5 fw-light">PT Freeport Indonesia</p>
-            <p class="fs-6 year">2024 - Present</p>
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-card">
+              <div class="timeline-head">
+                <img src="ptfi.jpeg" alt="PT Freeport Indonesia" class="timeline-logo">
+                <div>
+                  <h3 data-i18n="exp1_role">Software Engineer</h3>
+                  <p class="timeline-org" data-i18n="exp1_org">PT Freeport Indonesia</p>
+                  <span class="timeline-year" data-i18n="exp1_year">2024 - Present</span>
+                </div>
+              </div>
+              <p class="timeline-desc" data-i18n="exp1_desc">
+                Building and maintaining software systems that support a world-scale mining operation - writing code that
+                has to work, and shipping it reliably.
+              </p>
+            </div>
           </div>
-        </div>
-        <div class="card">
-          <img src="logo_binus.png">
-          <div class="description">
-            <h3 class="fs-4 fw-semibold">Freshmen Leader Binusian 2025</h3>
-            <p class="fs-5 fw-light">Binus University</p>
-            <p class="fs-6 year">2021</p>
-          </div>
-        </div>
-        <div class="card">
-          <img src="logo_binus.png">
-          <div class="description">
-            <h3 class="fs-4 fw-semibold">Freshmen Partner Binusian 2025</h3>
-            <p class="fs-5 fw-light">Binus University</p>
-            <p class="fs-6 year">2021</p>
-          </div>
-        </div>
-        <div class="card">
-          <img src="petir.png">
-          <div class="description">
-            <h3 class="fs-4 fw-semibold">Member of<br>Binary Exploitation Stream</h3>
-            <p class="fs-5 fw-light">PETIR Cyber Security</p>
-            <p class="fs-6 year">2022 - Present</p>
-          </div>
-        </div>
-        <div class="card">
-          <img src="logo_csc.png">
-          <div class="description">
-            <h3 class="fs-4 fw-semibold">Human Capital Activist</h3>
-            <p class="fs-5 fw-light">Cyber Security Community</p>
-            <p class="fs-6 year">2021 - 2022</p>
-          </div>
-        </div>
-        <div class="card">
-          <img src="logo_csc.png">
-          <div class="description">
-            <h3 class="fs-4 fw-semibold">Human Capital Person in Charge</h3>
-            <p class="fs-5 fw-light">Cyber Security Community</p>
-            <p class="fs-6 year">2022 - 2023</p>
-          </div>
-        </div>
-        <div class="card">
-          <img src="ptfi.jpeg">
-          <div class="description">
-            <h3 class="fs-4 fw-semibold">Application Developer Intern</h3>
-            <p class="fs-5 fw-light">PT Freeport Indonesia</p>
-            <p class="fs-6 year">2023 - 2024</p>
-          </div>
-        </div>
-      </div>
-    </div>
 
-    <div class="projects" id="projects">
-      <h1 class="titles">Projects</h1>
-      <div class="content mt-5">
-        <div data-aos="fade-up" class="project card">
-          <div class="project-top">
-            <h1 class="titles">BinusXXI - Movie Database</h1>
-            <div class="project-images">
-              <img src="binusxxi.png" alt="BinusXXI">
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-card">
+              <div class="timeline-head">
+                <img src="ptfi.jpeg" alt="PT Freeport Indonesia" class="timeline-logo">
+                <div>
+                  <h3 data-i18n="exp2_role">Application Developer Intern</h3>
+                  <p class="timeline-org" data-i18n="exp2_org">PT Freeport Indonesia</p>
+                  <span class="timeline-year" data-i18n="exp2_year">2023 - 2024</span>
+                </div>
+              </div>
+              <p class="timeline-desc" data-i18n="exp2_desc">
+                Hands-on development inside an enterprise environment - turning training into shipped features and
+                learning what good internal tooling looks like.
+              </p>
             </div>
           </div>
-          <div class="details">
-            <div class="project-description">
-              <p>BinusXXI is an web-based movie database that provides movies
-                review, so people will know the latest best movies to watch. This
-                project gives me so much new knowledge about front-end and
-                yet this is my best project as front-end developer because it has
-                many complex styles and scripts.</p>
+
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-card">
+              <div class="timeline-head">
+                <img src="petir.png" alt="PETIR Cyber Security" class="timeline-logo">
+                <div>
+                  <h3 data-i18n="exp3_role">Member, Binary Exploitation Stream</h3>
+                  <p class="timeline-org" data-i18n="exp3_org">PETIR Cyber Security</p>
+                  <span class="timeline-year" data-i18n="exp3_year">2022 - Present</span>
+                </div>
+              </div>
+              <p class="timeline-desc" data-i18n="exp3_desc">
+                Deep-diving into low-level security by breaking things in a safe space - CTFs, reverse engineering, and
+                learning how attacks actually work.
+              </p>
             </div>
           </div>
-        </div>
-        <div class="project card" data-aos="fade-right">
-          <h1 class="titles">Auxtify - Online Auction Website</h1>
-          <div class="project-images">
-            <img src="auxtify.png" alt="auxtify">
-          </div>
-          <div class="details">
-            <div class="project-description">
-              <p>Auxtify is an web-based application for online auction activities.
-                Many people participated in online auction on social media. But,
-                as we know that the social media is not the correct platform for
-                online auction. So, me and my team created Auxtify that
-                guarantees security for online auction transaction. This project is
-                still under construction and not the best for me as front-end
-                developer.</p>
+
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-card">
+              <div class="timeline-head">
+                <img src="logo_csc.png" alt="Cyber Security Community" class="timeline-logo">
+                <div>
+                  <h3 data-i18n="exp4_role">Human Capital Person in Charge</h3>
+                  <p class="timeline-org" data-i18n="exp4_org">Cyber Security Community</p>
+                  <span class="timeline-year" data-i18n="exp4_year">2022 - 2023</span>
+                </div>
+              </div>
+              <p class="timeline-desc" data-i18n="exp4_desc">
+                Ran the people side of a growing community - onboarding members, planning events, and keeping the
+                energy of the org alive.
+              </p>
             </div>
           </div>
-        </div>
-        <div class="project card" data-aos="fade-left">
-          <h1 class="titles">Motodo - To Do List with AI</h1>
-          <div class="project-images">
-            <img src="Motodo.png" alt="Motodo">
-          </div>
-          <div class="details">
-            <div class="project-description">
-              <p>Motodo is a to do list web-based application. The concept of this
-                application is to implement artificial intelligence into a to do list app.
-                Although not my best project, it requires me and my team to work all
-                day. We had a problem that most of us did not understand about
-                web development. Me as a front-end developer need to study
-                together with my team, so we could develop Motodo faster.</p>
+
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-card">
+              <div class="timeline-head">
+                <img src="logo_csc.png" alt="Cyber Security Community" class="timeline-logo">
+                <div>
+                  <h3 data-i18n="exp5_role">Human Capital Activist</h3>
+                  <p class="timeline-org" data-i18n="exp5_org">Cyber Security Community</p>
+                  <span class="timeline-year" data-i18n="exp5_year">2021 - 2022</span>
+                </div>
+              </div>
+              <p class="timeline-desc" data-i18n="exp5_desc">
+                Started out supporting recruitment and member development, learning the ropes of community
+                organization from the ground up.
+              </p>
             </div>
           </div>
-        </div>
-        <div class="project card" data-aos="fade-right">
-          <h1 class="titles">Toko Keluarga</h1>
-          <div class="project-images">
-            <img src="toko keluarga.png" alt="toko keluarga">
-          </div>
-          <div class="details">
-            <div class="project-description">
-              <p>Toko Keluarga is my final exam project for Web Based Application Development subject. This project is
-                made with HTML, CSS, and Javascript without any framework. I learn many things from this project, e.g.
-                proper styling, responsive design, local storage management, etc.</p>
-            </div>
-          </div>
-        </div>
-        <div class="project card" data-aos="fade-left">
-          <h1 class="titles">Crop Inventory Management</h1>
-          <div class="project-images">
-            <img src="inventory1.png" alt="Crop Inventory Management">
-          </div>
-          <div class="details">
-            <div class="project-description">
-              <p>In this project, me with my friend created an Inventory Management System to monitor the plant in the
-                garden such as list of the plants, harvest monitoring, and plant mortality. This management system also
-                included with To Do management, Account Management, Real-time notification system and weather forecast.
+
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-card">
+              <div class="timeline-head">
+                <img src="logo_binus.png" alt="Binus University" class="timeline-logo">
+                <div>
+                  <h3 data-i18n="exp6_role">Freshmen Leader · Binusian 2025</h3>
+                  <p class="timeline-org" data-i18n="exp6_org">Binus University</p>
+                  <span class="timeline-year" data-i18n="exp6_year">2021</span>
+                </div>
+              </div>
+              <p class="timeline-desc" data-i18n="exp6_desc">
+                Guided and mentored new students through orientation - leadership, empathy, and a lot of patience.
               </p>
             </div>
           </div>
         </div>
-        <div class="project card" data-aos="fade-down">
-          <h1 class="titles">Coffeeshop Inventory Management System</h1>
-          <div class="project-images">
-            <img src="Inventory2.png" alt="Coffeeshop Inventory Management System">
-          </div>
-          <div class="details">
-            <div class="project-description">
-              <p>In this project, me and my friend created an Inventory Management System for a coffeeshop.
-                This project is quite similar to the previous one. However, this time we created a payroll management
-                system to manage employees' salary and debt. This management system will used to manage the product in
-                the coffee shop like auto generate product's barcode, track products with barcode scanner using
-                smartphone camera, product history with its monthly details, and invoice for the product usage per
-                month.</p>
-            </div>
-          </div>
-        </div>
       </div>
-    </div>
+    </section>
 
-    <div class="skills mt-5" id="skills">
-      <h1 class="titles">Skills</h1>
-      <div class="content mt-5">
-        <div class="technical" data-aos="fade-left">
-          <h2 class="titles">Technical</h2>
-          <div class="skills-list">
-            <div class="skill card">
-              <img src="Microsoft_.NET_logo.svg" alt="dot net">
-              <p>.NET</p>
-            </div>
-            <div class="skill card">
-              <img src="azure.png" alt="Microsoft Azure">
-              <p>Microsoft Azure</p>
-            </div>
-            <div class="skill card">
-              <img src="entraid.png" alt="Entra ID">
-              <p>Microsoft Entra ID</p>
-            </div>
-            <div class="skill card">
-              <img src="azure-devops.jpeg" alt="Azure Dev ops">
-              <p>Azure DevOps</p>
-            </div>
-            <div class="skill card">
-              <img src="SAP.png" alt="SAP">
-              <p>SAP</p>
-            </div>
-            <div class="skill card">
-              <img src="sql.png" alt="sql">
-              <p>SQL</p>
-            </div>
-          </div>
-        </div>
-        <div class="non-technical" data-aos="fade-right">
-          <h2 class="titles">Non Technical</h2>
-          <div class="skills-list">
-            <div class="skill card">
-              <img src="language.png" alt="language">
-              <p>Bahasa Indonesia</p>
-            </div>
-            <div class="skill card">
-              <img src="language.png" alt="language">
-              <p>English</p>
-            </div>
-            <div class="skill card">
-              <img src="speaking.png" alt="speaking">
-              <p>Public Speaking</p>
-            </div>
-            <div class="skill card">
-              <img src="teamwork.png" alt="teamwork">
-              <p>Teamwork</p>
-            </div>
-            <div class="skill card">
-              <img src="problemsolving.png" alt="problemsolving">
-              <p>Problem Solving</p>
-            </div>
-            <div class="skill card">
-              <img src="adaptation.jpg" alt="adaptation">
-              <p>Adaptation</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <!-- ======= PROJECTS ======= -->
+    <section class="section" id="projects">
+      <div class="container">
+        <p class="eyebrow" data-i18n="proj_eyebrow">What I've Built</p>
+        <h2 class="section-title" data-i18n="proj_title">Selected projects I'm proud of</h2>
 
-    <div class="contact" id="contact">
-      <h1 class="titles">Reach Me!</h1>
-      <div class="content card mt-5">
-        <form action="https://formsubmit.co/f15420447f9542c45bf9d0d904c1d93d" method="POST" class="w-100">
-          <div class="form-group">
-            <label for="name">Name</label>
-            <input type="text" name="name" id="name" class="form-control" placeholder="Your name" required>
-          </div>
-          <div class="form-group">
-            <label for="email">Email</label>
-            <input type="email" name="email" id="email" class="form-control" placeholder="Your email" required>
-          </div>
-          <div class="form-group">
-            <label for="message">Message</label>
-            <textarea name="message" id="message" class="form-control" placeholder="Your message" required></textarea>
-          </div>
-          <input type="hidden" name="_captcha" value="false">
-          <div class="form-group">
-            <button type="submit" class="btn btn-dark">Send</button>
-          </div>
-        </form>
-      </div>
-      <div class="social-media bg-dark">
-        <h3>Social Media</h3>
-        <div class="social-lists">
-          <!-- <div> -->
-          <i class="bx bxl-linkedin-square" id="linkedin-icon"></i>
-          <a href="https://www.linkedin.com/in/bintang-hermawan-makmur/" target="_blank" id="linkedin-list">Linkedin</a>
-          <!-- </div> -->
-          <!-- <div> -->
-          <i class='bx bxs-envelope' id="email-icon"></i>
-          <p id="email-list">bintang.makmur@binus.ac.id</p>
-          <!-- </div> -->
-          <!-- <div> -->
-          <i class="bx bxl-instagram" id="instagram-icon"></i>
-          <a href="https://www.instagram.com/bintang.hm/" target="_blank" id="instagram-list">Instagram</a>
-          <i class="bx bxl-github" id="github-icon"></i>
-          <a href="https://www.github.com/IkanAsinn/" target="_blank" id="github-list">Github</a>
-          <!-- </div> -->
+        <div class="projects-grid">
+
+          <article class="project-card">
+            <div class="project-media">
+              <img src="binusxxi.png" alt="BinusXXI">
+              <span class="project-tag" data-i18n="tag_frontend">Front-End</span>
+            </div>
+            <div class="project-body">
+              <h3 data-i18n="proj1_name">BinusXXI - Movie Database</h3>
+              <p data-i18n="proj1_desc">
+                A web-based movie database with reviews, so people always know what's worth watching. Complex styling
+                and scripting made it my favourite front-end build.
+              </p>
+              <div class="project-links">
+                <span class="project-lang">HTML · CSS · JS</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="project-card">
+            <div class="project-media">
+              <img src="auxtify.png" alt="Auxtify">
+              <span class="project-tag" data-i18n="proj_tag_fullstack">Full-Stack</span>
+            </div>
+            <div class="project-body">
+              <h3 data-i18n="proj2_name">Auxtify - Online Auction</h3>
+              <p data-i18n="proj2_desc">
+                A secure online auction platform, born from the mess of transactions done on social media. Built with
+                my team to make auction deals safer.
+              </p>
+            </div>
+          </article>
+
+          <article class="project-card">
+            <div class="project-media">
+              <img src="Motodo.png" alt="Motodo">
+              <span class="project-tag" data-i18n="proj_tag_ai">AI-Powered</span>
+            </div>
+            <div class="project-body">
+              <h3 data-i18n="proj3_name">Motodo - To-Do List with AI</h3>
+              <p data-i18n="proj3_desc">
+                A to-do list app with artificial intelligence woven in. Getting my whole team up to speed on web
+                development was the real project - this was the reward.
+              </p>
+              <div class="project-links">
+                <span class="project-lang" data-i18n="proj3_lang">Front-End</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="project-card">
+            <div class="project-media">
+              <img src="toko keluarga.png" alt="Toko Keluarga">
+              <span class="project-tag" data-i18n="proj_tag_vanilla">Vanilla JS</span>
+            </div>
+            <div class="project-body">
+              <h3 data-i18n="proj4_name">Toko Keluarga</h3>
+              <p data-i18n="proj4_desc">
+                My final project for Web-Based Application Development - a store app built with pure HTML, CSS & JS
+                (no frameworks). Quick way to learn responsive design and localStorage.
+              </p>
+              <div class="project-links">
+                <span class="project-lang" data-i18n="proj4_lang">Student Project</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="project-card">
+            <div class="project-media">
+              <img src="inventory1.png" alt="Crop Inventory Management">
+              <span class="project-tag" data-i18n="proj_tag_system">Management System</span>
+            </div>
+            <div class="project-body">
+              <h3 data-i18n="proj5_name">Crop Inventory Management</h3>
+              <p data-i18n="proj5_desc">
+                A system to monitor a garden - plant lists, harvest tracking, mortality reports - plus to-dos,
+                accounts, real-time notifications and weather forecasts.
+              </p>
+              <div class="project-links">
+                <span class="project-lang" data-i18n="proj5_lang">Team Project</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="project-card">
+            <div class="project-media">
+              <img src="Inventory2.png" alt="Coffeeshop Inventory System">
+              <span class="project-tag" data-i18n="proj_tag_system">Management System</span>
+            </div>
+            <div class="project-body">
+              <h3 data-i18n="proj6_name">Coffeeshop Inventory System</h3>
+              <p data-i18n="proj6_desc">
+                Inventory + payroll for a real coffeeshop - auto-generated barcodes, barcode scanning via phone camera,
+                monthly product history and invoices.
+              </p>
+              <div class="project-links">
+                <span class="project-lang" data-i18n="proj6_lang">Team Project</span>
+              </div>
+            </div>
+          </article>
+
         </div>
       </div>
-    </div>
+    </section>
+
+    <!-- ======= SKILLS ======= -->
+    <section class="section section-alt" id="skills">
+      <div class="container">
+        <p class="eyebrow" data-i18n="skills_eyebrow">My Toolbox</p>
+        <h2 class="section-title" data-i18n="skills_title">Skills & technologies I work with</h2>
+
+        <div class="skills-grid">
+          <div class="skills-group">
+            <h3 class="skills-group-title" data-i18n="skills_tech">Technical Skills</h3>
+            <div class="skills-list">
+              <div class="skill-chip">
+                <img src="Microsoft_.NET_logo.svg" alt=".NET"><span>.NET</span>
+              </div>
+              <div class="skill-chip">
+                <img src="azure.png" alt="Microsoft Azure"><span>Microsoft Azure</span>
+              </div>
+              <div class="skill-chip">
+                <img src="entraid.png" alt="Entra ID"><span>Microsoft Entra ID</span>
+              </div>
+              <div class="skill-chip">
+                <img src="azure-devops.jpeg" alt="Azure DevOps"><span>Azure DevOps</span>
+              </div>
+              <div class="skill-chip">
+                <img src="SAP.png" alt="SAP"><span>SAP</span>
+              </div>
+              <div class="skill-chip">
+                <img src="sql.png" alt="SQL"><span>SQL</span>
+              </div>
+              <div class="skill-chip">
+                <img src="html5.png" alt="HTML5"><span>HTML5</span>
+              </div>
+              <div class="skill-chip">
+                <img src="css3.png" alt="CSS3"><span>CSS3</span>
+              </div>
+              <div class="skill-chip">
+                <img src="javascript.png" alt="JavaScript"><span>JavaScript</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="skills-group">
+            <h3 class="skills-group-title" data-i18n="skills_soft">Soft Skills</h3>
+            <div class="skills-list">
+              <div class="skill-chip">
+                <img src="language.png" alt="Bahasa Indonesia"><span data-i18n="skill_bahasa">Bahasa Indonesia</span>
+              </div>
+              <div class="skill-chip">
+                <img src="language.png" alt="English"><span data-i18n="skill_english">English</span>
+              </div>
+              <div class="skill-chip">
+                <img src="speaking.png" alt="Public Speaking"><span data-i18n="skill_speaking">Public Speaking</span>
+              </div>
+              <div class="skill-chip">
+                <img src="teamwork.png" alt="Teamwork"><span data-i18n="skill_teamwork">Teamwork</span>
+              </div>
+              <div class="skill-chip">
+                <img src="problemsolving.png" alt="Problem Solving"><span data-i18n="skill_problem">Problem Solving</span>
+              </div>
+              <div class="skill-chip">
+                <img src="adaptation.jpg" alt="Adaptation"><span data-i18n="skill_adapt">Adaptability</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======= CONTACT ======= -->
+    <section class="section" id="contact">
+      <div class="container">
+        <p class="eyebrow" data-i18n="contact_eyebrow">Get In Touch</p>
+        <h2 class="section-title" data-i18n="contact_title">Let's build something together</h2>
+        <p class="contact-sub" data-i18n="contact_sub">
+          Have a project in mind, a question, or just want to say hi? My inbox is always open.
+        </p>
+
+        <div class="contact-grid">
+          <form class="contact-form" action="https://formsubmit.co/f15420447f9542c45bf9d0d904c1d93d" method="POST">
+            <input type="hidden" name="_captcha" value="false">
+            <div class="field">
+              <label for="name" data-i18n="contact_name">Your name</label>
+              <input type="text" name="name" id="name" data-i18n-ph="contact_name_ph" placeholder="e.g. Alex Santoso" required>
+            </div>
+            <div class="field">
+              <label for="email" data-i18n="contact_email">Your email</label>
+              <input type="email" name="email" id="email" data-i18n-ph="contact_email_ph" placeholder="you@example.com" required>
+            </div>
+            <div class="field">
+              <label for="message" data-i18n="contact_msg">Message</label>
+              <textarea name="message" id="message" rows="5" data-i18n-ph="contact_msg_ph" placeholder="Tell me about your project..." required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block" data-i18n="contact_send">Send Message</button>
+          </form>
+
+          <aside class="contact-info">
+            <p class="contact-info-text" data-i18n="contact_info_text">
+              Prefer direct contact? I usually reply within a day.
+            </p>
+            <a href="mailto:bintang.makmur@binus.ac.id" class="contact-line">
+              <i class="fa-solid fa-envelope"></i><span data-i18n="contact_info_email">bintang.makmur@binus.ac.id</span>
+            </a>
+            <a href="https://www.linkedin.com/in/bintang-hermawan-makmur/" target="_blank" class="contact-line">
+              <i class="fa-brands fa-linkedin"></i><span data-i18n="contact_info_linkedin">in/bintang-hermawan-makmur</span>
+            </a>
+            <a href="https://github.com/IkanAsinn" target="_blank" class="contact-line">
+              <i class="fa-brands fa-github"></i><span data-i18n="contact_info_github">github.com/IkanAsinn</span>
+            </a>
+          </aside>
+        </div>
+      </div>
+    </section>
   </main>
 
-  <script src=" https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous">
-  </script>
+  <!-- ======= FOOTER ======= -->
+  <footer class="footer">
+    <div class="container">
+      <p>© <span id="year">2026</span> Bintang Hermawan ·
+        <span data-i18n="footer_built">Built with care in Jakarta</span>
+      </p>
+      <a href="#home" class="back-top" aria-label="Back to top">↑</a>
+    </div>
+  </footer>
+
 </body>
 
 </html>
