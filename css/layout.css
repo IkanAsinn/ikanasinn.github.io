@@ -1,0 +1,214 @@
+/* ==========================================================================
+   layout.css — scroll-snap flow, nav, section frame, responsive grid
+   ========================================================================== */
+
+.scroll-container {
+  height: 100dvh;
+  overflow-y: auto;
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+}
+
+.section {
+  position: relative;
+  height: 100dvh;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6rem var(--section-pad-x) 3rem;
+  overflow: hidden;
+}
+
+.section-inner {
+  width: 100%;
+  max-width: var(--max-content);
+  margin: 0 auto;
+}
+
+/* Site navigation */
+.site-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem var(--section-pad-x);
+  background: rgba(22, 22, 22, 0.85);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid rgba(58, 58, 58, 0.4);
+}
+
+.nav-mono {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  color: var(--color-text);
+  letter-spacing: 0.05em;
+}
+
+.nav-list {
+  display: flex;
+  gap: 2rem;
+}
+
+.nav-list a {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--color-text);
+  opacity: 0.55;
+  transition: opacity var(--dur-fast) var(--ease-out);
+  position: relative;
+}
+
+.nav-list a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  width: 100%;
+  height: 1px;
+  background: var(--color-text);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--dur-fast) var(--ease-out);
+}
+
+.nav-list a:hover,
+.nav-list a.is-active {
+  opacity: 1;
+}
+
+.nav-list a.is-active::after {
+  transform: scaleX(1);
+}
+
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  z-index: 110;
+}
+
+.nav-toggle span {
+  width: 22px;
+  height: 2px;
+  background: var(--color-text);
+  transition: transform var(--dur-fast) var(--ease-out), opacity var(--dur-fast) var(--ease-out);
+}
+
+/* Nav overlay - hidden by default, shown on mobile when menu opens */
+.nav-overlay {
+  display: none;
+}
+
+/* Scroll cue (home only) */
+.scroll-cue {
+  position: absolute;
+  bottom: 2.5rem;
+  left: var(--section-pad-x);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+.scroll-cue-line {
+  width: 1px;
+  height: 40px;
+  background: var(--color-gray-mid);
+  overflow: hidden;
+  position: relative;
+}
+
+.scroll-cue-line::after {
+  content: '';
+  position: absolute;
+  top: -100%;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--color-text);
+  animation: scrollCue 1.8s ease-in-out infinite;
+}
+
+@keyframes scrollCue {
+  0% { top: -100%; }
+  60% { top: 100%; }
+  100% { top: 100%; }
+}
+
+/* Mobile nav */
+@media (max-width: 768px) {
+  .nav-toggle {
+    display: flex;
+    position: relative;
+    z-index: 101;
+  }
+
+  .nav-overlay {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity var(--dur-med) var(--ease-out), visibility var(--dur-med);
+    z-index: 98;
+    pointer-events: none;
+  }
+
+  .nav-overlay.is-open {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  .nav-list {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100dvh;
+    width: min(75vw, 320px);
+    background: var(--color-surface);
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 1.75rem;
+    padding: 2rem;
+    transform: translateX(100%);
+    transition: transform var(--dur-med) var(--ease-out);
+    z-index: 99;
+  }
+
+  .nav-list.is-open {
+    transform: translateX(0);
+  }
+
+  .nav-list a {
+    font-size: 1rem;
+    color: #fff;
+  }
+
+  .site-nav.is-open .nav-toggle span {
+    background: #fff;
+  }
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding: 6.5rem 1.5rem 2.5rem;
+    /* Top-align instead of center: when content is taller than the
+       viewport, centering pushes overflow above the nav (getting clipped
+       by .section's overflow:hidden). Top-aligning keeps headings visible. */
+    align-items: flex-start;
+  }
+}
