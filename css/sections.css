@@ -277,9 +277,8 @@
 .project-thumb {
   width: 100%;
   border: 1px solid var(--color-border);
-  aspect-ratio: 16/10;
-  object-fit: contain;
-  background: #ffffff;
+  aspect-ratio: 2.14/1;
+  object-fit: cover;
 }
 
 .project-body h3 {
@@ -291,6 +290,13 @@
   color: var(--color-text-muted);
   max-width: 48ch;
   margin-bottom: 1rem;
+}
+
+.project-link {
+  display: inline-block;
+  margin-top: 0.5rem;
+  margin-left: 0.5rem;
+  text-decoration: none;
 }
 
 .carousel-arrow {
