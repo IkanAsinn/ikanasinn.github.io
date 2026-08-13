@@ -294,8 +294,7 @@
 
 .project-link {
   display: inline-block;
-  margin-top: 0.5rem;
-  margin-left: 0.5rem;
+  margin-top: 1rem;
   text-decoration: none;
 }
 
@@ -317,16 +316,25 @@
   z-index: 5;
 }
 
-.carousel-arrow svg {
-  width: 20px;
-  height: 20px;
-  display: block;
+.carousel-arrow-glyph {
+  font-size: 1.1rem;
+  line-height: 1;
+  display: inline-block;
+  transition: transform var(--dur-fast) var(--ease-out);
 }
 
 .carousel-arrow:hover {
   border-color: var(--color-text);
   background: var(--color-text);
   color: var(--color-bg);
+}
+
+.carousel-arrow--prev:hover .carousel-arrow-glyph {
+  transform: translateX(-3px);
+}
+
+.carousel-arrow--next:hover .carousel-arrow-glyph {
+  transform: translateX(3px);
 }
 
 .carousel-arrow:disabled {
@@ -492,7 +500,7 @@
 
   .project-card {
     grid-template-columns: 1fr;
-    padding: 0 2.75rem;
+    padding: 0 3.5rem;
     gap: 1.5rem;
   }
 
@@ -570,8 +578,11 @@
     height: 16px;
   }
 
+  .carousel-arrow--prev { left: 0.25rem; }
+  .carousel-arrow--next { right: 0.25rem; }
+
   .project-card {
-    padding: 0 2.25rem;
+    padding: 0 4rem;
   }
 
   .contact-link {
