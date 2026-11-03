@@ -1,19 +1,23 @@
 /* ==========================================================================
    modal.js — opens a project detail dialog from a card button.
    Content comes from window.PROJECTS (js/projects.js).
+
+   Uses a native <dialog> with showModal(): the dialog is promoted to the
+   browser's top layer, so it cannot be laid out in the document flow even if
+   a stale stylesheet is served, and Escape, focus containment, and inertness
+   of the page behind it come from the platform rather than from script.
    ========================================================================== */
 
 (function () {
   'use strict';
 
-  var FOCUSABLE = 'a[href], button:not([disabled]), input, select, textarea, [tabindex]:not([tabindex="-1"])';
-
   document.addEventListener('DOMContentLoaded', function () {
     var modal = document.getElementById('project-modal');
     var projects = window.PROJECTS || {};
-    if (!modal || !Object.keys(projects).length) return;
+    if (!modal || !Object.keys(projects).length || typeof modal.showModal !== 'function') return;
 
     var panel = modal.querySelector('.project-modal-panel');
+    var closeBtn = modal.querySelector('.project-modal-close');
     var tagEl = modal.querySelector('#project-modal-tag');
     var titleEl = modal.querySelector('#project-modal-title');
     var summaryEl = modal.querySelector('#project-modal-summary');
@@ -23,9 +27,8 @@
     var imageEl = modal.querySelector('#project-modal-image');
     var captionEl = modal.querySelector('#project-modal-caption');
     var thumbsEl = modal.querySelector('#project-modal-thumbs');
-    var scrollContainer = document.getElementById('scroll-container');
-
     var stageEl = modal.querySelector('.project-modal-stage');
+    var scrollContainer = document.getElementById('scroll-container');
 
     var lastFocused = null;
 
@@ -91,72 +94,35 @@
       renderShots(project);
 
       lastFocused = document.activeElement;
-      modal.hidden = false;
-      requestAnimationFrame(function () { modal.classList.add('is-open'); });
-      // Lock the scroll-snap container and the page behind the dialog.
-      if (scrollContainer) scrollContainer.style.overflow = 'hidden';
-      document.body.classList.add('is-modal-open');
       panel.scrollTop = 0;
-      modal.querySelector('.project-modal-close').focus();
+      document.body.classList.add('is-modal-open');
+      // The scroll-snap container keeps scrolling behind a top-layer dialog.
+      if (scrollContainer) scrollContainer.style.overflow = 'hidden';
+      modal.showModal();
+      closeBtn.focus();
     }
 
     function close() {
-      modal.classList.remove('is-open');
-      if (scrollContainer) scrollContainer.style.overflow = '';
-      document.body.classList.remove('is-modal-open');
-
-      // Hide once the fade finishes. transitionend alone is not enough: a
-      // background tab can defer the transition, leaving an invisible
-      // overlay swallowing clicks, so a timer guarantees the teardown.
-      var done = false;
-      var finish = function () {
-        if (done) return;
-        done = true;
-        modal.hidden = true;
-        modal.removeEventListener('transitionend', finish);
-      };
-      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) finish();
-      else {
-        modal.addEventListener('transitionend', finish);
-        window.setTimeout(finish, 400);
-      }
-      if (lastFocused && typeof lastFocused.focus === 'function') lastFocused.focus();
+      if (modal.open) modal.close();
     }
 
-    // --- Open buttons on the project cards ---
+    // Fires for every closing path: the button, Escape, and a backdrop click.
+    modal.addEventListener('close', function () {
+      document.body.classList.remove('is-modal-open');
+      if (scrollContainer) scrollContainer.style.overflow = '';
+      if (lastFocused && typeof lastFocused.focus === 'function') lastFocused.focus();
+    });
+
+    // A click that lands on the dialog itself is a click on the backdrop; the
+    // panel stops it by being a descendant.
+    modal.addEventListener('click', function (e) {
+      if (e.target === modal) close();
+    });
+
     document.querySelectorAll('[data-project-open]').forEach(function (btn) {
       btn.addEventListener('click', function () { open(btn.getAttribute('data-project-open')); });
     });
 
-    // --- Close: backdrop, close button, Escape ---
-    modal.querySelectorAll('[data-project-close]').forEach(function (el) {
-      el.addEventListener('click', close);
-    });
-
-    document.addEventListener('keydown', function (e) {
-      if (modal.hidden) return;
-      if (e.key === 'Escape') {
-        e.preventDefault();
-        close();
-        return;
-      }
-      if (e.key !== 'Tab') return;
-
-      // Keep focus inside the dialog while it is open.
-      var nodes = Array.prototype.filter.call(
-        panel.querySelectorAll(FOCUSABLE),
-        function (node) { return node.offsetParent !== null; }
-      );
-      if (!nodes.length) return;
-      var first = nodes[0];
-      var last = nodes[nodes.length - 1];
-      if (e.shiftKey && document.activeElement === first) {
-        e.preventDefault();
-        last.focus();
-      } else if (!e.shiftKey && document.activeElement === last) {
-        e.preventDefault();
-        first.focus();
-      }
-    });
+    closeBtn.addEventListener('click', close);
   });
 })();

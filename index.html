@@ -8,10 +8,10 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/base.css">
-<link rel="stylesheet" href="css/layout.css">
-<link rel="stylesheet" href="css/sections.css">
-<link rel="stylesheet" href="css/animations.css">
+<link rel="stylesheet" href="css/base.css?v=3">
+<link rel="stylesheet" href="css/layout.css?v=3">
+<link rel="stylesheet" href="css/sections.css?v=3">
+<link rel="stylesheet" href="css/animations.css?v=3">
 </head>
 <body>
 
@@ -384,12 +384,11 @@
 
 </main>
 
-<div class="project-modal" id="project-modal" role="dialog" aria-modal="true" aria-labelledby="project-modal-title" hidden>
-  <div class="project-modal-backdrop" data-project-close></div>
-  <div class="project-modal-panel" role="document">
+<dialog class="project-modal" id="project-modal" aria-labelledby="project-modal-title">
+  <div class="project-modal-panel">
     <div class="project-modal-bar">
       <span class="mono-tag" id="project-modal-tag"></span>
-      <button class="project-modal-close" type="button" aria-label="Close project details" data-project-close>
+      <button class="project-modal-close" type="button" aria-label="Close project details">
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
@@ -417,12 +416,12 @@
       </div>
     </div>
   </div>
-</div>
+</dialog>
 
-<script src="js/animations.js" defer></script>
-<script src="js/carousel.js" defer></script>
-<script src="js/projects.js" defer></script>
-<script src="js/modal.js" defer></script>
-<script src="js/main.js" defer></script>
+<script src="js/animations.js?v=3" defer></script>
+<script src="js/carousel.js?v=3" defer></script>
+<script src="js/projects.js?v=3" defer></script>
+<script src="js/modal.js?v=3" defer></script>
+<script src="js/main.js?v=3" defer></script>
 </body>
 </html>

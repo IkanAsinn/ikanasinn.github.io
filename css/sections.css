@@ -360,6 +360,11 @@
 }
 
 /* ---- Project detail modal ---- */
+/* A native <dialog> opened with showModal() lives in the top layer, so it can
+   never be laid out in the document flow — the failure mode of the previous
+   div-plus-class approach, which dumped the details under the carousel when a
+   cached stylesheet was missing. The closed state is the UA's
+   `dialog:not([open]) { display: none }`, so nothing here has to hide it. */
 body.is-modal-open {
   overflow: hidden;
 }
@@ -367,26 +372,25 @@ body.is-modal-open {
 .project-modal {
   position: fixed;
   inset: 0;
-  z-index: 200;
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  max-height: none;
+  margin: 0;
+  padding: clamp(1rem, 4vw, 3rem);
+  border: none;
+  background: transparent;
+  color: var(--color-text);
+  overflow: hidden;
+}
+
+.project-modal[open] {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: clamp(1rem, 4vw, 3rem);
-  opacity: 0;
-  transition: opacity var(--dur-fast) var(--ease-out);
 }
 
-.project-modal[hidden] {
-  display: none;
-}
-
-.project-modal.is-open {
-  opacity: 1;
-}
-
-.project-modal-backdrop {
-  position: absolute;
-  inset: 0;
+.project-modal::backdrop {
   background: rgba(5, 5, 5, 0.82);
   backdrop-filter: blur(6px);
 }
@@ -402,12 +406,21 @@ body.is-modal-open {
   overscroll-behavior: contain;
   background: var(--color-bg);
   border: 1px solid var(--color-border);
-  transform: translateY(12px);
-  transition: transform var(--dur-med) var(--ease-out);
 }
 
-.project-modal.is-open .project-modal-panel {
-  transform: translateY(0);
+.project-modal[open] .project-modal-panel {
+  animation: projectModalIn var(--dur-med) var(--ease-out);
+}
+
+@keyframes projectModalIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Corner brackets, echoing the portrait frame */
@@ -776,6 +789,9 @@ body.is-modal-open {
 
   .project-modal {
     padding: 0;
+  }
+
+  .project-modal[open] {
     align-items: stretch;
   }
 
