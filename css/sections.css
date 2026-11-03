@@ -592,6 +592,9 @@ body.is-modal-open {
   margin: 0;
   border: 1px solid var(--color-border);
   background: var(--color-bg-alt);
+  /* Clips the incoming frame so a slide reads as a move within the frame
+     instead of the image spilling over the arrows. */
+  overflow: hidden;
 }
 
 .project-modal-stage img {
@@ -600,6 +603,37 @@ body.is-modal-open {
   aspect-ratio: 16 / 10;
   object-fit: cover;
   object-position: top center;
+}
+
+/* Direction-aware step, matching the arrow that was pressed. */
+.project-modal-stage img.is-step-next {
+  animation: shotStepNext var(--dur-med) var(--ease-out);
+}
+
+.project-modal-stage img.is-step-prev {
+  animation: shotStepPrev var(--dur-med) var(--ease-out);
+}
+
+@keyframes shotStepNext {
+  from {
+    opacity: 0;
+    transform: translateX(14%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes shotStepPrev {
+  from {
+    opacity: 0;
+    transform: translateX(-14%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 /* A vertical screenshot (chat log) must be shown whole, not cropped. */

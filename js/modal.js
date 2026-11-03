@@ -38,12 +38,35 @@
     var lastFocused = null;
     var shots = [];
     var index = 0;
+    var preloaded = [];
 
     function pad(n) {
       return (n < 10 ? '0' : '') + n;
     }
 
-    function show(i) {
+    /**
+     * Fetch every slide up front. The stage img only starts downloading when
+     * its src is assigned, so without this each Next press waited on the
+     * network before it could paint.
+     */
+    function preloadAll(project) {
+      preloaded = project.shots.map(function (shot) {
+        var img = new Image();
+        img.decoding = 'async';
+        img.src = shot.src;
+        return img;
+      });
+    }
+
+    /** Slide the new frame in from the side it came from. */
+    function animateStep(direction) {
+      imageEl.classList.remove('is-step-next', 'is-step-prev');
+      // Force a style flush so the animation restarts on rapid presses.
+      void imageEl.offsetWidth;
+      imageEl.classList.add(direction > 0 ? 'is-step-next' : 'is-step-prev');
+    }
+
+    function show(i, direction) {
       if (!shots.length) return;
       // Wrap, so holding an arrow key cycles rather than dead-ends.
       index = (i + shots.length) % shots.length;
@@ -57,6 +80,7 @@
         dot.classList.toggle('is-active', di === index);
         dot.setAttribute('aria-current', di === index ? 'true' : 'false');
       });
+      if (direction) animateStep(direction);
     }
 
     function renderGallery(project) {
@@ -70,7 +94,10 @@
           dot.type = 'button';
           dot.className = 'project-modal-dot';
           dot.setAttribute('aria-label', 'Screenshot ' + (i + 1) + ': ' + shot.caption);
-          dot.addEventListener('click', function () { show(i); });
+          dot.addEventListener('click', function () {
+            if (i === index) return;
+            show(i, i > index ? 1 : -1);
+          });
           dotsEl.appendChild(dot);
         });
         dotsEl.hidden = false;
@@ -115,6 +142,7 @@
       });
 
       renderLinks(project);
+      preloadAll(project);
       renderGallery(project);
 
       lastFocused = document.activeElement;
@@ -144,8 +172,8 @@
       if (e.target === modal) close();
     });
 
-    modal.querySelector('[data-shot-prev]').addEventListener('click', function () { show(index - 1); });
-    modal.querySelector('[data-shot-next]').addEventListener('click', function () { show(index + 1); });
+    modal.querySelector('[data-shot-prev]').addEventListener('click', function () { show(index - 1, -1); });
+    modal.querySelector('[data-shot-next]').addEventListener('click', function () { show(index + 1, 1); });
 
     // Arrow keys drive the carousel. Nothing in the copy column is focusable,
     // so there is no scroll-versus-slide ambiguity to resolve.
@@ -153,7 +181,7 @@
       if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
       if (shots.length < 2) return;
       e.preventDefault();
-      show(index + (e.key === 'ArrowRight' ? 1 : -1));
+      show(index + (e.key === 'ArrowRight' ? 1 : -1), e.key === 'ArrowRight' ? 1 : -1);
     });
 
     document.querySelectorAll('[data-project-open]').forEach(function (btn) {
