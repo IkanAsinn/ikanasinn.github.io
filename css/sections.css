@@ -402,8 +402,7 @@ body.is-modal-open {
   width: 100%;
   max-width: 1180px;
   max-height: 100%;
-  overflow-y: auto;
-  overscroll-behavior: contain;
+  overflow: hidden;
   background: var(--color-bg);
   border: 1px solid var(--color-border);
 }
@@ -451,9 +450,7 @@ body.is-modal-open {
 }
 
 .project-modal-bar {
-  position: sticky;
-  top: 0;
-  z-index: 3;
+  flex: 0 0 auto;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -482,12 +479,36 @@ body.is-modal-open {
   color: var(--color-bg);
 }
 
+/* Only the copy column scrolls; the gallery keeps its place beside it. */
 .project-modal-body {
+  flex: 1 1 auto;
+  min-height: 0;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
   gap: clamp(1.5rem, 3vw, 3rem);
   padding: clamp(1.5rem, 3vw, 2.5rem);
-  align-items: start;
+  overflow: hidden;
+}
+
+.project-modal-copy {
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding-right: 0.75rem;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-border) transparent;
+}
+
+.project-modal-copy::-webkit-scrollbar {
+  width: 8px;
+}
+
+.project-modal-copy::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+}
+
+.project-modal-copy::-webkit-scrollbar-track {
+  background: transparent;
 }
 
 .project-modal-copy h3 {
@@ -560,14 +581,15 @@ body.is-modal-open {
 .project-modal-gallery {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  justify-content: center;
+  gap: 0.85rem;
   min-width: 0;
-  position: sticky;
-  top: 0;
-  align-self: start;
+  min-height: 0;
 }
 
 .project-modal-stage {
+  position: relative;
+  margin: 0;
   border: 1px solid var(--color-border);
   background: var(--color-bg-alt);
 }
@@ -586,12 +608,42 @@ body.is-modal-open {
   max-width: 100%;
   height: auto;
   aspect-ratio: auto;
-  max-height: min(62vh, 620px);
+  max-height: 52vh;
   margin: 0 auto;
   object-fit: contain;
 }
 
+.project-modal-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  color: var(--color-text);
+  background: rgba(13, 13, 13, 0.82);
+  border: 1px solid var(--color-border);
+  font-size: 1.15rem;
+  line-height: 1;
+  transition: background var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out);
+}
+
+.project-modal-nav:hover {
+  background: var(--color-text);
+  border-color: var(--color-text);
+  color: var(--color-bg);
+}
+
+.project-modal-nav--prev { left: 0.5rem; }
+.project-modal-nav--next { right: 0.5rem; }
+
 .project-modal-stage figcaption {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
   padding: 0.6rem 0.85rem;
   border-top: 1px solid var(--color-border);
   font-size: 0.7rem;
@@ -601,37 +653,36 @@ body.is-modal-open {
   color: var(--color-gray-mid);
 }
 
-.project-modal-thumbs {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 0.5rem;
+.project-modal-counter {
+  flex: 0 0 auto;
+  font-variant-numeric: tabular-nums;
 }
 
-.project-modal-thumb {
+.project-modal-dots {
+  display: flex;
+  justify-content: center;
+  gap: 0.45rem;
+}
+
+.project-modal-dot {
+  width: 22px;
+  height: 3px;
   padding: 0;
-  border: 1px solid var(--color-border);
-  background: var(--color-bg-alt);
-  overflow: hidden;
-  transition: border-color var(--dur-fast) var(--ease-out), opacity var(--dur-fast) var(--ease-out);
-  opacity: 0.55;
+  background: var(--color-border);
+  transition: background var(--dur-fast) var(--ease-out);
 }
 
-.project-modal-thumb img {
-  display: block;
-  width: 100%;
-  aspect-ratio: 16 / 10;
-  object-fit: cover;
-  object-position: top center;
+.project-modal-dot:hover {
+  background: var(--color-gray-mid);
 }
 
-.project-modal-thumb:hover,
-.project-modal-thumb.is-active {
-  border-color: var(--color-text);
-  opacity: 1;
+.project-modal-dot.is-active {
+  background: var(--color-text);
 }
 
 .project-modal-close:focus-visible,
-.project-modal-thumb:focus-visible,
+.project-modal-nav:focus-visible,
+.project-modal-dot:focus-visible,
 .project-modal-links a:focus-visible,
 [data-project-open]:focus-visible {
   outline: 2px solid var(--color-text);
@@ -805,14 +856,34 @@ body.is-modal-open {
 
   .project-modal-body {
     grid-template-columns: 1fr;
+    grid-template-rows: auto minmax(0, 1fr);
+    gap: 1.25rem;
+    padding: 1.25rem 1rem 1.5rem;
   }
 
-  .project-modal-thumbs {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-
+  /* The image stays on top and still; only the text below it scrolls. */
   .project-modal-gallery {
-    position: static;
+    order: -1;
+  }
+
+  .project-modal-stage.is-portrait img {
+    max-height: 34vh;
+  }
+
+  .project-modal-nav {
+    width: 34px;
+    height: 34px;
+  }
+
+  .project-modal-nav--prev { left: 0.35rem; }
+  .project-modal-nav--next { right: 0.35rem; }
+
+  .project-modal-dot {
+    width: 16px;
+  }
+
+  .project-modal-copy {
+    padding-right: 0.25rem;
   }
 
   .skills-grid {
@@ -884,7 +955,7 @@ body.is-modal-open {
   }
 
   .project-modal-body {
-    padding: 1.25rem 1rem 2rem;
+    padding: 1rem 1rem 1.25rem;
   }
 
   .carousel-arrow {

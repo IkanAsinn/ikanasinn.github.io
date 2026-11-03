@@ -8,10 +8,10 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/base.css?v=3">
-<link rel="stylesheet" href="css/layout.css?v=3">
-<link rel="stylesheet" href="css/sections.css?v=3">
-<link rel="stylesheet" href="css/animations.css?v=3">
+<link rel="stylesheet" href="css/base.css?v=4">
+<link rel="stylesheet" href="css/layout.css?v=4">
+<link rel="stylesheet" href="css/sections.css?v=4">
+<link rel="stylesheet" href="css/animations.css?v=4">
 </head>
 <body>
 
@@ -410,18 +410,27 @@
       <div class="project-modal-gallery">
         <figure class="project-modal-stage">
           <img id="project-modal-image" src="" alt="">
-          <figcaption class="mono-tag" id="project-modal-caption"></figcaption>
+          <button class="project-modal-nav project-modal-nav--prev" type="button" data-shot-prev aria-label="Previous screenshot">
+            <span aria-hidden="true">&lsaquo;</span>
+          </button>
+          <button class="project-modal-nav project-modal-nav--next" type="button" data-shot-next aria-label="Next screenshot">
+            <span aria-hidden="true">&rsaquo;</span>
+          </button>
+          <figcaption>
+            <span id="project-modal-caption"></span>
+            <span class="project-modal-counter mono-tag" id="project-modal-counter"></span>
+          </figcaption>
         </figure>
-        <div class="project-modal-thumbs" id="project-modal-thumbs" aria-label="Project screenshots"></div>
+        <div class="project-modal-dots" id="project-modal-dots" aria-label="Choose a screenshot"></div>
       </div>
     </div>
   </div>
 </dialog>
 
-<script src="js/animations.js?v=3" defer></script>
-<script src="js/carousel.js?v=3" defer></script>
-<script src="js/projects.js?v=3" defer></script>
-<script src="js/modal.js?v=3" defer></script>
-<script src="js/main.js?v=3" defer></script>
+<script src="js/animations.js?v=4" defer></script>
+<script src="js/carousel.js?v=4" defer></script>
+<script src="js/projects.js?v=4" defer></script>
+<script src="js/modal.js?v=4" defer></script>
+<script src="js/main.js?v=4" defer></script>
 </body>
 </html>

@@ -6,6 +6,9 @@
    browser's top layer, so it cannot be laid out in the document flow even if
    a stale stylesheet is served, and Escape, focus containment, and inertness
    of the page behind it come from the platform rather than from script.
+
+   Inside, only the copy column scrolls. The gallery is a fixed carousel with
+   arrows, dots, and arrow-key support, so text and image never drift apart.
    ========================================================================== */
 
 (function () {
@@ -26,39 +29,60 @@
     var linksEl = modal.querySelector('#project-modal-links');
     var imageEl = modal.querySelector('#project-modal-image');
     var captionEl = modal.querySelector('#project-modal-caption');
-    var thumbsEl = modal.querySelector('#project-modal-thumbs');
+    var counterEl = modal.querySelector('#project-modal-counter');
+    var dotsEl = modal.querySelector('#project-modal-dots');
     var stageEl = modal.querySelector('.project-modal-stage');
+    var copyEl = modal.querySelector('.project-modal-copy');
     var scrollContainer = document.getElementById('scroll-container');
 
     var lastFocused = null;
+    var shots = [];
+    var index = 0;
 
-    function setShot(shot, thumb) {
+    function pad(n) {
+      return (n < 10 ? '0' : '') + n;
+    }
+
+    function show(i) {
+      if (!shots.length) return;
+      // Wrap, so holding an arrow key cycles rather than dead-ends.
+      index = (i + shots.length) % shots.length;
+      var shot = shots[index];
       imageEl.src = shot.src;
       imageEl.alt = shot.alt;
       captionEl.textContent = shot.caption;
+      counterEl.textContent = pad(index + 1) + ' / ' + pad(shots.length);
       stageEl.classList.toggle('is-portrait', !!shot.portrait);
-      Array.prototype.forEach.call(thumbsEl.children, function (node) {
-        node.classList.toggle('is-active', node === thumb);
-        node.setAttribute('aria-pressed', node === thumb ? 'true' : 'false');
+      Array.prototype.forEach.call(dotsEl.children, function (dot, di) {
+        dot.classList.toggle('is-active', di === index);
+        dot.setAttribute('aria-current', di === index ? 'true' : 'false');
       });
     }
 
-    function renderShots(project) {
-      thumbsEl.innerHTML = '';
-      project.shots.forEach(function (shot, i) {
-        var thumb = document.createElement('button');
-        thumb.type = 'button';
-        thumb.className = 'project-modal-thumb';
-        thumb.setAttribute('aria-label', 'Screenshot ' + (i + 1) + ': ' + shot.caption);
-        var img = document.createElement('img');
-        img.src = shot.src;
-        img.alt = '';
-        img.loading = 'lazy';
-        thumb.appendChild(img);
-        thumb.addEventListener('click', function () { setShot(shot, thumb); });
-        thumbsEl.appendChild(thumb);
+    function renderGallery(project) {
+      shots = project.shots;
+      dotsEl.innerHTML = '';
+
+      // One dot per screenshot; a single shot needs no navigation at all.
+      if (shots.length > 1) {
+        shots.forEach(function (shot, i) {
+          var dot = document.createElement('button');
+          dot.type = 'button';
+          dot.className = 'project-modal-dot';
+          dot.setAttribute('aria-label', 'Screenshot ' + (i + 1) + ': ' + shot.caption);
+          dot.addEventListener('click', function () { show(i); });
+          dotsEl.appendChild(dot);
+        });
+        dotsEl.hidden = false;
+      } else {
+        dotsEl.hidden = true;
+      }
+
+      modal.querySelectorAll('[data-shot-prev], [data-shot-next]').forEach(function (btn) {
+        btn.hidden = shots.length < 2;
       });
-      setShot(project.shots[0], thumbsEl.firstElementChild);
+
+      show(0);
     }
 
     function renderLinks(project) {
@@ -91,9 +115,10 @@
       });
 
       renderLinks(project);
-      renderShots(project);
+      renderGallery(project);
 
       lastFocused = document.activeElement;
+      copyEl.scrollTop = 0;
       panel.scrollTop = 0;
       document.body.classList.add('is-modal-open');
       // The scroll-snap container keeps scrolling behind a top-layer dialog.
@@ -117,6 +142,18 @@
     // panel stops it by being a descendant.
     modal.addEventListener('click', function (e) {
       if (e.target === modal) close();
+    });
+
+    modal.querySelector('[data-shot-prev]').addEventListener('click', function () { show(index - 1); });
+    modal.querySelector('[data-shot-next]').addEventListener('click', function () { show(index + 1); });
+
+    // Arrow keys drive the carousel. Nothing in the copy column is focusable,
+    // so there is no scroll-versus-slide ambiguity to resolve.
+    modal.addEventListener('keydown', function (e) {
+      if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
+      if (shots.length < 2) return;
+      e.preventDefault();
+      show(index + (e.key === 'ArrowRight' ? 1 : -1));
     });
 
     document.querySelectorAll('[data-project-open]').forEach(function (btn) {
