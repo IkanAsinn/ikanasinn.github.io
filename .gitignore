@@ -1,0 +1,5 @@
+# Local agent/MCP configuration, not part of the published site.
+.omp/
+
+# Local screenshot scratch space
+tmp-shots/

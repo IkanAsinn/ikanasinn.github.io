@@ -193,6 +193,31 @@
         <div class="carousel-track" data-carousel-track>
 
           <article class="project-card" data-carousel-item>
+            <img class="project-thumb" src="assets/img/project-xpense.png" alt="Xpense expense dashboard with monthly totals and category breakdowns">
+            <div class="project-body">
+              <span class="mono-tag">FULL-STACK &middot; FINANCE</span>
+              <h3>Xpense &mdash; Expense Tracker</h3>
+              <p>An expense tracker for Indonesian Rupiah with receipt scanning,
+                split bills, and a Telegram assistant that records spending from
+                chat &mdash; no app required.</p>
+              <span class="project-stack mono-tag">NUXT &middot; .NET 10 &middot; POSTGRESQL</span>
+              <button class="btn-primary project-link" type="button" data-project-open="xpense">View details</button>
+            </div>
+          </article>
+
+          <article class="project-card" data-carousel-item>
+            <img class="project-thumb" src="assets/img/project-specforge.png" alt="SpecForge landing page with the tagline your idea survives the interview">
+            <div class="project-body">
+              <span class="mono-tag">FULL-STACK &middot; AI TOOLING</span>
+              <h3>SpecForge &mdash; Idea to Executable Spec</h3>
+              <p>Turns a one-line idea into a PRD an autonomous coding agent can
+                execute, then tracks every task the agent claims and ships.</p>
+              <span class="project-stack mono-tag">NEXT.JS &middot; TYPESCRIPT &middot; POSTGRESQL</span>
+              <button class="btn-primary project-link" type="button" data-project-open="specforge">View details</button>
+            </div>
+          </article>
+
+          <article class="project-card" data-carousel-item>
             <img class="project-thumb" src="assets/img/project-landing-page.png" alt="Coffee roastery landing page screenshot">
             <div class="project-body">
               <span class="mono-tag">FRONT-END &middot; AGENTIC AI</span>
@@ -359,8 +384,45 @@
 
 </main>
 
+<div class="project-modal" id="project-modal" role="dialog" aria-modal="true" aria-labelledby="project-modal-title" hidden>
+  <div class="project-modal-backdrop" data-project-close></div>
+  <div class="project-modal-panel" role="document">
+    <div class="project-modal-bar">
+      <span class="mono-tag" id="project-modal-tag"></span>
+      <button class="project-modal-close" type="button" aria-label="Close project details" data-project-close>
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+
+    <div class="project-modal-body">
+      <div class="project-modal-copy">
+        <h3 id="project-modal-title"></h3>
+        <p class="project-modal-summary" id="project-modal-summary"></p>
+
+        <h4 class="project-modal-heading">Key features</h4>
+        <ul class="project-modal-features" id="project-modal-features"></ul>
+
+        <h4 class="project-modal-heading">Stack</h4>
+        <p class="project-stack mono-tag" id="project-modal-stack"></p>
+
+        <p class="project-modal-links" id="project-modal-links"></p>
+      </div>
+
+      <div class="project-modal-gallery">
+        <figure class="project-modal-stage">
+          <img id="project-modal-image" src="" alt="">
+          <figcaption class="mono-tag" id="project-modal-caption"></figcaption>
+        </figure>
+        <div class="project-modal-thumbs" id="project-modal-thumbs" aria-label="Project screenshots"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script src="js/animations.js" defer></script>
 <script src="js/carousel.js" defer></script>
+<script src="js/projects.js" defer></script>
+<script src="js/modal.js" defer></script>
 <script src="js/main.js" defer></script>
 </body>
 </html>

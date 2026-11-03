@@ -292,6 +292,10 @@
   margin-bottom: 1rem;
 }
 
+.project-body .project-stack {
+  display: block;
+}
+
 .project-link {
   display: inline-block;
   margin-top: 1rem;
@@ -353,6 +357,272 @@
 
 .carousel-dots {
   display: none;
+}
+
+/* ---- Project detail modal ---- */
+body.is-modal-open {
+  overflow: hidden;
+}
+
+.project-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(1rem, 4vw, 3rem);
+  opacity: 0;
+  transition: opacity var(--dur-fast) var(--ease-out);
+}
+
+.project-modal[hidden] {
+  display: none;
+}
+
+.project-modal.is-open {
+  opacity: 1;
+}
+
+.project-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(5, 5, 5, 0.82);
+  backdrop-filter: blur(6px);
+}
+
+.project-modal-panel {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 1180px;
+  max-height: 100%;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  transform: translateY(12px);
+  transition: transform var(--dur-med) var(--ease-out);
+}
+
+.project-modal.is-open .project-modal-panel {
+  transform: translateY(0);
+}
+
+/* Corner brackets, echoing the portrait frame */
+.project-modal-panel::before,
+.project-modal-panel::after {
+  content: '';
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--color-text);
+  opacity: 0.9;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.project-modal-panel::before {
+  top: -2px;
+  left: -2px;
+  border-right: none;
+  border-bottom: none;
+}
+
+.project-modal-panel::after {
+  bottom: -2px;
+  right: -2px;
+  border-left: none;
+  border-top: none;
+}
+
+.project-modal-bar {
+  position: sticky;
+  top: 0;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.9rem 1.5rem;
+  background: var(--color-bg);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.project-modal-close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+  font-size: 1.35rem;
+  line-height: 1;
+  transition: background var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out);
+}
+
+.project-modal-close:hover {
+  background: var(--color-text);
+  border-color: var(--color-text);
+  color: var(--color-bg);
+}
+
+.project-modal-body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+  gap: clamp(1.5rem, 3vw, 3rem);
+  padding: clamp(1.5rem, 3vw, 2.5rem);
+  align-items: start;
+}
+
+.project-modal-copy h3 {
+  font-size: clamp(1.5rem, 2.4vw, 2.1rem);
+  margin-bottom: 1rem;
+}
+
+.project-modal-summary {
+  color: var(--color-text-muted);
+  font-size: 0.95rem;
+  line-height: 1.65;
+}
+
+.project-modal-heading {
+  margin: 1.75rem 0 0.75rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--color-gray-mid);
+}
+
+.project-modal-features {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.project-modal-features li {
+  position: relative;
+  padding-left: 1.15rem;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--color-text-muted);
+}
+
+.project-modal-features li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.62em;
+  width: 6px;
+  height: 6px;
+  background: var(--color-text);
+  opacity: 0.55;
+}
+
+.project-modal-links {
+  margin-top: 1.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--color-border);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.project-modal-links a {
+  color: var(--color-text);
+  border-bottom: 1px solid var(--color-border);
+  transition: border-color var(--dur-fast) var(--ease-out);
+}
+
+.project-modal-links a:hover {
+  border-color: var(--color-text);
+}
+
+.project-modal-gallery {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  min-width: 0;
+  position: sticky;
+  top: 0;
+  align-self: start;
+}
+
+.project-modal-stage {
+  border: 1px solid var(--color-border);
+  background: var(--color-bg-alt);
+}
+
+.project-modal-stage img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  object-position: top center;
+}
+
+/* A vertical screenshot (chat log) must be shown whole, not cropped. */
+.project-modal-stage.is-portrait img {
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  aspect-ratio: auto;
+  max-height: min(62vh, 620px);
+  margin: 0 auto;
+  object-fit: contain;
+}
+
+.project-modal-stage figcaption {
+  padding: 0.6rem 0.85rem;
+  border-top: 1px solid var(--color-border);
+  font-size: 0.7rem;
+  line-height: 1.5;
+  letter-spacing: 0.04em;
+  text-transform: none;
+  color: var(--color-gray-mid);
+}
+
+.project-modal-thumbs {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.5rem;
+}
+
+.project-modal-thumb {
+  padding: 0;
+  border: 1px solid var(--color-border);
+  background: var(--color-bg-alt);
+  overflow: hidden;
+  transition: border-color var(--dur-fast) var(--ease-out), opacity var(--dur-fast) var(--ease-out);
+  opacity: 0.55;
+}
+
+.project-modal-thumb img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  object-position: top center;
+}
+
+.project-modal-thumb:hover,
+.project-modal-thumb.is-active {
+  border-color: var(--color-text);
+  opacity: 1;
+}
+
+.project-modal-close:focus-visible,
+.project-modal-thumb:focus-visible,
+.project-modal-links a:focus-visible,
+[data-project-open]:focus-visible {
+  outline: 2px solid var(--color-text);
+  outline-offset: 3px;
 }
 
 /* ---- Skills ---- */
@@ -504,6 +774,31 @@
     gap: 1.5rem;
   }
 
+  .project-modal {
+    padding: 0;
+    align-items: stretch;
+  }
+
+  .project-modal-panel {
+    max-width: none;
+    border-left: none;
+    border-right: none;
+    border-top: none;
+    max-height: 100dvh;
+  }
+
+  .project-modal-body {
+    grid-template-columns: 1fr;
+  }
+
+  .project-modal-thumbs {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .project-modal-gallery {
+    position: static;
+  }
+
   .skills-grid {
     grid-template-columns: 1fr;
     gap: 1.75rem;
@@ -566,6 +861,14 @@
   .timeline-logo {
     width: 44px;
     height: 44px;
+  }
+
+  .project-modal-bar {
+    padding: 0.75rem 1rem;
+  }
+
+  .project-modal-body {
+    padding: 1.25rem 1rem 2rem;
   }
 
   .carousel-arrow {
