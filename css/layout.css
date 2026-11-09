@@ -143,7 +143,9 @@
   transition: transform 0.45s var(--ease-out);
 }
 
-.nav-list a:hover { color: var(--paper); }
+@media (hover: hover) and (pointer: fine) {
+  .nav-list a:hover { color: var(--paper); }
+}
 
 .nav-list a.is-active { color: var(--ink); }
 .nav-list a.is-active .nav-index { color: var(--ink); }

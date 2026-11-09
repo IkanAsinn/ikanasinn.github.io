@@ -75,7 +75,8 @@
       // Scramble the label on hover, like a terminal re-reading it.
       var text = link.querySelector('.nav-text');
       if (text && !reduceMotion) {
-        link.addEventListener('mouseenter', function () {
+        link.addEventListener('pointerenter', function (e) {
+          if (e.pointerType !== 'mouse') return;
           if (window.decryptText) window.decryptText(text, 420);
         });
       }
@@ -109,7 +110,9 @@
 
       function want(on) { wanted = on; settle(); }
 
-      link.addEventListener('pointerenter', function () { want(true); });
+      // Mouse only: on touch a hover effect makes iOS Safari treat the tap as
+      // a hover and drop the click.
+      link.addEventListener('pointerenter', function (e) { if (e.pointerType === 'mouse') want(true); });
       link.addEventListener('pointerleave', function () { want(false); });
       link.addEventListener('focus', function () { if (link.matches(':focus-visible')) want(true); });
       link.addEventListener('blur', function () { want(false); });

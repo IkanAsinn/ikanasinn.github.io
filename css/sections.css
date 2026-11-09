@@ -50,13 +50,19 @@
 
 .btn-ghost::before { background: var(--paper); }
 
-.btn-primary:hover { color: var(--paper); }
-.btn-ghost:hover { color: var(--ink); border-color: var(--paper); }
+@media (hover: hover) and (pointer: fine) {
+  .btn-primary:hover { color: var(--paper); }
+}
+@media (hover: hover) and (pointer: fine) {
+  .btn-ghost:hover { color: var(--ink); border-color: var(--paper); }
+}
 
-.btn-primary:hover::before,
-.btn-ghost:hover::before {
-  transform: scaleX(1);
-  transform-origin: left;
+@media (hover: hover) and (pointer: fine) {
+  .btn-primary:hover::before,
+  .btn-ghost:hover::before {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
 }
 
 .btn-primary:active,
@@ -69,7 +75,9 @@
   transition: transform 0.45s var(--ease-spring);
 }
 
-.btn-primary:hover .btn-arrow { transform: translateX(4px); }
+@media (hover: hover) and (pointer: fine) {
+  .btn-primary:hover .btn-arrow { transform: translateX(4px); }
+}
 
 /* --------------------------------------------------------------------------
    01 — Home / Subject
@@ -123,8 +131,10 @@
   transition: background-size 0.7s var(--ease-out);
 }
 
-.home-title:has(.home-first:hover, .home-last:hover) .home-last {
-  background-size: 100% 100%;
+@media (hover: hover) and (pointer: fine) {
+  .home-title:has(.home-first:hover, .home-last:hover) .home-last {
+    background-size: 100% 100%;
+  }
 }
 
 .lens-char {
@@ -375,9 +385,11 @@
 
 .is-visible .redact { background-size: 0% 100%, 100% 1px; }
 
-.redact:hover {
-  background-color: var(--paper);
-  color: var(--ink);
+@media (hover: hover) and (pointer: fine) {
+  .redact:hover {
+    background-color: var(--paper);
+    color: var(--ink);
+  }
 }
 
 .dossier {
@@ -524,9 +536,11 @@
   transition: opacity 0.4s var(--ease-out), transform 0.6s var(--ease-out);
 }
 
-.timeline-item:hover::after {
-  opacity: 1;
-  transform: scaleX(1);
+@media (hover: hover) and (pointer: fine) {
+  .timeline-item:hover::after {
+    opacity: 1;
+    transform: scaleX(1);
+  }
 }
 
 .timeline-logo {
@@ -541,7 +555,9 @@
   transition: filter var(--dur-med) var(--ease-out);
 }
 
-.timeline-item:hover .timeline-logo { filter: grayscale(0) contrast(1); }
+@media (hover: hover) and (pointer: fine) {
+  .timeline-item:hover .timeline-logo { filter: grayscale(0) contrast(1); }
+}
 
 .timeline-body {
   display: grid;
@@ -652,7 +668,9 @@
   transition: filter 0.6s var(--ease-out), clip-path 0.9s var(--ease-in-out);
 }
 
-.project-card:hover .project-thumb { filter: grayscale(0) contrast(1); }
+@media (hover: hover) and (pointer: fine) {
+  .project-card:hover .project-thumb { filter: grayscale(0) contrast(1); }
+}
 
 /* Light bar that sweeps the exhibit when its case comes up */
 .project-media::after {
@@ -769,14 +787,20 @@
   transition: transform 0.35s var(--ease-spring);
 }
 
-.carousel-arrow:hover {
-  background: var(--paper);
-  border-color: var(--paper);
-  color: var(--ink);
+@media (hover: hover) and (pointer: fine) {
+  .carousel-arrow:hover {
+    background: var(--paper);
+    border-color: var(--paper);
+    color: var(--ink);
+  }
 }
 
-.carousel-arrow--prev:hover svg { transform: translateX(-3px); }
-.carousel-arrow--next:hover svg { transform: translateX(3px); }
+@media (hover: hover) and (pointer: fine) {
+  .carousel-arrow--prev:hover svg { transform: translateX(-3px); }
+}
+@media (hover: hover) and (pointer: fine) {
+  .carousel-arrow--next:hover svg { transform: translateX(3px); }
+}
 .carousel-arrow:active { transform: scale(0.94); }
 
 .carousel-count {
@@ -904,13 +928,17 @@ body.is-modal-open { overflow: hidden; }
   transition: transform 0.4s var(--ease-spring);
 }
 
-.project-modal-close:hover {
-  background: var(--paper);
-  border-color: var(--paper);
-  color: var(--ink);
+@media (hover: hover) and (pointer: fine) {
+  .project-modal-close:hover {
+    background: var(--paper);
+    border-color: var(--paper);
+    color: var(--ink);
+  }
 }
 
-.project-modal-close:hover svg { transform: rotate(90deg); }
+@media (hover: hover) and (pointer: fine) {
+  .project-modal-close:hover svg { transform: rotate(90deg); }
+}
 
 /* Only the copy column scrolls; the gallery keeps its place beside it. */
 .project-modal-body {
@@ -1012,9 +1040,11 @@ body.is-modal-open { overflow: hidden; }
   transition: background var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out);
 }
 
-.project-modal-links a:hover {
-  background: var(--paper);
-  color: var(--ink);
+@media (hover: hover) and (pointer: fine) {
+  .project-modal-links a:hover {
+    background: var(--paper);
+    color: var(--ink);
+  }
 }
 
 .project-modal-gallery {
@@ -1088,10 +1118,12 @@ body.is-modal-open { overflow: hidden; }
 
 .project-modal-nav svg { width: 18px; height: 18px; }
 
-.project-modal-nav:hover {
-  background: var(--paper);
-  border-color: var(--paper);
-  color: var(--ink);
+@media (hover: hover) and (pointer: fine) {
+  .project-modal-nav:hover {
+    background: var(--paper);
+    border-color: var(--paper);
+    color: var(--ink);
+  }
 }
 
 .project-modal-nav--prev { left: 0.5rem; }
@@ -1139,7 +1171,9 @@ body.is-modal-open { overflow: hidden; }
   transition: background var(--dur-fast) var(--ease-out);
 }
 
-.project-modal-dot:hover::before { background: var(--paper-faint); }
+@media (hover: hover) and (pointer: fine) {
+  .project-modal-dot:hover::before { background: var(--paper-faint); }
+}
 .project-modal-dot.is-active::before { background: var(--paper); }
 
 /* --------------------------------------------------------------------------
@@ -1172,7 +1206,9 @@ body.is-modal-open { overflow: hidden; }
   transition: transform 0.6s var(--ease-out);
 }
 
-.skill-category:hover::after { transform: scaleX(1); }
+@media (hover: hover) and (pointer: fine) {
+  .skill-category:hover::after { transform: scaleX(1); }
+}
 
 .skill-category h3 {
   display: flex;
@@ -1185,7 +1221,9 @@ body.is-modal-open { overflow: hidden; }
 }
 
 .skill-code { transition: color var(--dur-fast) var(--ease-out); }
-.skill-category:hover .skill-code { color: var(--paper); }
+@media (hover: hover) and (pointer: fine) {
+  .skill-category:hover .skill-code { color: var(--paper); }
+}
 
 .pill-list {
   display: flex;
@@ -1218,12 +1256,16 @@ body.is-modal-open { overflow: hidden; }
   transition: transform 0.35s var(--ease-out);
 }
 
-.pill:hover {
-  color: var(--ink);
-  border-color: var(--paper);
+@media (hover: hover) and (pointer: fine) {
+  .pill:hover {
+    color: var(--ink);
+    border-color: var(--paper);
+  }
 }
 
-.pill:hover::before { transform: translateY(0); }
+@media (hover: hover) and (pointer: fine) {
+  .pill:hover::before { transform: translateY(0); }
+}
 
 /* --------------------------------------------------------------------------
    06 — Contact / Secure channel
@@ -1300,7 +1342,9 @@ body.is-modal-open { overflow: hidden; }
   transition: transform 0.5s var(--ease-spring);
 }
 
-.contact-link:hover .contact-arrow { transform: translate(3px, -3px); }
+@media (hover: hover) and (pointer: fine) {
+  .contact-link:hover .contact-arrow { transform: translate(3px, -3px); }
+}
 
 .contact-footer {
   display: flex;
@@ -1317,9 +1361,11 @@ body.is-modal-open { overflow: hidden; }
   transition: color var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out);
 }
 
-.contact-top:hover {
-  color: var(--paper);
-  border-color: var(--paper);
+@media (hover: hover) and (pointer: fine) {
+  .contact-top:hover {
+    color: var(--paper);
+    border-color: var(--paper);
+  }
 }
 
 /* Evidence tape running along the bottom of the last page */

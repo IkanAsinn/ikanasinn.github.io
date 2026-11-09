@@ -176,9 +176,11 @@
   100% { background-size: 0% 100%; background-position: right; }
 }
 
-.home-title:has(.home-first:hover, .home-last:hover) .home-title-row.is-visible .home-last {
-  animation: none;
-  background-size: 100% 100%;
+@media (hover: hover) and (pointer: fine) {
+  .home-title:has(.home-first:hover, .home-last:hover) .home-title-row.is-visible .home-last {
+    animation: none;
+    background-size: 100% 100%;
+  }
 }
 
 /* Target box acquires the face */
