@@ -1,5 +1,5 @@
 /* ==========================================================================
-   boot.js — "secure terminal" intro. Plays once per session, skippable with
+   boot.js — "secure terminal" intro. Plays on every load, skippable with
    any key, click or tap. Fires `boot:done` on document when the shutters
    start to part, so the hero choreography plays as the page is revealed.
    ========================================================================== */
@@ -62,7 +62,6 @@
     if (finished) return;
     finished = true;
     timers.forEach(clearTimeout);
-    try { sessionStorage.setItem('bh-boot', '1'); } catch (e) {}
 
     boot.classList.add('is-opening');
     // Let the seam flash before the page starts animating behind the shutters.

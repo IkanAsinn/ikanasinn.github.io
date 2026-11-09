@@ -137,6 +137,21 @@
   transform: scaleX(0);
 }
 
+/* Decrypting text: the hidden ghost sets the size, the live copy scrambles
+   on top of it, so scrambling never moves the layout. */
+.decrypt {
+  position: relative;
+  display: inline-block;
+  max-width: 100%;
+}
+
+.decrypt-ghost { visibility: hidden; }
+
+.decrypt-live {
+  position: absolute;
+  inset: 0;
+}
+
 /* Glyphs that have not decrypted yet */
 .decrypt-glyph {
   color: var(--paper-faint);

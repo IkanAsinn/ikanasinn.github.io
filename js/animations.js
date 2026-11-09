@@ -45,16 +45,26 @@
   function prepareDecrypt(el) {
     if (el.__decrypt) return el.__decrypt;
     var label = el.textContent.replace(/\s+/g, ' ').trim();
+    // An invisible copy of the real text holds the layout; the scramble runs
+    // in a copy laid over it. Random glyphs are wider or narrower than the
+    // real ones, and scrambling in flow re-wrapped lines and resized the page.
     var visual = document.createElement('span');
+    visual.className = 'decrypt';
     visual.setAttribute('aria-hidden', 'true');
-    while (el.firstChild) visual.appendChild(el.firstChild);
+    var live = document.createElement('span');
+    live.className = 'decrypt-live';
+    while (el.firstChild) live.appendChild(el.firstChild);
+    var ghost = live.cloneNode(true);
+    ghost.className = 'decrypt-ghost';
+    visual.appendChild(ghost);
+    visual.appendChild(live);
     var sr = document.createElement('span');
     sr.className = 'sr-only';
     sr.textContent = label;
     el.appendChild(sr);
     el.appendChild(visual);
 
-    var nodes = textNodesOf(visual);
+    var nodes = textNodesOf(live);
     el.__decrypt = {
       nodes: nodes,
       originals: nodes.map(function (n) { return n.data; })

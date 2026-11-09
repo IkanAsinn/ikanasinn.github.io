@@ -17,20 +17,17 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&family=IBM+Plex+Mono:wght@400;500;600&family=Instrument+Serif:ital@1&display=swap" rel="stylesheet">
 <script>
-  /* Decide before first paint whether the boot sequence plays: once per
-     session, never with reduced motion. */
+  /* Decide before first paint whether the boot sequence plays: on every
+     load, except with reduced motion. */
   (function () {
-    var d = document.documentElement;
-    var skip = false;
-    try { skip = !!sessionStorage.getItem('bh-boot'); } catch (e) {}
-    if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) skip = true;
-    if (!skip) d.classList.add('is-booting');
+    var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!reduce) document.documentElement.classList.add('is-booting');
   })();
 </script>
-<link rel="stylesheet" href="css/base.css?v=8">
-<link rel="stylesheet" href="css/layout.css?v=8">
-<link rel="stylesheet" href="css/sections.css?v=8">
-<link rel="stylesheet" href="css/animations.css?v=8">
+<link rel="stylesheet" href="css/base.css?v=9">
+<link rel="stylesheet" href="css/layout.css?v=9">
+<link rel="stylesheet" href="css/sections.css?v=9">
+<link rel="stylesheet" href="css/animations.css?v=9">
 </head>
 <body>
 
@@ -301,7 +298,7 @@
 
             <article class="project-card" data-carousel-item>
               <div class="project-media">
-                <img class="project-thumb" src="assets/img/project-xpense.png?v=8" alt="Xpense investments page with a Bitcoin market price chart in Rupiah">
+                <img class="project-thumb" src="assets/img/project-xpense.png?v=9" alt="Xpense investments page with a Bitcoin market price chart in Rupiah">
                 <span class="project-exhibit mono-tag">Exhibit A</span>
               </div>
               <div class="project-body">
@@ -601,12 +598,12 @@
   </div>
 </dialog>
 
-<script src="js/boot.js?v=8" defer></script>
-<script src="js/animations.js?v=8" defer></script>
-<script src="js/carousel.js?v=8" defer></script>
-<script src="js/projects.js?v=8" defer></script>
-<script src="js/modal.js?v=8" defer></script>
-<script src="js/main.js?v=8" defer></script>
-<script src="js/cursor.js?v=8" defer></script>
+<script src="js/boot.js?v=9" defer></script>
+<script src="js/animations.js?v=9" defer></script>
+<script src="js/carousel.js?v=9" defer></script>
+<script src="js/projects.js?v=9" defer></script>
+<script src="js/modal.js?v=9" defer></script>
+<script src="js/main.js?v=9" defer></script>
+<script src="js/cursor.js?v=9" defer></script>
 </body>
 </html>
