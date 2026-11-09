@@ -112,7 +112,8 @@
 }
 
 /* The surname sits in outline; a fill sweeps through it on arrival and
-   comes back to stay while the name is hovered. */
+   comes back to stay while the name itself (not the empty row
+   beside it) is hovered. */
 .home-last {
   color: transparent;
   -webkit-text-stroke: 1.5px var(--paper);
@@ -122,7 +123,7 @@
   transition: background-size 0.7s var(--ease-out);
 }
 
-.home-title:hover .home-last {
+.home-title:has(.home-first:hover, .home-last:hover) .home-last {
   background-size: 100% 100%;
 }
 

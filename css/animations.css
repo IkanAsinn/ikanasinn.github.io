@@ -176,7 +176,7 @@
   100% { background-size: 0% 100%; background-position: right; }
 }
 
-.home-title:hover .home-title-row.is-visible .home-last {
+.home-title:has(.home-first:hover, .home-last:hover) .home-title-row.is-visible .home-last {
   animation: none;
   background-size: 100% 100%;
 }
