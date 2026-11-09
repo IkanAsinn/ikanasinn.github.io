@@ -60,16 +60,37 @@
     }
 
     // --- Smooth scroll for nav + CTA links ---
+    // Scrolls the section container directly. scrollIntoView is unreliable in
+    // iOS Safari when the page scrolls inside a container (body is
+    // overflow: hidden), and Safari can drop a smooth scroll outright, e.g.
+    // while a fling is still settling; if it never starts, jump instead.
+    var scroller = document.getElementById('scroll-container');
+    var scrollCheck = null;
+
     function scrollToSection(id) {
       var target = document.getElementById(id);
-      if (target) target.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth' });
+      if (!target) return;
+      if (!scroller || scroller.scrollHeight <= scroller.clientHeight) {
+        target.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth' });
+        return;
+      }
+      var top = scroller.scrollTop + target.getBoundingClientRect().top - scroller.getBoundingClientRect().top;
+      var from = scroller.scrollTop;
+      if (Math.abs(top - from) < 2) return;
+      scroller.scrollTo({ top: top, behavior: reduceMotion ? 'auto' : 'smooth' });
+      clearTimeout(scrollCheck);
+      scrollCheck = setTimeout(function () {
+        if (Math.abs(scroller.scrollTop - from) < 2) scroller.scrollTop = top;
+      }, 350);
     }
 
     navLinks.forEach(function (link) {
       link.addEventListener('click', function (e) {
         e.preventDefault();
-        scrollToSection(link.getAttribute('data-nav'));
+        // Close first: the drawer animating out must not compete with the scroll.
         closeMobileNav();
+        var id = link.getAttribute('data-nav');
+        requestAnimationFrame(function () { scrollToSection(id); });
       });
 
       // Scramble the label on hover, like a terminal re-reading it.
