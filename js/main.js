@@ -88,6 +88,33 @@
       });
     });
 
+    // --- Contact rows: the inverting bar always finishes its wipe ---
+    // Each wipe runs to the end; if the pointer has left (or come back) by
+    // then, the opposite wipe follows. Hover alone would reverse the bar
+    // mid-wipe and make it jump to the other side.
+    document.querySelectorAll('.contact-link').forEach(function (link) {
+      var wanted = false;
+      var lit = false;
+      var busy = null;
+
+      function settle() {
+        if (busy || wanted === lit) return;
+        lit = wanted;
+        link.classList.toggle('is-lit', lit);
+        link.classList.toggle('is-leaving', !lit);
+        // Matches the 0.6s transition in sections.css; a timer instead of
+        // transitionend so reduced-motion (no transition) still settles.
+        busy = setTimeout(function () { busy = null; settle(); }, reduceMotion ? 0 : 680);
+      }
+
+      function want(on) { wanted = on; settle(); }
+
+      link.addEventListener('pointerenter', function () { want(true); });
+      link.addEventListener('pointerleave', function () { want(false); });
+      link.addEventListener('focus', function () { if (link.matches(':focus-visible')) want(true); });
+      link.addEventListener('blur', function () { want(false); });
+    });
+
     // --- HUD clock ---
     if (hudClock) {
       var tick = function () {

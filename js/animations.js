@@ -66,10 +66,41 @@
 
     var nodes = textNodesOf(live);
     el.__decrypt = {
+      live: live,
+      ghostNodes: textNodesOf(ghost),
       nodes: nodes,
       originals: nodes.map(function (n) { return n.data; })
     };
     return el.__decrypt;
+  }
+
+  // Where the real text wraps right now: the whitespace that starts each new
+  // line, as "nodeIndex:charIndex" keys. The scramble breaks only there, so
+  // wider random glyphs can never push a word onto an extra line.
+  function lineBreaksOf(state) {
+    var breaks = {};
+    var range = document.createRange();
+    var lastTop = null;
+    var pending = null;
+    var prevSpace = true;
+    state.ghostNodes.forEach(function (node, ni) {
+      var text = node.data;
+      for (var i = 0; i < text.length; i++) {
+        if (/\s/.test(text.charAt(i))) {
+          if (!prevSpace) pending = ni + ':' + i;
+          prevSpace = true;
+          continue;
+        }
+        prevSpace = false;
+        range.setStart(node, i);
+        range.setEnd(node, i + 1);
+        var top = range.getBoundingClientRect().top;
+        if (lastTop !== null && top > lastTop + 2 && pending) breaks[pending] = true;
+        lastTop = top;
+        pending = null;
+      }
+    });
+    return breaks;
   }
 
   function decrypt(el, duration) {
@@ -89,6 +120,9 @@
       return times;
     });
 
+    var breaks = lineBreaksOf(state);
+    state.live.classList.add('is-scrambling');
+
     var start = null;
     var lastSwap = 0;
 
@@ -102,6 +136,9 @@
       }
       lastSwap = now;
       var finished = true;
+      // The live copy is white-space: pre while scrambling, so whitespace is
+      // collapsed here by hand and the measured breaks become newlines.
+      var prevSpace = true;
 
       state.nodes.forEach(function (node, ni) {
         var original = state.originals[ni];
@@ -109,7 +146,13 @@
         var out = '';
         for (var i = 0; i < original.length; i++) {
           var ch = original.charAt(i);
-          if (elapsed >= times[i] || ch === ' ' || ch === '\n') {
+          if (/\s/.test(ch)) {
+            if (!prevSpace) out += breaks[ni + ':' + i] ? '\n' : ' ';
+            prevSpace = true;
+            continue;
+          }
+          prevSpace = false;
+          if (elapsed >= times[i]) {
             out += ch;
           } else {
             out += randomFor(ch);
@@ -123,6 +166,7 @@
         state.running = requestAnimationFrame(frame);
       } else {
         state.nodes.forEach(function (node, ni) { node.data = state.originals[ni]; });
+        state.live.classList.remove('is-scrambling');
         state.running = null;
       }
     }

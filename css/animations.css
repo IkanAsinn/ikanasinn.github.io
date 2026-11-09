@@ -152,6 +152,10 @@
   inset: 0;
 }
 
+/* While scrambling, lines break only where the real text breaks (animations.js
+   inserts the newlines), so wider random glyphs never add a line. */
+.decrypt-live.is-scrambling { white-space: pre; }
+
 /* Glyphs that have not decrypted yet */
 .decrypt-glyph {
   color: var(--paper-faint);

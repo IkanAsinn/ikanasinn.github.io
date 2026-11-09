@@ -350,28 +350,29 @@
 
 /* Redacted phrases: covered by a bar that peels off once the paragraph is
    in view. Hover inverts them, like running a highlighter over the line. */
+/* The bar is a background, and box-decoration-break: clone gives every
+   line of a wrapped phrase its own bar, so the cover fits each line. */
 .redact {
-  position: relative;
-  background: linear-gradient(var(--line-strong), var(--line-strong)) left bottom / 100% 1px no-repeat;
+  background-image:
+    linear-gradient(var(--paper), var(--paper)),
+    linear-gradient(var(--line-strong), var(--line-strong));
+  background-position: right center, left bottom;
+  background-size: 100% 100%, 100% 1px;
+  background-repeat: no-repeat;
+  /* <mark> defaults to a yellow highlight; keep only the bar and underline */
+  background-color: transparent;
   color: var(--paper);
   font-weight: 500;
-  padding: 0 0.05em;
-  transition: background-color var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out);
+  padding: 0.04em 0.08em;
+  transition:
+    background-size 0.7s var(--ease-in-out) var(--redact-delay, 0.5s),
+    background-color var(--dur-fast) var(--ease-out),
+    color var(--dur-fast) var(--ease-out);
   -webkit-box-decoration-break: clone;
           box-decoration-break: clone;
 }
 
-.redact::after {
-  content: '';
-  position: absolute;
-  inset: -0.08em -0.12em;
-  background: var(--paper);
-  transform-origin: right;
-  transition: transform 0.7s var(--ease-in-out);
-  transition-delay: var(--redact-delay, 0.5s);
-}
-
-.is-visible .redact::after { transform: scaleX(0); }
+.is-visible .redact { background-size: 0% 100%, 100% 1px; }
 
 .redact:hover {
   background-color: var(--paper);
@@ -539,7 +540,7 @@
   transition: filter var(--dur-med) var(--ease-out);
 }
 
-.timeline-item:hover .timeline-logo { filter: grayscale(1) contrast(1.1) invert(1); }
+.timeline-item:hover .timeline-logo { filter: grayscale(0) contrast(1); }
 
 .timeline-body {
   display: grid;
@@ -1271,11 +1272,14 @@ body.is-modal-open { overflow: hidden; }
   pointer-events: none;
 }
 
-.contact-link:hover::after,
-.contact-link:focus-visible::after {
+/* main.js toggles is-lit and lets each wipe finish before the next, so
+   moving quickly in and out never makes the bar jump sides mid-wipe. */
+.contact-link.is-lit::after {
   transform: scaleX(1);
   transform-origin: left;
 }
+
+.contact-link.is-leaving::after { transform-origin: right; }
 
 .contact-value {
   min-width: 0;
