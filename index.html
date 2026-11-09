@@ -5,24 +5,58 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Bintang Hermawan &mdash; Software Engineer</title>
 <meta name="description" content="Bintang Hermawan, Software Engineer building web systems, cloud architecture and databases.">
+<meta name="theme-color" content="#0b0b0a">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Bintang Hermawan &mdash; Software Engineer">
+<meta property="og:description" content="Web systems, cloud architecture, and the databases behind them.">
+<meta property="og:url" content="https://ikanasinn.github.io/">
+<meta property="og:image" content="https://ikanasinn.github.io/assets/img/profile.png">
+<meta name="twitter:card" content="summary">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230b0b0a'/%3E%3Ccircle cx='16' cy='16' r='8.5' fill='none' stroke='%23ecebe6' stroke-width='2'/%3E%3Cpath d='M16 3v7M16 22v7M3 16h7M22 16h7' stroke='%23ecebe6' stroke-width='2'/%3E%3Ccircle cx='16' cy='16' r='1.8' fill='%23ecebe6'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/base.css?v=5">
-<link rel="stylesheet" href="css/layout.css?v=5">
-<link rel="stylesheet" href="css/sections.css?v=5">
-<link rel="stylesheet" href="css/animations.css?v=5">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&family=IBM+Plex+Mono:wght@400;500;600&family=Instrument+Serif:ital@1&display=swap" rel="stylesheet">
+<script>
+  /* Decide before first paint whether the boot sequence plays: once per
+     session, never with reduced motion. */
+  (function () {
+    var d = document.documentElement;
+    var skip = false;
+    try { skip = !!sessionStorage.getItem('bh-boot'); } catch (e) {}
+    if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) skip = true;
+    if (!skip) d.classList.add('is-booting');
+  })();
+</script>
+<link rel="stylesheet" href="css/base.css?v=8">
+<link rel="stylesheet" href="css/layout.css?v=8">
+<link rel="stylesheet" href="css/sections.css?v=8">
+<link rel="stylesheet" href="css/animations.css?v=8">
 </head>
 <body>
 
+<a class="skip-link" href="#about">Skip to content</a>
+
+<!-- Boot sequence: shown only while html.is-booting -->
+<div class="boot" id="boot" aria-hidden="true">
+  <div class="boot-shutter boot-shutter--top"></div>
+  <div class="boot-shutter boot-shutter--bottom"></div>
+  <div class="boot-seam"></div>
+  <div class="boot-console">
+    <p class="boot-head"><span>Secure terminal</span><span>File BH-0425</span></p>
+    <ol class="boot-lines" id="boot-lines"></ol>
+    <p class="boot-granted" id="boot-granted">Access granted</p>
+    <p class="boot-hint">Press any key to skip</p>
+  </div>
+</div>
+
 <nav class="site-nav" aria-label="Section navigation">
   <ul class="nav-list">
-    <li><a href="#home" data-nav="home" class="is-active">Home</a></li>
-    <li><a href="#about" data-nav="about">About</a></li>
-    <li><a href="#experience" data-nav="experience">Experience</a></li>
-    <li><a href="#projects" data-nav="projects">Projects</a></li>
-    <li><a href="#skills" data-nav="skills">Skills</a></li>
-    <li><a href="#contact" data-nav="contact">Contact</a></li>
+    <li><a href="#home" data-nav="home" class="is-active"><span class="nav-index">01</span><span class="nav-text">Home</span></a></li>
+    <li><a href="#about" data-nav="about"><span class="nav-index">02</span><span class="nav-text">About</span></a></li>
+    <li><a href="#experience" data-nav="experience"><span class="nav-index">03</span><span class="nav-text">Experience</span></a></li>
+    <li><a href="#projects" data-nav="projects"><span class="nav-index">04</span><span class="nav-text">Projects</span></a></li>
+    <li><a href="#skills" data-nav="skills"><span class="nav-index">05</span><span class="nav-text">Skills</span></a></li>
+    <li><a href="#contact" data-nav="contact"><span class="nav-index">06</span><span class="nav-text">Contact</span></a></li>
   </ul>
   <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
     <span></span><span></span><span></span>
@@ -31,93 +65,162 @@
 
 <div class="nav-overlay" aria-hidden="true"></div>
 
-<main class="scroll-container" id="scroll-container">
+<div class="hud" aria-hidden="true">
+  <span class="hud-corner hud-corner--tl"></span>
+  <span class="hud-corner hud-corner--tr"></span>
+  <span class="hud-corner hud-corner--bl"></span>
+  <span class="hud-corner hud-corner--br"></span>
+  <div class="hud-readout hud-readout--left">
+    <span class="hud-rec-dot"></span>
+    <span>Rec</span>
+    <span data-hud-clock>--:--:--</span>
+  </div>
+  <div class="hud-readout hud-readout--right">
+    <span><span class="hud-index-current" data-hud-index>01</span> / 06</span>
+    <span class="hud-progress"><span></span></span>
+    <span data-hud-label>Subject</span>
+  </div>
+</div>
 
-  <section class="section" id="home" data-section="home">
+<main class="scroll-container" id="scroll-container" tabindex="-1">
+
+  <!-- 01 — Subject -->
+  <section class="section section--home" id="home" data-section="home" data-label="Subject">
     <div class="section-inner home-inner">
       <div class="home-content">
-        <p class="mono-tag reveal-mono">[ 01 // HELLO ]</p>
+        <div class="home-meta reveal-mono">
+          <span class="mono-tag">File no. BH-0425</span>
+          <span class="mono-tag">Clearance <span class="tag-invert">Top secret</span></span>
+        </div>
+
         <h1 class="home-title">
-          <span class="reveal-line">Hi, I'm</span>
-          <span class="reveal-line home-name">Bintang Hermawan.</span>
+          <span class="sr-only">Bintang Hermawan</span>
+          <span class="home-title-row reveal-line" aria-hidden="true"><span class="home-first" data-lens>Bintang</span></span>
+          <span class="home-title-row reveal-line" aria-hidden="true"><span class="home-last" data-lens>Hermawan</span></span>
         </h1>
-        <p class="home-sub reveal-line">
-          I build web systems, cloud architecture, and the databases behind them. 
-          Everything shipped reliably, no drama.
-        </p>
-        <div class="home-cta reveal-line">
-          <a href="#projects" class="btn-primary" data-scroll-to="projects">See my work</a>
-          <a href="#contact" class="btn-ghost" data-scroll-to="contact">Get in touch</a>
+
+        <div class="home-row home-row--ident reveal-line">
+          <dl class="home-ident">
+            <div><dt>Codename</dt><dd>IkanAsinn</dd></div>
+            <div><dt>Role</dt><dd>Software engineer</dd></div>
+            <div><dt>Status</dt><dd><span class="status-dot" aria-hidden="true"></span>Active</dd></div>
+          </dl>
+        </div>
+
+        <div class="home-row home-row--sub reveal-line">
+          <p class="home-sub">
+            I build web systems, cloud architecture, and the databases behind them.
+            Everything shipped reliably, <em>no drama.</em>
+          </p>
+        </div>
+
+        <div class="home-row home-row--cta reveal-line">
+          <div class="home-cta">
+            <a href="#projects" class="btn-primary" data-scroll-to="projects">
+              <span>Open case files</span>
+              <svg class="btn-arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 10h13M11 5l5 5-5 5"/></svg>
+            </a>
+            <a href="#contact" class="btn-ghost" data-scroll-to="contact">Make contact</a>
+          </div>
         </div>
       </div>
-      <div class="home-photo reveal-photo">
-        <img src="assets/img/profile.png" alt="Portrait of Bintang Hermawan">
-      </div>
+
+      <figure class="home-photo reveal-photo">
+        <div class="surveil">
+          <img src="assets/img/profile.png" alt="Portrait of Bintang Hermawan in sunglasses and a dark suit" width="286" height="418">
+          <span class="surveil-scan" aria-hidden="true"></span>
+          <span class="surveil-target" aria-hidden="true"><span class="surveil-target-label">Subject located</span></span>
+          <span class="surveil-ticks" aria-hidden="true"></span>
+        </div>
+        <figcaption class="surveil-caption" aria-hidden="true">
+          <span class="mono-tag">Cam 04</span>
+          <span class="mono-tag">Match <span class="surveil-match" data-count-to="98.7" data-count-decimals="1">98.7</span>%</span>
+        </figcaption>
+      </figure>
     </div>
     <div class="scroll-cue" aria-hidden="true">
-      <span class="mono-tag">SCROLL</span>
+      <span class="mono-tag">Scroll</span>
       <span class="scroll-cue-line"></span>
     </div>
   </section>
 
-  <section class="section" id="about" data-section="about">
+  <!-- 02 — Profile -->
+  <section class="section" id="about" data-section="about" data-label="Profile">
     <div class="section-inner about-inner">
-      <p class="mono-tag reveal-mono">[ 02 // ABOUT ]</p>
-      <h2 class="section-title reveal-up">Background &amp; approach</h2>
+      <header class="section-head">
+        <p class="mono-tag section-label reveal-mono" data-decrypt>File 02 // Profile</p>
+        <h2 class="section-title reveal-up" data-decrypt>Background &amp; <em>approach</em></h2>
+      </header>
       <div class="about-grid">
         <div class="about-copy">
           <p class="reveal-up">
             I'm a software engineer working across web development, cloud
             architecture, and databases. Day to day, that means building and
-            maintaining systems on Azure, wiring up identity and DevOps
-            pipelines, and making sure the data layer holds up under real
-            usage.
+            maintaining systems on <mark class="redact">Azure</mark>, wiring up
+            <mark class="redact">identity and DevOps pipelines</mark>, and making
+            sure the data layer holds up under real usage.
           </p>
           <p class="reveal-up">
-            I started out studying cybersecurity at Bina Nusantara University.
-            That background still shapes how I think about systems. I always
-            ask what breaks and why. But building things won out over breaking
-            them, and web programming became where I actually wanted to spend
-            my time.
+            I started out studying <mark class="redact">cybersecurity</mark> at
+            Bina Nusantara University. That background still shapes how I think
+            about systems. I always ask <mark class="redact">what breaks and why</mark>.
+            But building things won out over breaking them, and web programming
+            became where I actually wanted to spend my time.
           </p>
           <p class="reveal-up">
-            These days I also spend a fair amount of time on AI tooling and
-            prompt engineering, both for my own work and for workflows my
-            teammates rely on. I'd rather ship something useful fast and
-            improve it than sit on a plan too long.
+            These days I also spend a fair amount of time on
+            <mark class="redact">AI tooling and prompt engineering</mark>, both
+            for my own work and for workflows my teammates rely on. I'd rather
+            ship something useful fast and improve it than sit on a plan too long.
           </p>
         </div>
-        <div class="about-stats">
-          <div class="stat-block reveal-up">
-            <span class="stat-number">3+</span>
-            <span class="stat-label">Years experience</span>
+
+        <aside class="dossier reveal-up" aria-label="Subject profile">
+          <div class="dossier-head">
+            <span class="mono-tag">Subject profile</span>
+            <span class="mono-tag">BH-0425</span>
           </div>
-          <div class="stat-block reveal-up">
-            <span class="stat-number">5</span>
-            <span class="stat-label">Projects shipped</span>
+          <dl class="dossier-fields">
+            <div><dt>Name</dt><dd>Bintang Hermawan</dd></div>
+            <div><dt>Codename</dt><dd>IkanAsinn</dd></div>
+            <div><dt>Current post</dt><dd>PT Freeport Indonesia</dd></div>
+            <div><dt>Training</dt><dd>Cybersecurity, BINUS</dd></div>
+          </dl>
+          <div class="about-stats">
+            <div class="stat-block">
+              <span class="stat-number"><span data-count-to="3">3</span>+</span>
+              <span class="stat-label">Years experience</span>
+            </div>
+            <div class="stat-block">
+              <span class="stat-number" data-count-to="5">5</span>
+              <span class="stat-label">Projects shipped</span>
+            </div>
+            <div class="stat-block">
+              <span class="stat-number" data-count-to="2">2</span>
+              <span class="stat-label">Domains: security &amp; web</span>
+            </div>
           </div>
-          <div class="stat-block reveal-up">
-            <span class="stat-number">2</span>
-            <span class="stat-label">Domains: security &amp; web</span>
-          </div>
-        </div>
+        </aside>
       </div>
     </div>
   </section>
 
-  <section class="section" id="experience" data-section="experience">
+  <!-- 03 — Field record -->
+  <section class="section" id="experience" data-section="experience" data-label="Field record">
     <div class="section-inner experience-inner">
-      <p class="mono-tag reveal-mono">[ 03 // TIMELINE ]</p>
-      <h2 class="section-title reveal-up">Where I've worked &amp; grown</h2>
+      <header class="section-head">
+        <p class="mono-tag section-label reveal-mono" data-decrypt>File 03 // Field record</p>
+        <h2 class="section-title reveal-up" data-decrypt>Where I've worked &amp; <em>grown</em></h2>
+      </header>
       <ol class="timeline">
 
         <li class="timeline-item reveal-up">
           <img class="timeline-logo" src="assets/img/logo-ptfi.jpeg" alt="PT Freeport Indonesia logo">
           <div class="timeline-body">
-            <span class="mono-tag timeline-date">2024 &mdash; PRESENT</span>
+            <p class="timeline-meta mono-tag"><span class="timeline-op">Op-06</span><span class="timeline-date">2024 &mdash; Present</span></p>
             <h3>Software Engineer</h3>
             <p class="timeline-org">PT Freeport Indonesia</p>
-            <p>Building and maintaining software systems that support a
+            <p class="timeline-desc">Building and maintaining software systems that support a
               world-scale mining operation. Code that has to work, shipped
               reliably.</p>
           </div>
@@ -126,10 +229,10 @@
         <li class="timeline-item reveal-up">
           <img class="timeline-logo" src="assets/img/logo-ptfi.jpeg" alt="PT Freeport Indonesia logo">
           <div class="timeline-body">
-            <span class="mono-tag timeline-date">2023 &mdash; 2024</span>
+            <p class="timeline-meta mono-tag"><span class="timeline-op">Op-05</span><span class="timeline-date">2023 &mdash; 2024</span></p>
             <h3>Application Developer Intern</h3>
             <p class="timeline-org">PT Freeport Indonesia</p>
-            <p>Hands-on development in an enterprise environment. Turning
+            <p class="timeline-desc">Hands-on development in an enterprise environment. Turning
               classroom training into shipped features and learning what good
               internal tooling looks like.</p>
           </div>
@@ -138,10 +241,10 @@
         <li class="timeline-item reveal-up">
           <img class="timeline-logo" src="assets/img/logo-petir.png" alt="PETIR Cyber Security logo">
           <div class="timeline-body">
-            <span class="mono-tag timeline-date">2022 &mdash; PRESENT</span>
+            <p class="timeline-meta mono-tag"><span class="timeline-op">Op-04</span><span class="timeline-date">2022 &mdash; Present</span></p>
             <h3>Member &middot; Binary Exploitation Stream</h3>
             <p class="timeline-org">PETIR Cyber Security</p>
-            <p>Deep-diving into low-level security by breaking things in a
+            <p class="timeline-desc">Deep-diving into low-level security by breaking things in a
               safe space. CTFs, reverse engineering, and understanding how
               attacks actually work.</p>
           </div>
@@ -150,10 +253,10 @@
         <li class="timeline-item reveal-up">
           <img class="timeline-logo" src="assets/img/logo-csc.png" alt="Cyber Security Community logo">
           <div class="timeline-body">
-            <span class="mono-tag timeline-date">2022 &mdash; 2023</span>
+            <p class="timeline-meta mono-tag"><span class="timeline-op">Op-03</span><span class="timeline-date">2022 &mdash; 2023</span></p>
             <h3>Human Capital Person in Charge</h3>
             <p class="timeline-org">Cyber Security Community</p>
-            <p>Ran the people side of a growing community. Onboarding members,
+            <p class="timeline-desc">Ran the people side of a growing community. Onboarding members,
               planning events, and keeping the energy alive.</p>
           </div>
         </li>
@@ -161,10 +264,10 @@
         <li class="timeline-item reveal-up">
           <img class="timeline-logo" src="assets/img/logo-csc.png" alt="Cyber Security Community logo">
           <div class="timeline-body">
-            <span class="mono-tag timeline-date">2021 &mdash; 2022</span>
+            <p class="timeline-meta mono-tag"><span class="timeline-op">Op-02</span><span class="timeline-date">2021 &mdash; 2022</span></p>
             <h3>Human Capital Activist</h3>
             <p class="timeline-org">Cyber Security Community</p>
-            <p>Started in recruitment and member development, learning
+            <p class="timeline-desc">Started in recruitment and member development, learning
               community organization from the ground up.</p>
           </div>
         </li>
@@ -172,10 +275,10 @@
         <li class="timeline-item reveal-up">
           <img class="timeline-logo" src="assets/img/logo-binus.png" alt="Binus University logo">
           <div class="timeline-body">
-            <span class="mono-tag timeline-date">2021</span>
+            <p class="timeline-meta mono-tag"><span class="timeline-op">Op-01</span><span class="timeline-date">2021</span></p>
             <h3>Freshmen Leader &middot; Binusian 2025</h3>
             <p class="timeline-org">Binus University</p>
-            <p>Guided new students through orientation. Leadership, empathy,
+            <p class="timeline-desc">Guided new students through orientation. Leadership, empathy,
               and a lot of patience.</p>
           </div>
         </li>
@@ -184,133 +287,177 @@
     </div>
   </section>
 
-  <section class="section" id="projects" data-section="projects">
+  <!-- 04 — Case files -->
+  <section class="section" id="projects" data-section="projects" data-label="Case files">
     <div class="section-inner projects-inner">
-      <p class="mono-tag reveal-mono">[ 04 // ARCHIVE ]</p>
-      <h2 class="section-title reveal-up">Selected projects</h2>
+      <header class="section-head">
+        <p class="mono-tag section-label reveal-mono" data-decrypt>File 04 // Case files</p>
+        <h2 class="section-title reveal-up" data-decrypt>Selected <em>projects</em></h2>
+      </header>
 
-      <div class="carousel" data-carousel>
-        <div class="carousel-track" data-carousel-track>
+      <div class="carousel reveal-up" data-carousel>
+        <div class="carousel-viewport">
+          <div class="carousel-track" data-carousel-track>
 
-          <article class="project-card" data-carousel-item>
-            <img class="project-thumb" src="assets/img/project-xpense.png" alt="Xpense expense dashboard with monthly totals and category breakdowns">
-            <div class="project-body">
-              <span class="mono-tag">FULL-STACK &middot; FINANCE</span>
-              <h3>Xpense &mdash; Expense Tracker</h3>
-              <p>An expense tracker for Indonesian Rupiah with receipt scanning,
-                split bills, and a Telegram assistant that records spending from
-                chat &mdash; no app required.</p>
-              <span class="project-stack mono-tag">NUXT &middot; .NET 10 &middot; POSTGRESQL</span>
-              <button class="btn-primary project-link" type="button" data-project-open="xpense">View details</button>
-            </div>
-          </article>
+            <article class="project-card" data-carousel-item>
+              <div class="project-media">
+                <img class="project-thumb" src="assets/img/project-xpense.png?v=8" alt="Xpense investments page with a Bitcoin market price chart in Rupiah">
+                <span class="project-exhibit mono-tag">Exhibit A</span>
+              </div>
+              <div class="project-body">
+                <span class="project-num" aria-hidden="true">01</span>
+                <p class="project-case"><span class="mono-tag">Case 01</span><span class="mono-tag">Full-stack &middot; Finance</span></p>
+                <h3>Xpense &mdash; Expense Tracker</h3>
+                <p>An expense tracker for Indonesian Rupiah with receipt scanning,
+                  split bills, and a Telegram assistant that records spending from
+                  chat &mdash; no app required.</p>
+                <span class="project-stack mono-tag">Nuxt &middot; .NET 10 &middot; PostgreSQL</span>
+                <button class="btn-primary project-link" type="button" data-project-open="xpense"><span>Open the file</span><svg class="btn-arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 10h13M11 5l5 5-5 5"/></svg></button>
+              </div>
+            </article>
 
-          <article class="project-card" data-carousel-item>
-            <img class="project-thumb" src="assets/img/project-specforge.png" alt="SpecForge landing page with the tagline your idea survives the interview">
-            <div class="project-body">
-              <span class="mono-tag">FULL-STACK &middot; AI TOOLING</span>
-              <h3>SpecForge &mdash; Idea to Executable Spec</h3>
-              <p>Turns a one-line idea into a PRD an autonomous coding agent can
-                execute, then tracks every task the agent claims and ships.</p>
-              <span class="project-stack mono-tag">NEXT.JS &middot; TYPESCRIPT &middot; POSTGRESQL</span>
-              <button class="btn-primary project-link" type="button" data-project-open="specforge">View details</button>
-            </div>
-          </article>
+            <article class="project-card" data-carousel-item>
+              <div class="project-media">
+                <img class="project-thumb" src="assets/img/project-specforge.png" alt="SpecForge landing page with the tagline your idea survives the interview">
+                <span class="project-exhibit mono-tag">Exhibit B</span>
+              </div>
+              <div class="project-body">
+                <span class="project-num" aria-hidden="true">02</span>
+                <p class="project-case"><span class="mono-tag">Case 02</span><span class="mono-tag">Full-stack &middot; AI tooling</span></p>
+                <h3>SpecForge &mdash; Idea to Executable Spec</h3>
+                <p>Turns a one-line idea into a PRD an autonomous coding agent can
+                  execute, then tracks every task the agent claims and ships.</p>
+                <span class="project-stack mono-tag">Next.js &middot; TypeScript &middot; PostgreSQL</span>
+                <button class="btn-primary project-link" type="button" data-project-open="specforge"><span>Open the file</span><svg class="btn-arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 10h13M11 5l5 5-5 5"/></svg></button>
+              </div>
+            </article>
 
-          <article class="project-card" data-carousel-item>
-            <img class="project-thumb" src="assets/img/project-landing-page.png" alt="Coffee roastery landing page screenshot">
-            <div class="project-body">
-              <span class="mono-tag">FRONT-END &middot; AGENTIC AI</span>
-              <h3>Coffee Roastery &mdash; Landing Page</h3>
-              <p>A landing page for a coffee roastery, built with Vite and
-                Vue and deployed on Vercel. Developed using agentic AI
-                tooling from start to finish.</p>
-              <span class="project-stack mono-tag">VITE &middot; VUE &middot; VERCEL</span>
-              <a class="btn-primary project-link" href="https://landing-page-demo-omega-green.vercel.app/" target="_blank" rel="noopener noreferrer">View live site</a>
-            </div>
-          </article>
+            <article class="project-card" data-carousel-item>
+              <div class="project-media">
+                <img class="project-thumb" src="assets/img/project-landing-page.png" alt="Coffee roastery landing page screenshot">
+                <span class="project-exhibit mono-tag">Exhibit C</span>
+              </div>
+              <div class="project-body">
+                <span class="project-num" aria-hidden="true">03</span>
+                <p class="project-case"><span class="mono-tag">Case 03</span><span class="mono-tag">Front-end &middot; Agentic AI</span></p>
+                <h3>Coffee Roastery &mdash; Landing Page</h3>
+                <p>A landing page for a coffee roastery, built with Vite and
+                  Vue and deployed on Vercel. Developed using agentic AI
+                  tooling from start to finish.</p>
+                <span class="project-stack mono-tag">Vite &middot; Vue &middot; Vercel</span>
+                <a class="btn-primary project-link" href="https://landing-page-demo-omega-green.vercel.app/" target="_blank" rel="noopener noreferrer"><span>View live site</span><svg class="btn-arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M5 15L15 5M7 5h8v8"/></svg></a>
+              </div>
+            </article>
 
-          <article class="project-card" data-carousel-item>
-            <img class="project-thumb" src="assets/img/project-binusxxi.png" alt="BinusXXI movie database screenshot">
-            <div class="project-body">
-              <span class="mono-tag">FRONT-END</span>
-              <h3>BinusXXI &mdash; Movie Database</h3>
-              <p>A web-based movie database with reviews, so people always
-                know what's worth watching. Complex styling and scripting
-                made it my favorite front-end build.</p>
-              <span class="project-stack mono-tag">HTML &middot; CSS &middot; JS</span>
-            </div>
-          </article>
+            <article class="project-card" data-carousel-item>
+              <div class="project-media">
+                <img class="project-thumb" src="assets/img/project-binusxxi.png" alt="BinusXXI movie database screenshot">
+                <span class="project-exhibit mono-tag">Exhibit D</span>
+              </div>
+              <div class="project-body">
+                <span class="project-num" aria-hidden="true">04</span>
+                <p class="project-case"><span class="mono-tag">Case 04</span><span class="mono-tag">Front-end</span></p>
+                <h3>BinusXXI &mdash; Movie Database</h3>
+                <p>A web-based movie database with reviews, so people always
+                  know what's worth watching. Complex styling and scripting
+                  made it my favorite front-end build.</p>
+                <span class="project-stack mono-tag">HTML &middot; CSS &middot; JS</span>
+              </div>
+            </article>
 
-          <article class="project-card" data-carousel-item>
-            <img class="project-thumb" src="assets/img/project-auxtify.png" alt="Auxtify auction platform screenshot">
-            <div class="project-body">
-              <span class="mono-tag">FULL-STACK</span>
-              <h3>Auxtify &mdash; Online Auction</h3>
-              <p>A secure online auction platform. Born from the mess of
-                transactions done on social media. Built with my team to
-                make auction deals safer.</p>
-              <span class="project-stack mono-tag">TEAM PROJECT</span>
-            </div>
-          </article>
+            <article class="project-card" data-carousel-item>
+              <div class="project-media">
+                <img class="project-thumb" src="assets/img/project-auxtify.png" alt="Auxtify auction platform screenshot">
+                <span class="project-exhibit mono-tag">Exhibit E</span>
+              </div>
+              <div class="project-body">
+                <span class="project-num" aria-hidden="true">05</span>
+                <p class="project-case"><span class="mono-tag">Case 05</span><span class="mono-tag">Full-stack</span></p>
+                <h3>Auxtify &mdash; Online Auction</h3>
+                <p>A secure online auction platform. Born from the mess of
+                  transactions done on social media. Built with my team to
+                  make auction deals safer.</p>
+                <span class="project-stack mono-tag">Team project</span>
+              </div>
+            </article>
 
-          <article class="project-card" data-carousel-item>
-            <img class="project-thumb" src="assets/img/project-tokokeluarga.png" alt="Toko Keluarga admin panel screenshot">
-            <div class="project-body">
-              <span class="mono-tag">VANILLA JS</span>
-              <h3>Toko Keluarga</h3>
-              <p>Final project for Web-Based Application Development. A basic
-                CRUD admin panel to manage inventory, built with pure HTML,
-                CSS, and JS. No frameworks.</p>
-              <span class="project-stack mono-tag">STUDENT PROJECT</span>
-            </div>
-          </article>
+            <article class="project-card" data-carousel-item>
+              <div class="project-media">
+                <img class="project-thumb" src="assets/img/project-tokokeluarga.png" alt="Toko Keluarga admin panel screenshot">
+                <span class="project-exhibit mono-tag">Exhibit F</span>
+              </div>
+              <div class="project-body">
+                <span class="project-num" aria-hidden="true">06</span>
+                <p class="project-case"><span class="mono-tag">Case 06</span><span class="mono-tag">Vanilla JS</span></p>
+                <h3>Toko Keluarga</h3>
+                <p>Final project for Web-Based Application Development. A basic
+                  CRUD admin panel to manage inventory, built with pure HTML,
+                  CSS, and JS. No frameworks.</p>
+                <span class="project-stack mono-tag">Student project</span>
+              </div>
+            </article>
 
-          <article class="project-card" data-carousel-item>
-            <img class="project-thumb" src="assets/img/project-bersemi.png" alt="Bersemi Bersama Multikultural dashboard screenshot">
-            <div class="project-body">
-              <span class="mono-tag">MANAGEMENT SYSTEM</span>
-              <h3>Bersemi Bersama Multikultural</h3>
-              <p>A system to monitor a garden. Plant lists, harvest tracking,
-                mortality reports, plus to-dos, accounts, real-time
-                notifications, and weather forecasts.</p>
-              <span class="project-stack mono-tag">TEAM PROJECT</span>
-            </div>
-          </article>
+            <article class="project-card" data-carousel-item>
+              <div class="project-media">
+                <img class="project-thumb" src="assets/img/project-bersemi.png" alt="Bersemi Bersama Multikultural dashboard screenshot">
+                <span class="project-exhibit mono-tag">Exhibit G</span>
+              </div>
+              <div class="project-body">
+                <span class="project-num" aria-hidden="true">07</span>
+                <p class="project-case"><span class="mono-tag">Case 07</span><span class="mono-tag">Management system</span></p>
+                <h3>Bersemi Bersama Multikultural</h3>
+                <p>A system to monitor a garden. Plant lists, harvest tracking,
+                  mortality reports, plus to-dos, accounts, real-time
+                  notifications, and weather forecasts.</p>
+                <span class="project-stack mono-tag">Team project</span>
+              </div>
+            </article>
 
-          <article class="project-card" data-carousel-item>
-            <img class="project-thumb" src="assets/img/project-ninetynine.png" alt="NinetyNine Coffee inventory system screenshot">
-            <div class="project-body">
-              <span class="mono-tag">MANAGEMENT SYSTEM</span>
-              <h3>NinetyNine Coffee Inventory</h3>
-              <p>Inventory and payroll system for a real coffeeshop.
-                Auto-generated barcodes, barcode scanning via phone camera,
-                monthly product history, and invoices.</p>
-              <span class="project-stack mono-tag">TEAM PROJECT</span>
-            </div>
-          </article>
+            <article class="project-card" data-carousel-item>
+              <div class="project-media">
+                <img class="project-thumb" src="assets/img/project-ninetynine.png" alt="NinetyNine Coffee inventory system screenshot">
+                <span class="project-exhibit mono-tag">Exhibit H</span>
+              </div>
+              <div class="project-body">
+                <span class="project-num" aria-hidden="true">08</span>
+                <p class="project-case"><span class="mono-tag">Case 08</span><span class="mono-tag">Management system</span></p>
+                <h3>NinetyNine Coffee Inventory</h3>
+                <p>Inventory and payroll system for a real coffeeshop.
+                  Auto-generated barcodes, barcode scanning via phone camera,
+                  monthly product history, and invoices.</p>
+                <span class="project-stack mono-tag">Team project</span>
+              </div>
+            </article>
 
+          </div>
         </div>
 
-        <button class="carousel-arrow carousel-arrow--prev" data-carousel-prev aria-label="Previous project">
-          <span class="carousel-arrow-glyph" aria-hidden="true">&laquo;</span>
-        </button>
-        <button class="carousel-arrow carousel-arrow--next" data-carousel-next aria-label="Next project">
-          <span class="carousel-arrow-glyph" aria-hidden="true">&raquo;</span>
-        </button>
-        <div class="carousel-dots" data-carousel-dots></div>
+        <div class="carousel-controls">
+          <button class="carousel-arrow carousel-arrow--prev" data-carousel-prev aria-label="Previous project">
+            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M17 10H4M9 5l-5 5 5 5"/></svg>
+          </button>
+          <span class="carousel-count mono-tag" data-carousel-count aria-live="polite">01 / 08</span>
+          <span class="carousel-progress" aria-hidden="true"><span data-carousel-progress></span></span>
+          <button class="carousel-arrow carousel-arrow--next" data-carousel-next aria-label="Next project">
+            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 10h13M11 5l5 5-5 5"/></svg>
+          </button>
+          <div class="carousel-dots" data-carousel-dots></div>
+        </div>
       </div>
     </div>
   </section>
 
-  <section class="section" id="skills" data-section="skills">
+  <!-- 05 — Arsenal -->
+  <section class="section" id="skills" data-section="skills" data-label="Arsenal">
     <div class="section-inner skills-inner">
-      <p class="mono-tag reveal-mono">[ 05 // TOOLBOX ]</p>
-      <h2 class="section-title reveal-up">Skills &amp; technologies</h2>
+      <header class="section-head">
+        <p class="mono-tag section-label reveal-mono" data-decrypt>File 05 // Arsenal</p>
+        <h2 class="section-title reveal-up" data-decrypt>Skills &amp; <em>technologies</em></h2>
+      </header>
 
       <div class="skills-grid">
         <div class="skill-category reveal-up">
-          <h3>Backend &amp; Data</h3>
+          <h3><span class="skill-code mono-tag">A-01</span>Backend &amp; Data</h3>
           <ul class="pill-list">
             <li class="pill">.NET</li>
             <li class="pill">SQL</li>
@@ -318,7 +465,7 @@
           </ul>
         </div>
         <div class="skill-category reveal-up">
-          <h3>Cloud &amp; DevOps</h3>
+          <h3><span class="skill-code mono-tag">A-02</span>Cloud &amp; DevOps</h3>
           <ul class="pill-list">
             <li class="pill">Microsoft Azure</li>
             <li class="pill">Microsoft Entra ID</li>
@@ -326,21 +473,21 @@
           </ul>
         </div>
         <div class="skill-category reveal-up">
-          <h3>Web &amp; Mobile</h3>
+          <h3><span class="skill-code mono-tag">A-03</span>Web &amp; Mobile</h3>
           <ul class="pill-list">
             <li class="pill">HTML / CSS / JS</li>
             <li class="pill">Flutter</li>
           </ul>
         </div>
         <div class="skill-category reveal-up">
-          <h3>AI &amp; Prompt Engineering</h3>
+          <h3><span class="skill-code mono-tag">A-04</span>AI &amp; Prompt Engineering</h3>
           <ul class="pill-list">
             <li class="pill">Applied AI Tooling</li>
             <li class="pill">Prompt Engineering</li>
           </ul>
         </div>
         <div class="skill-category reveal-up">
-          <h3>Soft Skills</h3>
+          <h3><span class="skill-code mono-tag">A-05</span>Soft Skills</h3>
           <ul class="pill-list">
             <li class="pill">Bahasa Indonesia</li>
             <li class="pill">English</li>
@@ -354,31 +501,55 @@
     </div>
   </section>
 
-  <section class="section" id="contact" data-section="contact">
+  <!-- 06 — Secure channel -->
+  <section class="section section--contact" id="contact" data-section="contact" data-label="Secure channel">
     <div class="section-inner contact-inner">
-      <p class="mono-tag reveal-mono">[ 06 // CONNECT ]</p>
-      <h2 class="section-title reveal-up">Let's build something together</h2>
+      <header class="section-head">
+        <p class="mono-tag section-label reveal-mono" data-decrypt>File 06 // Secure channel</p>
+        <h2 class="section-title contact-title reveal-up" data-decrypt>Let's build something <em>together</em></h2>
+      </header>
       <p class="contact-sub reveal-up">
         Have a project in mind, or just want to say hi? Reach me directly.
       </p>
-      <div class="contact-links reveal-up">
-        <a href="mailto:bintanghermawan@ikanasinn.com" class="contact-link">
-          <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="2.5" y="4.5" width="19" height="15" rx="2"/><path d="M3 6.5l9 6 9-6"/></svg>
-          <span class="mono-tag">EMAIL</span>
-          <span>bintanghermawan@ikanasinn.com</span>
-        </a>
-        <a href="https://www.linkedin.com/in/bintang-hermawan-makmur/" class="contact-link" target="_blank" rel="noopener noreferrer">
-          <svg class="contact-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM2.98 9.98h4v11h-4v-11zM9.98 9.98h3.84v1.5h.05c.53-1 1.83-2.06 3.77-2.06 4.03 0 4.78 2.65 4.78 6.1v6.46h-4v-5.73c0-1.37-.02-3.13-1.91-3.13-1.92 0-2.22 1.5-2.22 3.03v5.83h-4v-11z"/></svg>
-          <span class="mono-tag">LINKEDIN</span>
-          <span>in/bintang-hermawan-makmur</span>
-        </a>
-        <a href="https://github.com/IkanAsinn" class="contact-link" target="_blank" rel="noopener noreferrer">
-          <svg class="contact-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.48 2 2 6.58 2 12.2c0 4.5 2.87 8.32 6.84 9.67.5.1.68-.22.68-.49 0-.24-.01-1.03-.01-1.87-2.78.62-3.37-1.2-3.37-1.2-.45-1.18-1.11-1.49-1.11-1.49-.9-.63.07-.62.07-.62 1 .07 1.53 1.05 1.53 1.05.89 1.55 2.34 1.1 2.91.84.09-.65.34-1.1.62-1.35-2.22-.26-4.56-1.13-4.56-5.02 0-1.11.38-2.01 1.03-2.72-.1-.26-.45-1.31.1-2.72 0 0 .84-.28 2.75 1.04a9.34 9.34 0 0 1 5 0c1.91-1.32 2.75-1.04 2.75-1.04.55 1.41.2 2.46.1 2.72.65.71 1.03 1.61 1.03 2.72 0 3.9-2.35 4.76-4.58 5.01.36.32.68.94.68 1.9 0 1.37-.01 2.47-.01 2.81 0 .27.18.6.69.49A10.02 10.02 0 0 0 22 12.2C22 6.58 17.52 2 12 2z"/></svg>
-          <span class="mono-tag">GITHUB</span>
-          <span>github.com/IkanAsinn</span>
-        </a>
+      <ul class="contact-links reveal-up">
+        <li>
+          <a href="mailto:bintanghermawan@ikanasinn.com" class="contact-link">
+            <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="2.5" y="4.5" width="19" height="15" rx="2"/><path d="M3 6.5l9 6 9-6"/></svg>
+            <span class="contact-channel mono-tag">Ch.01 Email</span>
+            <span class="contact-value">bintanghermawan@ikanasinn.com</span>
+            <svg class="contact-arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M5 15L15 5M7 5h8v8"/></svg>
+          </a>
+        </li>
+        <li>
+          <a href="https://www.linkedin.com/in/bintang-hermawan-makmur/" class="contact-link" target="_blank" rel="noopener noreferrer">
+            <svg class="contact-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM2.98 9.98h4v11h-4v-11zM9.98 9.98h3.84v1.5h.05c.53-1 1.83-2.06 3.77-2.06 4.03 0 4.78 2.65 4.78 6.1v6.46h-4v-5.73c0-1.37-.02-3.13-1.91-3.13-1.92 0-2.22 1.5-2.22 3.03v5.83h-4v-11z"/></svg>
+            <span class="contact-channel mono-tag">Ch.02 LinkedIn</span>
+            <span class="contact-value">in/bintang-hermawan-makmur</span>
+            <svg class="contact-arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M5 15L15 5M7 5h8v8"/></svg>
+          </a>
+        </li>
+        <li>
+          <a href="https://github.com/IkanAsinn" class="contact-link" target="_blank" rel="noopener noreferrer">
+            <svg class="contact-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.48 2 2 6.58 2 12.2c0 4.5 2.87 8.32 6.84 9.67.5.1.68-.22.68-.49 0-.24-.01-1.03-.01-1.87-2.78.62-3.37-1.2-3.37-1.2-.45-1.18-1.11-1.49-1.11-1.49-.9-.63.07-.62.07-.62 1 .07 1.53 1.05 1.53 1.05.89 1.55 2.34 1.1 2.91.84.09-.65.34-1.1.62-1.35-2.22-.26-4.56-1.13-4.56-5.02 0-1.11.38-2.01 1.03-2.72-.1-.26-.45-1.31.1-2.72 0 0 .84-.28 2.75 1.04a9.34 9.34 0 0 1 5 0c1.91-1.32 2.75-1.04 2.75-1.04.55 1.41.2 2.46.1 2.72.65.71 1.03 1.61 1.03 2.72 0 3.9-2.35 4.76-4.58 5.01.36.32.68.94.68 1.9 0 1.37-.01 2.47-.01 2.81 0 .27.18.6.69.49A10.02 10.02 0 0 0 22 12.2C22 6.58 17.52 2 12 2z"/></svg>
+            <span class="contact-channel mono-tag">Ch.03 GitHub</span>
+            <span class="contact-value">github.com/IkanAsinn</span>
+            <svg class="contact-arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M5 15L15 5M7 5h8v8"/></svg>
+          </a>
+        </li>
+      </ul>
+      <footer class="contact-footer">
+        <span class="mono-tag">End of file // BH-0425</span>
+        <span class="mono-tag">&copy; 2026 Bintang Hermawan</span>
+        <a href="#home" class="mono-tag contact-top" data-scroll-to="home">Back to top &uarr;</a>
+      </footer>
+    </div>
+    <div class="tape" aria-hidden="true">
+      <div class="tape-track">
+        <span>Classified</span><span>Eyes only</span><span>Do not distribute</span><span>File BH-0425</span>
+        <span>Classified</span><span>Eyes only</span><span>Do not distribute</span><span>File BH-0425</span>
+        <span>Classified</span><span>Eyes only</span><span>Do not distribute</span><span>File BH-0425</span>
+        <span>Classified</span><span>Eyes only</span><span>Do not distribute</span><span>File BH-0425</span>
       </div>
-      <p class="contact-footer mono-tag">&copy; 2026 BINTANG HERMAWAN</p>
     </div>
   </section>
 
@@ -387,9 +558,12 @@
 <dialog class="project-modal" id="project-modal" aria-labelledby="project-modal-title">
   <div class="project-modal-panel">
     <div class="project-modal-bar">
-      <span class="mono-tag" id="project-modal-tag"></span>
+      <span class="project-modal-bar-left">
+        <span class="tag-invert mono-tag project-modal-class">Declassified</span>
+        <span class="mono-tag" id="project-modal-tag"></span>
+      </span>
       <button class="project-modal-close" type="button" aria-label="Close project details">
-        <span aria-hidden="true">&times;</span>
+        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M5 5l10 10M15 5L5 15"/></svg>
       </button>
     </div>
 
@@ -411,10 +585,10 @@
         <figure class="project-modal-stage">
           <img id="project-modal-image" src="" alt="">
           <button class="project-modal-nav project-modal-nav--prev" type="button" data-shot-prev aria-label="Previous screenshot">
-            <span aria-hidden="true">&lsaquo;</span>
+            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 5l-5 5 5 5"/></svg>
           </button>
           <button class="project-modal-nav project-modal-nav--next" type="button" data-shot-next aria-label="Next screenshot">
-            <span aria-hidden="true">&rsaquo;</span>
+            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M8 5l5 5-5 5"/></svg>
           </button>
           <figcaption>
             <span id="project-modal-caption"></span>
@@ -427,10 +601,12 @@
   </div>
 </dialog>
 
-<script src="js/animations.js?v=5" defer></script>
-<script src="js/carousel.js?v=5" defer></script>
-<script src="js/projects.js?v=5" defer></script>
-<script src="js/modal.js?v=5" defer></script>
-<script src="js/main.js?v=5" defer></script>
+<script src="js/boot.js?v=8" defer></script>
+<script src="js/animations.js?v=8" defer></script>
+<script src="js/carousel.js?v=8" defer></script>
+<script src="js/projects.js?v=8" defer></script>
+<script src="js/modal.js?v=8" defer></script>
+<script src="js/main.js?v=8" defer></script>
+<script src="js/cursor.js?v=8" defer></script>
 </body>
 </html>

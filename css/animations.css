@@ -1,23 +1,25 @@
 /* ==========================================================================
-   animations.css — on-scroll reveal system, redacted-reveal motif
+   animations.css — boot sequence, scroll reveals, hero choreography,
+   case-file transitions, reticle cursor
    ========================================================================== */
 
-/* Base hidden states — JS toggles .is-visible via IntersectionObserver */
+/* --------------------------------------------------------------------------
+   Reveal system — JS toggles .is-visible via IntersectionObserver
+   -------------------------------------------------------------------------- */
 .reveal-up,
 .reveal-line,
 .reveal-mono,
 .reveal-photo {
   opacity: 0;
-  will-change: transform, opacity;
 }
 
 .reveal-up {
-  transform: translateY(24px);
-  transition: opacity var(--dur-med) var(--ease-out), transform var(--dur-med) var(--ease-out);
+  transform: translateY(28px);
+  transition: opacity var(--dur-med) var(--ease-out), transform var(--dur-slow) var(--ease-out);
 }
 
 .reveal-line {
-  transform: translateY(100%);
+  transform: translateY(105%);
   transition: opacity var(--dur-slow) var(--ease-out), transform var(--dur-slow) var(--ease-out);
 }
 
@@ -26,67 +28,495 @@
 }
 
 .reveal-photo {
-  transform: scale(0.96);
-  filter: grayscale(1) contrast(1.05) brightness(0.9);
-  transition: opacity var(--dur-slow) var(--ease-out), transform var(--dur-slow) var(--ease-out);
+  transition: opacity 0.2s linear;
+}
+
+/* The clip lives on the frame, not the observed figure: an element that is
+   fully clipped never reports as intersecting. */
+.reveal-photo .surveil {
+  clip-path: inset(0 0 100% 0);
+  transition: clip-path 1.1s var(--ease-in-out);
+}
+
+.is-visible.reveal-photo .surveil {
+  clip-path: inset(0 0 0 0);
 }
 
 .is-visible.reveal-up,
 .is-visible.reveal-line,
-.is-visible.reveal-mono,
-.is-visible.reveal-photo {
+.is-visible.reveal-mono {
   opacity: 1;
   transform: none;
 }
 
-/* Stagger children within a section as it becomes visible */
+.is-visible.reveal-photo {
+  opacity: 1;
+}
+
+/* Section-level stagger */
 .section-inner .reveal-up:nth-of-type(1) { transition-delay: 0.05s; }
 .section-inner .reveal-up:nth-of-type(2) { transition-delay: 0.12s; }
 .section-inner .reveal-up:nth-of-type(3) { transition-delay: 0.19s; }
 .section-inner .reveal-up:nth-of-type(4) { transition-delay: 0.26s; }
 
-.home-title .reveal-line:nth-child(2) { transition-delay: 0.08s; }
-.home-sub.reveal-line { transition-delay: 0.16s; }
-.home-cta.reveal-line { transition-delay: 0.24s; }
+.section-title.reveal-up { transition-delay: 0.1s; }
+.dossier.reveal-up { transition-delay: 0.3s; }
+.carousel.reveal-up { transition-delay: 0.2s; }
+.contact-sub.reveal-up { transition-delay: 0.2s; }
+.contact-links.reveal-up { transition-delay: 0.3s; }
 
-/* Stagger timeline items and skill categories individually via JS-set
-   custom property, so it works regardless of DOM position */
+.home-title-row:nth-child(2) { transition-delay: 0.05s; }
+.home-title-row:nth-child(3) { transition-delay: 0.14s; }
+.home-row--ident.reveal-line { transition-delay: 0.3s; }
+.home-row--sub.reveal-line { transition-delay: 0.4s; }
+.home-row--cta.reveal-line { transition-delay: 0.5s; }
+
+/* Hero rows clip their content, so the observed wrapper stays put and only
+   its child slides up into view. */
+.home-row.reveal-line,
+.home-title-row.reveal-line {
+  transform: none;
+  opacity: 1;
+}
+
+.home-row.reveal-line > *,
+.home-title-row.reveal-line > * {
+  transform: translateY(105%);
+  opacity: 0;
+  transition: transform var(--dur-slow) var(--ease-out), opacity var(--dur-slow) var(--ease-out);
+  transition-delay: inherit;
+}
+
+.home-row.is-visible > *,
+.home-title-row.is-visible > * {
+  transform: none;
+  opacity: 1;
+}
+
+/* JS-set per-item delays (timeline, skills, stats) */
 .timeline-item.reveal-up,
-.skill-category.reveal-up,
-.stat-block.reveal-up {
+.skill-category.reveal-up {
   transition-delay: var(--reveal-delay, 0s);
 }
 
-/* Redacted reveal — motif-level "agent" accent applied to mono tags.
-   A dark bar sweeps away to reveal the label, like a declassified line. */
-.mono-tag {
-  position: relative;
-  display: inline-block;
+/* Inventory tags drop in one after another */
+.skill-category .pill {
+  opacity: 0;
+  transform: translateY(8px);
+  transition:
+    opacity 0.4s var(--ease-out) calc(var(--reveal-delay, 0s) + 0.25s + var(--i, 0) * 0.05s),
+    transform 0.5s var(--ease-out) calc(var(--reveal-delay, 0s) + 0.25s + var(--i, 0) * 0.05s),
+    color 0.35s var(--ease-out),
+    border-color 0.35s var(--ease-out);
 }
 
-.reveal-mono::before {
+.skill-category.is-visible .pill {
+  opacity: 1;
+  transform: none;
+}
+
+/* --------------------------------------------------------------------------
+   Redaction-bar reveal on file labels
+   -------------------------------------------------------------------------- */
+.reveal-mono.mono-tag::before,
+.home-meta.reveal-mono::before {
   content: '';
   position: absolute;
-  inset: 0;
-  background: var(--color-text);
-  transform-origin: left;
+  inset: -2px -4px;
+  z-index: 1;
+  background: var(--paper);
+  transform-origin: right;
   transform: scaleX(1);
-  transition: transform var(--dur-med) var(--ease-out);
-  transition-delay: 0.1s;
+  transition: transform 0.7s var(--ease-in-out) 0.15s;
 }
 
-.is-visible.reveal-mono::before {
+.home-meta.reveal-mono { position: relative; }
+
+.is-visible.reveal-mono.mono-tag::before,
+.home-meta.is-visible.reveal-mono::before {
   transform: scaleX(0);
 }
 
-/* Line-clamp wrapper so translateY reveal on home title doesn't show
-   overflow above the line */
-.home-title span,
-.home-sub,
-.home-cta {
-  overflow: hidden;
-  display: block;
+/* Glyphs that have not decrypted yet */
+.decrypt-glyph {
+  color: var(--paper-faint);
 }
 
-/* Photo decorations handled in sections.css now - 
-   grid background + corner L-brackets */
+/* --------------------------------------------------------------------------
+   Hero choreography
+   -------------------------------------------------------------------------- */
+/* Fill sweeps through the outlined surname once it lands */
+.home-title-row.is-visible .home-last {
+  animation: nameSweep 1.6s var(--ease-in-out) 0.9s both;
+}
+
+@keyframes nameSweep {
+  0% { background-size: 0% 100%; background-position: left; }
+  48% { background-size: 100% 100%; background-position: left; }
+  52% { background-size: 100% 100%; background-position: right; }
+  100% { background-size: 0% 100%; background-position: right; }
+}
+
+.home-title:hover .home-title-row.is-visible .home-last {
+  animation: none;
+  background-size: 100% 100%;
+}
+
+/* Target box acquires the face */
+.surveil-target {
+  opacity: 0;
+  transform: scale(1.8);
+}
+
+.home-photo.is-visible .surveil-target {
+  animation:
+    targetAcquire 0.7s var(--ease-out) 0.9s forwards,
+    targetDrift 6s var(--ease-in-out) 2s infinite;
+}
+
+@keyframes targetAcquire {
+  0% { opacity: 0; transform: scale(1.8); }
+  60% { opacity: 1; transform: scale(0.94); }
+  70% { opacity: 0.3; }
+  80% { opacity: 1; transform: scale(1); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes targetDrift {
+  0%, 100% { transform: translate(0, 0); opacity: 1; }
+  25% { transform: translate(1.5%, -1%); }
+  50% { transform: translate(-1%, 1.5%); }
+  75% { transform: translate(0.5%, 0.5%); }
+}
+
+.surveil-target-label {
+  clip-path: inset(0 100% 0 0);
+}
+
+.home-photo.is-visible .surveil-target-label {
+  animation: labelType 0.6s steps(14) 1.5s forwards;
+}
+
+@keyframes labelType {
+  to { clip-path: inset(0 0 0 0); }
+}
+
+/* --------------------------------------------------------------------------
+   Case files: wipe the exhibit, stagger the case notes
+   -------------------------------------------------------------------------- */
+.carousel.is-ready .project-thumb {
+  clip-path: inset(0 0 0 100%);
+}
+
+.carousel.is-ready.is-visible .project-card.is-current .project-thumb {
+  clip-path: inset(0 0 0 0);
+  transition-delay: 0s, 0.3s;
+}
+
+.carousel.is-ready .project-body > * {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.4s var(--ease-out), transform 0.6s var(--ease-out);
+}
+
+.carousel.is-ready.is-visible .project-card.is-current .project-body > * {
+  opacity: 1;
+  transform: none;
+}
+
+.carousel.is-ready.is-visible .project-card.is-current .project-body > :nth-child(1) { transition-delay: 0.35s; }
+.carousel.is-ready.is-visible .project-card.is-current .project-body > :nth-child(2) { transition-delay: 0.45s; }
+.carousel.is-ready.is-visible .project-card.is-current .project-body > :nth-child(3) { transition-delay: 0.52s; }
+.carousel.is-ready.is-visible .project-card.is-current .project-body > :nth-child(4) { transition-delay: 0.59s; }
+.carousel.is-ready.is-visible .project-card.is-current .project-body > :nth-child(5) { transition-delay: 0.66s; }
+.carousel.is-ready.is-visible .project-card.is-current .project-body > :nth-child(6) { transition-delay: 0.73s; }
+
+/* Keep btn hover transitions snappy once the card has settled */
+.carousel.is-ready.is-visible .project-card.is-current .project-link {
+  transition:
+    opacity 0.4s var(--ease-out) 0.73s,
+    transform 0.6s var(--ease-out) 0.73s,
+    color 0.45s var(--ease-out);
+}
+
+/* --------------------------------------------------------------------------
+   Boot sequence
+   -------------------------------------------------------------------------- */
+.boot { display: none; }
+
+html.is-booting .boot {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-boot);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  /* Failsafe: never trap the page if the script does not run */
+  animation: bootFailsafe 0.01s linear 7s forwards;
+}
+
+@keyframes bootFailsafe {
+  to { opacity: 0; visibility: hidden; pointer-events: none; }
+}
+
+html.is-booting .scroll-container,
+html.is-booting .site-nav,
+html.is-booting .hud {
+  visibility: hidden;
+}
+
+.boot-shutter {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 50.5%;
+  background: var(--ink);
+  transition: transform 0.9s var(--ease-in-out);
+}
+
+.boot-shutter--top { top: 0; }
+.boot-shutter--bottom { bottom: 0; }
+
+.boot-seam {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 1px;
+  background: var(--paper);
+  transform: scaleX(0);
+  opacity: 0;
+}
+
+.boot-console {
+  position: relative;
+  width: min(560px, calc(100vw - 2.5rem));
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--paper-dim);
+  transition: opacity 0.25s linear;
+}
+
+.boot-head {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 0.75rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid var(--line-strong);
+  color: var(--paper-faint);
+  font-size: 0.68rem;
+  letter-spacing: 0.16em;
+}
+
+.boot-lines {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  min-height: 5.5rem;
+}
+
+.boot-line {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+}
+
+.boot-line-text::before {
+  content: '> ';
+  color: var(--paper-faint);
+}
+
+.boot-line-dots {
+  flex: 1;
+  overflow: hidden;
+  white-space: nowrap;
+  color: var(--paper-faint);
+}
+
+.boot-line-dots::before {
+  content: '..............................................................................';
+}
+
+.boot-line-status {
+  min-width: 3.5em;
+  text-align: right;
+  color: var(--paper);
+  font-variant-numeric: tabular-nums;
+}
+
+.boot-granted {
+  margin-top: 1.5rem;
+  font-family: var(--font-display);
+  font-size: clamp(2.2rem, 8vw, 3.75rem);
+  font-weight: 850;
+  font-variation-settings: 'wdth' 72, 'wght' 850;
+  line-height: 0.9;
+  letter-spacing: 0.02em;
+  color: var(--ink);
+  background: var(--paper);
+  padding: 0.12em 0.25em 0.08em;
+  width: fit-content;
+  clip-path: inset(0 100% 0 0);
+}
+
+.boot.is-granted .boot-granted {
+  animation: grantedWipe 0.45s var(--ease-out) forwards, grantedFlicker 0.5s steps(2) 0.45s;
+}
+
+@keyframes grantedWipe {
+  to { clip-path: inset(0 0 0 0); }
+}
+
+@keyframes grantedFlicker {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+.boot-hint {
+  margin-top: 1.75rem;
+  font-size: 0.62rem;
+  letter-spacing: 0.18em;
+  color: var(--paper-faint);
+  animation: recBlink 1.6s steps(1) infinite;
+}
+
+/* Exit: console blinks out, seam flashes, shutters part */
+.boot.is-opening { pointer-events: none; }
+.boot.is-opening .boot-console { opacity: 0; }
+
+.boot.is-opening .boot-seam {
+  animation: seamFlash 0.5s var(--ease-out) forwards;
+}
+
+.boot.is-opening .boot-shutter--top { transform: translateY(-101%); transition-delay: 0.3s; }
+.boot.is-opening .boot-shutter--bottom { transform: translateY(101%); transition-delay: 0.3s; }
+
+@keyframes seamFlash {
+  0% { opacity: 1; transform: scaleX(0); }
+  60% { opacity: 1; transform: scaleX(1); }
+  100% { opacity: 0; transform: scaleX(1); }
+}
+
+html.is-booting .boot.is-opening ~ .site-nav,
+html.is-booting .boot.is-opening ~ .hud,
+html.is-booting .boot.is-opening ~ .scroll-container {
+  visibility: visible;
+}
+
+/* --------------------------------------------------------------------------
+   Reticle cursor (fine pointers only; JS adds html.has-reticle)
+   -------------------------------------------------------------------------- */
+.reticle {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: var(--z-reticle);
+  pointer-events: none;
+  mix-blend-mode: difference;
+  opacity: 0;
+  transition: opacity 0.3s var(--ease-out);
+}
+
+.reticle.is-on { opacity: 1; }
+
+.reticle-ring,
+.reticle-dot {
+  position: absolute;
+  top: 0;
+  left: 0;
+  will-change: transform;
+}
+
+.reticle-dot {
+  width: 4px;
+  height: 4px;
+  margin: -2px 0 0 -2px;
+  background: #fff;
+  border-radius: 50%;
+}
+
+.reticle-ring {
+  width: 34px;
+  height: 34px;
+  margin: -17px 0 0 -17px;
+}
+
+.reticle-ring-inner {
+  position: absolute;
+  inset: 0;
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  border-radius: 50%;
+  transition: border-radius 0.35s var(--ease-out), transform 0.45s var(--ease-spring), border-color 0.3s;
+}
+
+/* Crosshair ticks */
+.reticle-ring-inner::before,
+.reticle-ring-inner::after {
+  content: '';
+  position: absolute;
+  background: #fff;
+  transition: opacity 0.25s;
+}
+
+.reticle-ring-inner::before {
+  left: 50%;
+  top: -7px;
+  bottom: -7px;
+  width: 1px;
+  transform: translateX(-50%);
+  -webkit-mask: linear-gradient(#000 0 7px, transparent 7px calc(100% - 7px), #000 calc(100% - 7px));
+          mask: linear-gradient(#000 0 7px, transparent 7px calc(100% - 7px), #000 calc(100% - 7px));
+}
+
+.reticle-ring-inner::after {
+  top: 50%;
+  left: -7px;
+  right: -7px;
+  height: 1px;
+  transform: translateY(-50%);
+  -webkit-mask: linear-gradient(90deg, #000 0 7px, transparent 7px calc(100% - 7px), #000 calc(100% - 7px));
+          mask: linear-gradient(90deg, #000 0 7px, transparent 7px calc(100% - 7px), #000 calc(100% - 7px));
+}
+
+.reticle-readout {
+  position: absolute;
+  top: 22px;
+  left: 22px;
+  font-family: var(--font-mono);
+  font-size: 0.56rem;
+  letter-spacing: 0.12em;
+  color: #fff;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Locked on an interactive target */
+.reticle.is-locked .reticle-ring-inner {
+  border-radius: 0;
+  transform: scale(1.35) rotate(45deg);
+  border-color: transparent;
+  background:
+    linear-gradient(#fff, #fff) top left / 8px 1px no-repeat,
+    linear-gradient(#fff, #fff) top left / 1px 8px no-repeat,
+    linear-gradient(#fff, #fff) top right / 8px 1px no-repeat,
+    linear-gradient(#fff, #fff) top right / 1px 8px no-repeat,
+    linear-gradient(#fff, #fff) bottom left / 8px 1px no-repeat,
+    linear-gradient(#fff, #fff) bottom left / 1px 8px no-repeat,
+    linear-gradient(#fff, #fff) bottom right / 8px 1px no-repeat,
+    linear-gradient(#fff, #fff) bottom right / 1px 8px no-repeat;
+}
+
+.reticle.is-locked .reticle-ring-inner::before,
+.reticle.is-locked .reticle-ring-inner::after { opacity: 0; }
+
+.reticle.is-pressed .reticle-ring-inner { transform: scale(0.75); }
+.reticle.is-locked.is-pressed .reticle-ring-inner { transform: scale(1.05) rotate(45deg); }
+
+html.has-reticle body:not(.is-modal-open),
+html.has-reticle body:not(.is-modal-open) * {
+  cursor: none;
+}
+
+body.is-modal-open .reticle { opacity: 0; }

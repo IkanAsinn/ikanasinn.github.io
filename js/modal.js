@@ -76,6 +76,7 @@
       captionEl.textContent = shot.caption;
       counterEl.textContent = pad(index + 1) + ' / ' + pad(shots.length);
       stageEl.classList.toggle('is-portrait', !!shot.portrait);
+      stageEl.classList.toggle('is-wide', !!shot.wide);
       Array.prototype.forEach.call(dotsEl.children, function (dot, di) {
         dot.classList.toggle('is-active', di === index);
         dot.setAttribute('aria-current', di === index ? 'true' : 'false');

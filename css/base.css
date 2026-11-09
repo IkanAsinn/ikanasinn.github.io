@@ -1,33 +1,57 @@
 /* ==========================================================================
-   base.css — reset, color tokens, typography scale
+   base.css — tokens, reset, typography, global film overlays
+   Theme: classified dossier. One warm gray family, no accent color.
    ========================================================================== */
 
 :root {
-  /* Color tokens — gray-based background */
-  --color-bg: #161616;
-  --color-bg-alt: #0d0d0d;
-  --color-surface: #0a0a0a;
-  --color-text: #f5f5f5;
-  --color-text-muted: #a3a3a3;
-  --color-gray-dark: #050505;
-  --color-gray-mid: #8a8a8a;
-  --color-border: #3a3a3a;
-  --color-accent: #f5f5f5;
+  /* Ink & paper — warm grays only */
+  --ink: #0b0b0a;
+  --ink-2: #121211;
+  --ink-3: #1a1a18;
+  --paper: #ecebe6;
+  --paper-dim: #a9a8a1;
+  --paper-faint: #75746e;
+  --line: rgba(236, 235, 230, 0.13);
+  --line-strong: rgba(236, 235, 230, 0.32);
+
+  /* Legacy aliases still referenced by components */
+  --color-bg: var(--ink);
+  --color-bg-alt: var(--ink-2);
+  --color-surface: var(--ink-2);
+  --color-text: var(--paper);
+  --color-text-muted: var(--paper-dim);
+  --color-gray-mid: var(--paper-faint);
+  --color-border: var(--line);
 
   /* Type */
-  --font-heading: 'Space Grotesk', sans-serif;
-  --font-body: 'Inter', sans-serif;
-  --font-mono: 'JetBrains Mono', monospace;
+  --font-display: 'Archivo', 'Arial Narrow', sans-serif;
+  --font-body: 'Archivo', system-ui, sans-serif;
+  --font-serif: 'Instrument Serif', Georgia, serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+  --font-heading: var(--font-display);
 
-  /* Spacing / layout */
-  --section-pad-x: clamp(1.5rem, 6vw, 6rem);
+  /* Layout */
+  --section-pad-x: clamp(1.25rem, 6vw, 6rem);
   --max-content: 1280px;
+  --nav-h: 4.5rem;
 
   /* Motion */
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
-  --dur-fast: 0.3s;
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-fast: 0.25s;
   --dur-med: 0.6s;
-  --dur-slow: 0.9s;
+  --dur-slow: 0.95s;
+
+  /* Z-index scale */
+  --z-hud: 90;
+  --z-nav: 100;
+  --z-fx: 150;
+  --z-reticle: 300;
+  --z-boot: 400;
+  --z-skip: 500;
+
+  color-scheme: dark;
 }
 
 * {
@@ -38,22 +62,34 @@
 
 html {
   scroll-behavior: smooth;
+  background: var(--ink);
 }
 
 body {
   font-family: var(--font-body);
-  background: var(--color-bg);
-  color: var(--color-text);
-  line-height: 1.5;
+  font-variation-settings: 'wdth' 100;
+  background: var(--ink);
+  color: var(--paper);
+  line-height: 1.55;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
 }
 
 h1, h2, h3, h4 {
-  font-family: var(--font-heading);
+  font-family: var(--font-display);
   font-weight: 700;
-  line-height: 1.1;
+  line-height: 1.02;
   letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+p { text-wrap: pretty; }
+
+em {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: 0;
 }
 
 a {
@@ -66,23 +102,109 @@ img {
   display: block;
 }
 
-ul, ol {
-  list-style: none;
-}
+ul, ol { list-style: none; }
 
 button {
   font-family: inherit;
+  color: inherit;
   border: none;
   background: none;
   cursor: pointer;
 }
 
+::selection {
+  background: var(--paper);
+  color: var(--ink);
+}
+
+:focus-visible {
+  outline: 2px solid var(--paper);
+  outline-offset: 3px;
+}
+
 .mono-tag {
   font-family: var(--font-mono);
-  font-size: 0.75rem;
-  letter-spacing: 0.08em;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--color-gray-mid);
+  color: var(--paper-faint);
+  font-variant-numeric: tabular-nums;
+  position: relative;
+  display: inline-block;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: fixed;
+  top: 0.75rem;
+  left: 0.75rem;
+  z-index: var(--z-skip);
+  padding: 0.7rem 1rem;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transform: translateY(-160%);
+  transition: transform var(--dur-fast) var(--ease-out);
+}
+
+.skip-link:focus { transform: none; }
+
+/* Inverted label block, e.g. "TOP SECRET" */
+.tag-invert {
+  display: inline-block;
+  padding: 0.1em 0.45em;
+  background: var(--paper);
+  color: var(--ink);
+  font-weight: 600;
+}
+
+/* --------------------------------------------------------------------------
+   Film overlays: scanlines + vignette (before), animated grain (after)
+   -------------------------------------------------------------------------- */
+body::before,
+body::after {
+  content: '';
+  position: fixed;
+  pointer-events: none;
+  z-index: var(--z-fx);
+}
+
+body::before {
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 50% 45%, transparent 62%, rgba(0, 0, 0, 0.38) 100%),
+    repeating-linear-gradient(0deg, rgba(236, 235, 230, 0.022) 0 1px, transparent 1px 3px);
+}
+
+body::after {
+  inset: -50%;
+  opacity: 0.075;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1.1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation: grain 0.9s steps(6) infinite;
+}
+
+@keyframes grain {
+  0%   { transform: translate(0, 0); }
+  20%  { transform: translate(-3%, 2%); }
+  40%  { transform: translate(2%, -4%); }
+  60%  { transform: translate(-4%, -1%); }
+  80%  { transform: translate(3%, 3%); }
+  100% { transform: translate(1%, -2%); }
 }
 
 @media (prefers-reduced-motion: reduce) {
