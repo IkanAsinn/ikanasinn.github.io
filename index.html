@@ -32,10 +32,10 @@
     if (!reduce) document.documentElement.classList.add('is-booting');
   })();
 </script>
-<link rel="stylesheet" href="css/base.css?v=13">
-<link rel="stylesheet" href="css/layout.css?v=13">
-<link rel="stylesheet" href="css/sections.css?v=13">
-<link rel="stylesheet" href="css/animations.css?v=13">
+<link rel="stylesheet" href="css/base.css?v=17">
+<link rel="stylesheet" href="css/layout.css?v=17">
+<link rel="stylesheet" href="css/sections.css?v=17">
+<link rel="stylesheet" href="css/animations.css?v=17">
 </head>
 <body>
 
@@ -60,8 +60,9 @@
     <li><a href="#about" data-nav="about"><span class="nav-index">02</span><span class="nav-text">About</span></a></li>
     <li><a href="#experience" data-nav="experience"><span class="nav-index">03</span><span class="nav-text">Experience</span></a></li>
     <li><a href="#projects" data-nav="projects"><span class="nav-index">04</span><span class="nav-text">Projects</span></a></li>
-    <li><a href="#skills" data-nav="skills"><span class="nav-index">05</span><span class="nav-text">Skills</span></a></li>
-    <li><a href="#contact" data-nav="contact"><span class="nav-index">06</span><span class="nav-text">Contact</span></a></li>
+    <li><a href="#apps" data-nav="apps"><span class="nav-index">05</span><span class="nav-text">Apps</span></a></li>
+    <li><a href="#skills" data-nav="skills"><span class="nav-index">06</span><span class="nav-text">Skills</span></a></li>
+    <li><a href="#contact" data-nav="contact"><span class="nav-index">07</span><span class="nav-text">Contact</span></a></li>
   </ul>
   <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
     <span></span><span></span><span></span>
@@ -81,7 +82,7 @@
     <span data-hud-clock>--:--:--</span>
   </div>
   <div class="hud-readout hud-readout--right">
-    <span><span class="hud-index-current" data-hud-index>01</span> / 06</span>
+    <span><span class="hud-index-current" data-hud-index>01</span> / 07</span>
     <span class="hud-progress"><span></span></span>
     <span data-hud-label>Subject</span>
   </div>
@@ -317,7 +318,10 @@
                   split bills, and a Telegram assistant that records spending from
                   chat &mdash; no app required.</p>
                 <span class="project-stack mono-tag">Nuxt &middot; .NET 10 &middot; PostgreSQL</span>
-                <button class="btn-primary project-link" type="button" data-project-open="xpense"><span>Open the file</span><svg class="btn-arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 10h13M11 5l5 5-5 5"/></svg></button>
+                <div class="project-actions">
+                  <button class="btn-primary project-link" type="button" data-project-open="xpense"><span>Open the file</span><svg class="btn-arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 10h13M11 5l5 5-5 5"/></svg></button>
+                  <a class="btn-ghost project-link" href="https://xpense.apps.ikanasinn.com" target="_blank" rel="noopener noreferrer"><span>Launch app</span><svg class="btn-arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M5 15L15 5M7 5h8v8"/></svg></a>
+                </div>
               </div>
             </article>
 
@@ -333,18 +337,61 @@
                 <p>Turns a one-line idea into a PRD an autonomous coding agent can
                   execute, then tracks every task the agent claims and ships.</p>
                 <span class="project-stack mono-tag">Next.js &middot; TypeScript &middot; PostgreSQL</span>
-                <button class="btn-primary project-link" type="button" data-project-open="specforge"><span>Open the file</span><svg class="btn-arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 10h13M11 5l5 5-5 5"/></svg></button>
+                <div class="project-actions">
+                  <button class="btn-primary project-link" type="button" data-project-open="specforge"><span>Open the file</span><svg class="btn-arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 10h13M11 5l5 5-5 5"/></svg></button>
+                  <a class="btn-ghost project-link" href="https://specforge.apps.ikanasinn.com" target="_blank" rel="noopener noreferrer"><span>Launch app</span><svg class="btn-arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M5 15L15 5M7 5h8v8"/></svg></a>
+                </div>
+              </div>
+            </article>
+
+            <article class="project-card" data-carousel-item>
+              <div class="project-media">
+                <img class="project-thumb" src="assets/img/project-removebg.png" alt="RemoveBG editor showing a beagle cut out onto a transparent checkerboard, beside brush, edge, and crop tools">
+                <span class="project-exhibit mono-tag">Exhibit C</span>
+              </div>
+              <div class="project-body">
+                <span class="project-num" aria-hidden="true">03</span>
+                <p class="project-case"><span class="mono-tag">Case 03</span><span class="mono-tag">Web app &middot; On-device AI</span></p>
+                <h3>RemoveBG &mdash; Background Remover</h3>
+                <p>Cuts the subject out of any photo, right in the browser. The
+                  AI model runs on your own device, so photos are never
+                  uploaded. Free, no signup, no watermark.</p>
+                <span class="project-stack mono-tag">React &middot; TypeScript &middot; ONNX Runtime Web</span>
+                <div class="project-actions">
+                  <button class="btn-primary project-link" type="button" data-project-open="removebg"><span>Open the file</span><svg class="btn-arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 10h13M11 5l5 5-5 5"/></svg></button>
+                  <a class="btn-ghost project-link" href="https://removebg.apps.ikanasinn.com" target="_blank" rel="noopener noreferrer"><span>Launch app</span><svg class="btn-arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M5 15L15 5M7 5h8v8"/></svg></a>
+                </div>
+              </div>
+            </article>
+
+            <article class="project-card" data-carousel-item>
+              <div class="project-media">
+                <img class="project-thumb" src="assets/img/project-whiteboard.png" alt="Whiteboard canvas with an architecture sketch of Azure icons, arrows, a hand-drawn red circle, and sticky notes">
+                <span class="project-exhibit mono-tag">Exhibit D</span>
+              </div>
+              <div class="project-body">
+                <span class="project-num" aria-hidden="true">04</span>
+                <p class="project-case"><span class="mono-tag">Case 04</span><span class="mono-tag">Web app &middot; Diagramming</span></p>
+                <h3>Whiteboard &mdash; Infinite Canvas</h3>
+                <p>An infinite canvas for brainstorming and architecture
+                  diagrams. Rough sketches snap to clean shapes, and nearly
+                  3,000 Azure, SAP, and tech icons are one drag away.</p>
+                <span class="project-stack mono-tag">React &middot; TypeScript &middot; Canvas &middot; Zustand</span>
+                <div class="project-actions">
+                  <button class="btn-primary project-link" type="button" data-project-open="whiteboard"><span>Open the file</span><svg class="btn-arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 10h13M11 5l5 5-5 5"/></svg></button>
+                  <a class="btn-ghost project-link" href="https://whiteboard.apps.ikanasinn.com" target="_blank" rel="noopener noreferrer"><span>Launch app</span><svg class="btn-arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M5 15L15 5M7 5h8v8"/></svg></a>
+                </div>
               </div>
             </article>
 
             <article class="project-card" data-carousel-item>
               <div class="project-media">
                 <img class="project-thumb" src="assets/img/project-landing-page.png" alt="Coffee roastery landing page screenshot">
-                <span class="project-exhibit mono-tag">Exhibit C</span>
+                <span class="project-exhibit mono-tag">Exhibit E</span>
               </div>
               <div class="project-body">
-                <span class="project-num" aria-hidden="true">03</span>
-                <p class="project-case"><span class="mono-tag">Case 03</span><span class="mono-tag">Front-end &middot; Agentic AI</span></p>
+                <span class="project-num" aria-hidden="true">05</span>
+                <p class="project-case"><span class="mono-tag">Case 05</span><span class="mono-tag">Front-end &middot; Agentic AI</span></p>
                 <h3>Coffee Roastery &mdash; Landing Page</h3>
                 <p>A landing page for a coffee roastery, built with Vite and
                   Vue and deployed on Vercel. Developed using agentic AI
@@ -357,11 +404,11 @@
             <article class="project-card" data-carousel-item>
               <div class="project-media">
                 <img class="project-thumb" src="assets/img/project-binusxxi.png" alt="BinusXXI movie database screenshot">
-                <span class="project-exhibit mono-tag">Exhibit D</span>
+                <span class="project-exhibit mono-tag">Exhibit F</span>
               </div>
               <div class="project-body">
-                <span class="project-num" aria-hidden="true">04</span>
-                <p class="project-case"><span class="mono-tag">Case 04</span><span class="mono-tag">Front-end</span></p>
+                <span class="project-num" aria-hidden="true">06</span>
+                <p class="project-case"><span class="mono-tag">Case 06</span><span class="mono-tag">Front-end</span></p>
                 <h3>BinusXXI &mdash; Movie Database</h3>
                 <p>A web-based movie database with reviews, so people always
                   know what's worth watching. Complex styling and scripting
@@ -373,11 +420,11 @@
             <article class="project-card" data-carousel-item>
               <div class="project-media">
                 <img class="project-thumb" src="assets/img/project-auxtify.png" alt="Auxtify auction platform screenshot">
-                <span class="project-exhibit mono-tag">Exhibit E</span>
+                <span class="project-exhibit mono-tag">Exhibit G</span>
               </div>
               <div class="project-body">
-                <span class="project-num" aria-hidden="true">05</span>
-                <p class="project-case"><span class="mono-tag">Case 05</span><span class="mono-tag">Full-stack</span></p>
+                <span class="project-num" aria-hidden="true">07</span>
+                <p class="project-case"><span class="mono-tag">Case 07</span><span class="mono-tag">Full-stack</span></p>
                 <h3>Auxtify &mdash; Online Auction</h3>
                 <p>A secure online auction platform. Born from the mess of
                   transactions done on social media. Built with my team to
@@ -389,11 +436,11 @@
             <article class="project-card" data-carousel-item>
               <div class="project-media">
                 <img class="project-thumb" src="assets/img/project-tokokeluarga.png" alt="Toko Keluarga admin panel screenshot">
-                <span class="project-exhibit mono-tag">Exhibit F</span>
+                <span class="project-exhibit mono-tag">Exhibit H</span>
               </div>
               <div class="project-body">
-                <span class="project-num" aria-hidden="true">06</span>
-                <p class="project-case"><span class="mono-tag">Case 06</span><span class="mono-tag">Vanilla JS</span></p>
+                <span class="project-num" aria-hidden="true">08</span>
+                <p class="project-case"><span class="mono-tag">Case 08</span><span class="mono-tag">Vanilla JS</span></p>
                 <h3>Toko Keluarga</h3>
                 <p>Final project for Web-Based Application Development. A basic
                   CRUD admin panel to manage inventory, built with pure HTML,
@@ -405,11 +452,11 @@
             <article class="project-card" data-carousel-item>
               <div class="project-media">
                 <img class="project-thumb" src="assets/img/project-bersemi.png" alt="Bersemi Bersama Multikultural dashboard screenshot">
-                <span class="project-exhibit mono-tag">Exhibit G</span>
+                <span class="project-exhibit mono-tag">Exhibit I</span>
               </div>
               <div class="project-body">
-                <span class="project-num" aria-hidden="true">07</span>
-                <p class="project-case"><span class="mono-tag">Case 07</span><span class="mono-tag">Management system</span></p>
+                <span class="project-num" aria-hidden="true">09</span>
+                <p class="project-case"><span class="mono-tag">Case 09</span><span class="mono-tag">Management system</span></p>
                 <h3>Bersemi Bersama Multikultural</h3>
                 <p>A system to monitor a garden. Plant lists, harvest tracking,
                   mortality reports, plus to-dos, accounts, real-time
@@ -421,11 +468,11 @@
             <article class="project-card" data-carousel-item>
               <div class="project-media">
                 <img class="project-thumb" src="assets/img/project-ninetynine.png" alt="NinetyNine Coffee inventory system screenshot">
-                <span class="project-exhibit mono-tag">Exhibit H</span>
+                <span class="project-exhibit mono-tag">Exhibit J</span>
               </div>
               <div class="project-body">
-                <span class="project-num" aria-hidden="true">08</span>
-                <p class="project-case"><span class="mono-tag">Case 08</span><span class="mono-tag">Management system</span></p>
+                <span class="project-num" aria-hidden="true">10</span>
+                <p class="project-case"><span class="mono-tag">Case 10</span><span class="mono-tag">Management system</span></p>
                 <h3>NinetyNine Coffee Inventory</h3>
                 <p>Inventory and payroll system for a real coffeeshop.
                   Auto-generated barcodes, barcode scanning via phone camera,
@@ -441,7 +488,7 @@
           <button class="carousel-arrow carousel-arrow--prev" data-carousel-prev aria-label="Previous project">
             <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M17 10H4M9 5l-5 5 5 5"/></svg>
           </button>
-          <span class="carousel-count mono-tag" data-carousel-count aria-live="polite">01 / 08</span>
+          <span class="carousel-count mono-tag" data-carousel-count aria-live="polite">01 / 10</span>
           <span class="carousel-progress" aria-hidden="true"><span data-carousel-progress></span></span>
           <button class="carousel-arrow carousel-arrow--next" data-carousel-next aria-label="Next project">
             <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 10h13M11 5l5 5-5 5"/></svg>
@@ -452,11 +499,90 @@
     </div>
   </section>
 
-  <!-- 05 — Arsenal -->
+  <!-- 05 — Side operation: IkanAsinn Apps -->
+  <section class="section" id="apps" data-section="apps" data-label="Side operation">
+    <div class="section-inner apps-inner">
+      <div class="apps-grid">
+        <div class="apps-copy">
+          <!-- The header sits in the copy column so the roster can share its
+               height; the logo underneath is the name the title points to. -->
+          <header class="section-head">
+            <p class="mono-tag section-label reveal-mono" data-decrypt>File 05 // Side operation</p>
+            <h2 class="section-title reveal-up" data-decrypt>Now <em>building</em></h2>
+          </header>
+          <img class="apps-logo reveal-up" src="assets/img/ikanasinn-apps-logo.png" width="760" height="189" alt="IkanAsinn Apps">
+          <p class="reveal-up">
+            IkanAsinn Apps is my own family of web apps, each one designed,
+            built, and run by me. Some are <mark class="redact">full products</mark>
+            with a proper sign-in, keeping your data on the server between
+            visits. Others are <mark class="redact">quick tools</mark> that run
+            entirely in your browser, with no account and nothing uploaded.
+          </p>
+          <p class="reveal-up">
+            Every app lives under apps.ikanasinn.com and ships on its own,
+            deployed from GitHub on every push. Four are live today, and more
+            are on the workbench.
+          </p>
+        </div>
+
+        <div class="apps-roster reveal-up">
+          <div class="dossier-head apps-roster-head">
+            <span class="mono-tag">Operation roster</span>
+            <span class="mono-tag">4 live</span>
+          </div>
+          <ul class="apps-list">
+            <li>
+              <a class="apps-link" href="https://xpense.apps.ikanasinn.com" target="_blank" rel="noopener noreferrer">
+                <span class="apps-code mono-tag">App 01</span>
+                <span class="apps-name">Xpense<span class="apps-desc">Expense tracker with a Telegram assistant<span class="apps-access mono-tag">Sign-in</span></span></span>
+                <span class="apps-status mono-tag">Live</span>
+                <svg class="apps-arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M5 15L15 5M7 5h8v8"/></svg>
+              </a>
+            </li>
+            <li>
+              <a class="apps-link" href="https://specforge.apps.ikanasinn.com" target="_blank" rel="noopener noreferrer">
+                <span class="apps-code mono-tag">App 02</span>
+                <span class="apps-name">SpecForge<span class="apps-desc">Turns an idea into a spec an AI agent can build<span class="apps-access mono-tag">Sign-in</span></span></span>
+                <span class="apps-status mono-tag">Live</span>
+                <svg class="apps-arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M5 15L15 5M7 5h8v8"/></svg>
+              </a>
+            </li>
+            <li>
+              <a class="apps-link" href="https://removebg.apps.ikanasinn.com" target="_blank" rel="noopener noreferrer">
+                <span class="apps-code mono-tag">App 03</span>
+                <span class="apps-name">RemoveBG<span class="apps-desc">Background remover with on-device AI<span class="apps-access mono-tag">No account</span></span></span>
+                <span class="apps-status mono-tag">Live</span>
+                <svg class="apps-arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M5 15L15 5M7 5h8v8"/></svg>
+              </a>
+            </li>
+            <li>
+              <a class="apps-link" href="https://whiteboard.apps.ikanasinn.com" target="_blank" rel="noopener noreferrer">
+                <span class="apps-code mono-tag">App 04</span>
+                <span class="apps-name">Whiteboard<span class="apps-desc">Infinite canvas for sketches and diagrams<span class="apps-access mono-tag">No account</span></span></span>
+                <span class="apps-status mono-tag">Live</span>
+                <svg class="apps-arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M5 15L15 5M7 5h8v8"/></svg>
+              </a>
+            </li>
+            <li>
+              <div class="apps-link apps-link--pending">
+                <span class="apps-code mono-tag">App 05</span>
+                <span class="apps-name"><mark class="redact apps-redact">Classified</mark><span class="apps-desc">In development</span></span>
+                <span class="apps-status mono-tag">Soon</span>
+                <span class="apps-arrow" aria-hidden="true"></span>
+              </div>
+            </li>
+          </ul>
+          <p class="apps-foot mono-tag">*.apps.ikanasinn.com &middot; Deployed on every push</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 06 — Arsenal -->
   <section class="section" id="skills" data-section="skills" data-label="Arsenal">
     <div class="section-inner skills-inner">
       <header class="section-head">
-        <p class="mono-tag section-label reveal-mono" data-decrypt>File 05 // Arsenal</p>
+        <p class="mono-tag section-label reveal-mono" data-decrypt>File 06 // Arsenal</p>
         <h2 class="section-title reveal-up" data-decrypt>Skills &amp; <em>technologies</em></h2>
       </header>
 
@@ -506,11 +632,11 @@
     </div>
   </section>
 
-  <!-- 06 — Secure channel -->
+  <!-- 07 — Secure channel -->
   <section class="section section--contact" id="contact" data-section="contact" data-label="Secure channel">
     <div class="section-inner contact-inner">
       <header class="section-head">
-        <p class="mono-tag section-label reveal-mono" data-decrypt>File 06 // Secure channel</p>
+        <p class="mono-tag section-label reveal-mono" data-decrypt>File 07 // Secure channel</p>
         <h2 class="section-title contact-title reveal-up" data-decrypt>Let's build something <em>together</em></h2>
       </header>
       <p class="contact-sub reveal-up">
@@ -576,6 +702,7 @@
       <div class="project-modal-copy">
         <h3 id="project-modal-title"></h3>
         <p class="project-modal-summary" id="project-modal-summary"></p>
+        <a class="btn-primary project-modal-live" id="project-modal-live" href="#" target="_blank" rel="noopener noreferrer" hidden><span>Launch app</span><svg class="btn-arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M5 15L15 5M7 5h8v8"/></svg></a>
 
         <h4 class="project-modal-heading">Key features</h4>
         <ul class="project-modal-features" id="project-modal-features"></ul>
@@ -606,12 +733,12 @@
   </div>
 </dialog>
 
-<script src="js/boot.js?v=13" defer></script>
-<script src="js/animations.js?v=13" defer></script>
-<script src="js/carousel.js?v=13" defer></script>
-<script src="js/projects.js?v=13" defer></script>
-<script src="js/modal.js?v=13" defer></script>
-<script src="js/main.js?v=13" defer></script>
-<script src="js/cursor.js?v=13" defer></script>
+<script src="js/boot.js?v=17" defer></script>
+<script src="js/animations.js?v=17" defer></script>
+<script src="js/carousel.js?v=17" defer></script>
+<script src="js/projects.js?v=17" defer></script>
+<script src="js/modal.js?v=17" defer></script>
+<script src="js/main.js?v=17" defer></script>
+<script src="js/cursor.js?v=17" defer></script>
 </body>
 </html>

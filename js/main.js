@@ -110,11 +110,11 @@
       });
     });
 
-    // --- Contact rows: the inverting bar always finishes its wipe ---
+    // --- Contact and app rows: the inverting bar always finishes its wipe ---
     // Each wipe runs to the end; if the pointer has left (or come back) by
     // then, the opposite wipe follows. Hover alone would reverse the bar
     // mid-wipe and make it jump to the other side.
-    document.querySelectorAll('.contact-link').forEach(function (link) {
+    document.querySelectorAll('.contact-link, a.apps-link').forEach(function (link) {
       var wanted = false;
       var lit = false;
       var busy = null;

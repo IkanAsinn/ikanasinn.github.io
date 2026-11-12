@@ -764,6 +764,16 @@
 
 .project-link { margin-top: 1.5rem; }
 
+/* Deployed apps: open the case file, or launch the live app */
+.project-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+.project-actions .project-link { margin-top: 0; }
+
 .carousel-controls {
   display: flex;
   align-items: center;
@@ -1023,6 +1033,9 @@ body.is-modal-open { overflow: hidden; }
   color: var(--paper);
 }
 
+.project-modal-live { margin-top: 1.25rem; }
+.project-modal-live[hidden] { display: none; }
+
 .project-modal-links {
   margin-top: 1.5rem;
   padding-top: 1.25rem;
@@ -1177,7 +1190,141 @@ body.is-modal-open { overflow: hidden; }
 .project-modal-dot.is-active::before { background: var(--paper); }
 
 /* --------------------------------------------------------------------------
-   05 — Skills / Arsenal
+   05 — IkanAsinn Apps / Side operation
+   -------------------------------------------------------------------------- */
+.apps-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+  gap: clamp(2rem, 5vw, 5rem);
+  align-items: center;
+}
+
+.apps-copy .section-head { margin-bottom: clamp(1rem, 2.5vh, 1.5rem); }
+
+.apps-logo {
+  display: block;
+  width: min(100%, clamp(280px, 30vw, 440px));
+  height: auto;
+  margin-bottom: clamp(1.1rem, 3vh, 1.75rem);
+  /* The mark is pure white; sit it on the warm paper tone of the file */
+  opacity: 0.92;
+}
+
+.apps-copy p {
+  max-width: 50ch;
+  margin-bottom: 1.15rem;
+  font-size: clamp(0.98rem, 1.1vw, 1.06rem);
+  line-height: 1.72;
+  color: var(--paper-dim);
+}
+
+.apps-copy p:last-child { margin-bottom: 0; }
+
+.apps-roster {
+  position: relative;
+  background: linear-gradient(160deg, var(--ink-3), var(--ink-2) 60%);
+  border: 1px solid var(--line-strong);
+  box-shadow: 0 30px 60px -30px rgba(0, 0, 0, 0.9);
+}
+
+.apps-link {
+  position: relative;
+  display: grid;
+  grid-template-columns: 4rem minmax(0, 1fr) auto 20px;
+  gap: 1.1rem;
+  align-items: center;
+  padding: clamp(0.55rem, 1.6vh, 1rem) 1.15rem;
+  border-bottom: 1px dashed var(--line);
+}
+
+/* Same inverting paper bar as the contact channels */
+a.apps-link::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--paper);
+  mix-blend-mode: difference;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.6s var(--ease-in-out);
+  pointer-events: none;
+}
+
+/* main.js toggles is-lit / is-leaving exactly as for the contact rows, so a
+   wipe always finishes before the bar heads back the other way. */
+a.apps-link.is-lit::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+a.apps-link.is-leaving::after { transform-origin: right; }
+
+@media (hover: hover) and (pointer: fine) {
+  a.apps-link:hover .apps-arrow { transform: translate(3px, -3px); }
+}
+
+.apps-name {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  min-width: 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.1rem, 1.7vw, 1.4rem);
+  font-weight: 700;
+  font-variation-settings: 'wdth' 85;
+  letter-spacing: -0.02em;
+  color: var(--paper);
+}
+
+.apps-desc {
+  font-family: var(--font-body);
+  font-size: 0.86rem;
+  font-weight: 400;
+  font-variation-settings: 'wdth' 100;
+  letter-spacing: 0;
+  color: var(--paper-dim);
+}
+
+/* How you get in: sign-in for the products, none for the browser tools */
+.apps-access {
+  margin-left: 0.6rem;
+  padding-left: 0.6rem;
+  border-left: 1px solid var(--line-strong);
+  color: var(--paper-faint);
+}
+
+.apps-status {
+  padding: 0.15em 0.5em;
+  border: 1px solid var(--paper);
+  color: var(--paper);
+}
+
+.apps-link--pending .apps-status {
+  border-color: var(--line-strong);
+  color: var(--paper-faint);
+}
+
+/* The next app's name stays under the bar; it never peels off */
+.apps-redact,
+.is-visible .apps-redact {
+  align-self: flex-start;
+  background-size: 100% 100%, 100% 1px;
+  color: var(--paper);
+}
+
+.apps-arrow {
+  width: 20px;
+  height: 20px;
+  transition: transform 0.5s var(--ease-spring);
+}
+
+.apps-foot {
+  padding: 0.8rem 1.15rem;
+  color: var(--paper-faint);
+}
+
+/* --------------------------------------------------------------------------
+   06 — Skills / Arsenal
    -------------------------------------------------------------------------- */
 .skills-grid {
   border-top: 1px solid var(--line-strong);
@@ -1424,6 +1571,8 @@ body.is-modal-open { overflow: hidden; }
   .tape { display: none; }
   .project-num { top: 0; font-size: clamp(5rem, 9vw, 8rem); }
   .section--contact { padding-bottom: 3.5rem; }
+  .apps-link { padding-block: 0.5rem; }
+  .apps-foot { padding-block: 0.5rem; }
 }
 
 @media (max-width: 1100px) {
@@ -1544,8 +1693,39 @@ body.is-modal-open { overflow: hidden; }
   }
 }
 
+@media (max-width: 900px) {
+  .apps-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}
+
 @media (max-width: 768px) {
   .section--contact { padding-bottom: 2.25rem; }
+
+  .apps-logo { width: min(100%, 320px); }
+
+  .apps-link {
+    grid-template-columns: minmax(0, 1fr) auto 20px;
+    grid-template-areas:
+      'code status arrow'
+      'name name   arrow';
+    gap: 0.45rem 0.75rem;
+    padding: 0.9rem 1rem;
+  }
+
+  .apps-code { grid-area: code; }
+
+  /* No room for the divider: the access tag drops under the description */
+  .apps-access {
+    display: block;
+    margin: 0.3rem 0 0;
+    padding: 0;
+    border: 0;
+  }
+  .apps-name { grid-area: name; }
+  .apps-status { grid-area: status; }
+  .apps-arrow { grid-area: arrow; }
   .tape { display: none; }
 
   .contact-link {

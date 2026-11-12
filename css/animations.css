@@ -61,6 +61,7 @@
 
 .section-title.reveal-up { transition-delay: 0.1s; }
 .dossier.reveal-up { transition-delay: 0.3s; }
+.apps-roster.reveal-up { transition-delay: 0.3s; }
 .carousel.reveal-up { transition-delay: 0.2s; }
 .contact-sub.reveal-up { transition-delay: 0.2s; }
 .contact-links.reveal-up { transition-delay: 0.3s; }

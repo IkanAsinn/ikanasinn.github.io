@@ -27,12 +27,14 @@
     var featuresEl = modal.querySelector('#project-modal-features');
     var stackEl = modal.querySelector('#project-modal-stack');
     var linksEl = modal.querySelector('#project-modal-links');
+    var liveEl = modal.querySelector('#project-modal-live');
     var imageEl = modal.querySelector('#project-modal-image');
     var captionEl = modal.querySelector('#project-modal-caption');
     var counterEl = modal.querySelector('#project-modal-counter');
     var dotsEl = modal.querySelector('#project-modal-dots');
     var stageEl = modal.querySelector('.project-modal-stage');
     var copyEl = modal.querySelector('.project-modal-copy');
+    var bodyEl = modal.querySelector('.project-modal-body');
     var scrollContainer = document.getElementById('scroll-container');
 
     var lastFocused = null;
@@ -143,17 +145,32 @@
       });
 
       renderLinks(project);
+      // Deployed apps get a launch button; the rest only link to their repos.
+      liveEl.hidden = !project.live;
+      if (project.live) liveEl.href = project.live;
       preloadAll(project);
       renderGallery(project);
 
       lastFocused = document.activeElement;
-      copyEl.scrollTop = 0;
-      panel.scrollTop = 0;
       document.body.classList.add('is-modal-open');
       // The scroll-snap container keeps scrolling behind a top-layer dialog.
       if (scrollContainer) scrollContainer.style.overflow = 'hidden';
       modal.showModal();
-      closeBtn.focus();
+      closeBtn.focus({ preventScroll: true });
+      resetScroll();
+    }
+
+    /**
+     * Start every project at the top. This must run after showModal(): while
+     * the dialog is closed it has no layout box, so a scrollTop written then
+     * is ignored and the previous project's offset comes back on open.
+     * Which element scrolls depends on the breakpoint (the copy column on
+     * desktop, the panel on small screens), so reset all of them.
+     */
+    function resetScroll() {
+      [modal, panel, bodyEl, copyEl].forEach(function (el) {
+        if (el) el.scrollTop = 0;
+      });
     }
 
     function close() {
@@ -176,8 +193,8 @@
     modal.querySelector('[data-shot-prev]').addEventListener('click', function () { show(index - 1, -1); });
     modal.querySelector('[data-shot-next]').addEventListener('click', function () { show(index + 1, 1); });
 
-    // Arrow keys drive the carousel. Nothing in the copy column is focusable,
-    // so there is no scroll-versus-slide ambiguity to resolve.
+    // Arrow keys drive the carousel. The copy column holds only links, which
+    // do not use arrow keys, so there is no scroll-versus-slide ambiguity.
     modal.addEventListener('keydown', function (e) {
       if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
       if (shots.length < 2) return;
